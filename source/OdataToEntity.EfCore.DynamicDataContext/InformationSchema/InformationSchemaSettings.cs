@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace OdataToEntity.EfCore.DynamicDataContext.InformationSchema
 {
+    /// <summary>
+    /// Дополнительная настройка отображения базы данных в API
+    /// </summary>
     public sealed class InformationSchemaSettings
     {
         /// <summary>
@@ -19,7 +22,10 @@ namespace OdataToEntity.EfCore.DynamicDataContext.InformationSchema
         /// Схемы БД которые нужно учитывать
         /// </summary>
         public ISet<String>? IncludedSchemas { get; set; }
-        
+
+        /// <summary>
+        /// Фильтр объектов БД
+        /// </summary>
         public DbObjectFilter ObjectFilter { get; set; }
 
         /// <summary>
@@ -33,6 +39,11 @@ namespace OdataToEntity.EfCore.DynamicDataContext.InformationSchema
         public IReadOnlyList<TableMapping>? Tables { get; set; }
     }
 
+    /// <summary>
+    /// Тип фильтрации объектов БД
+    /// - all: использовать все объекты БД (все таблицы из базы) (use all database objects),
+    /// - mapping: использовать только объекты БД (таблицы) описанные в файле (only objects listed in) InformationSchemaMapping.json).
+    /// </summary>
     public enum DbObjectFilter
     {
         All = 0,

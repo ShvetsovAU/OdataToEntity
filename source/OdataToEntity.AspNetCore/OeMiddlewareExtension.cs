@@ -49,6 +49,7 @@ namespace OdataToEntity.AspNetCore
         {
             if (app == null)
                 throw new ArgumentNullException(nameof(app));
+            
             if (apiPath.Value != null && apiPath.Value.EndsWith("/", StringComparison.Ordinal))
                 throw new ArgumentException("The path must not end with a '/'", nameof(apiPath));
 
@@ -60,6 +61,7 @@ namespace OdataToEntity.AspNetCore
                 Branch = branch,
                 PathMatch = apiPath
             };
+            
             return app.Use((RequestDelegate next) => new RequestDelegate(new MapMiddleware(next, options).Invoke));
         }
         

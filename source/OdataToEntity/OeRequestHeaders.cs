@@ -51,7 +51,9 @@ namespace OdataToEntity
                 OeMetadataLevel.Full => "full",
                 _ => "minimal",
             };
+            
             String streamingArg = streaming ? "true" : "false";
+            
             return $"{mimeType};odata.metadata={metadataArg};odata.streaming={streamingArg};charset={charset}";
         }
         
@@ -142,7 +144,7 @@ namespace OdataToEntity
         protected virtual OeRequestHeaders Clone() => new OeRequestHeaders(this);
         
         /// <summary>
-        /// Максимальный размер выборки на сранице
+        /// Максимальный размер выборки данных на странице
         /// </summary>
         /// <param name="maxPageSize"></param>
         /// <returns></returns>
@@ -153,6 +155,7 @@ namespace OdataToEntity
 
             OeRequestHeaders requestHeaders = Clone();
             requestHeaders.MaxPageSize = maxPageSize;
+            
             return requestHeaders;
         }
 

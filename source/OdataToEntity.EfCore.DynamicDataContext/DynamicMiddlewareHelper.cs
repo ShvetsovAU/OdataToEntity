@@ -3,12 +3,16 @@ using OdataToEntity.EfCore.DynamicDataContext.InformationSchema;
 
 namespace OdataToEntity.EfCore.DynamicDataContext
 {
+    /// <summary>
+    /// Динамическое формирование схемы данных БД
+    /// </summary>
     public static class DynamicMiddlewareHelper
     {
         public static IEdmModel CreateEdmModel(ProviderSpecificSchema providerSchema, InformationSchemaSettings informationSchemaSettings)
         {
             return CreateEdmModel(providerSchema, informationSchemaSettings, new DynamicTypeDefinitionManagerFactory());
         }
+        
         public static IEdmModel CreateEdmModel(ProviderSpecificSchema providerSchema, InformationSchemaSettings informationSchemaSettings, DynamicTypeDefinitionManagerFactory factory)
         {
             using (var metadataProvider = providerSchema.CreateMetadataProvider(informationSchemaSettings))
@@ -18,6 +22,7 @@ namespace OdataToEntity.EfCore.DynamicDataContext
                 return dataAdapter.BuildEdmModel(metadataProvider);
             }
         }
+        
         public static IEdmModel CreateEdmModelViaEmit(ProviderSpecificSchema providerSchema, InformationSchemaSettings informationSchemaSettings)
         {
             return CreateEdmModel(providerSchema, informationSchemaSettings, new EmitDynamicTypeDefinitionManagerFactory());

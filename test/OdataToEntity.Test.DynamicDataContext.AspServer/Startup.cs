@@ -10,6 +10,7 @@ using OdataToEntity.EfCore.DynamicDataContext.InformationSchema;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Microsoft.EntityFrameworkCore;
 
 namespace OdataToEntity.Test.DynamicDataContext.AspServer
 {
@@ -41,6 +42,10 @@ namespace OdataToEntity.Test.DynamicDataContext.AspServer
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app)
         {
+            #region ASP.NET Core Middleware
+            
+            #region informationSchemaSettings
+
             //базовый путь в URL сервера
             String basePath = Configuration.GetValue<String>("OdataToEntity:BasePath");
 
@@ -55,9 +60,17 @@ namespace OdataToEntity.Test.DynamicDataContext.AspServer
 
             //дополнительная настройка отображения базы данных в API
             String? informationSchemaMappingFileName = Configuration.GetValue<String>("OdataToEntity:InformationSchemaMappingFileName");
+
+            //Фильтр объектов БД
             String? filter = Configuration.GetValue<String>("OdataToEntity:Filter");
+            
+            //Схема БД по умолчанию
             String? defaultSchema = Configuration.GetSection("OdataToEntity:DefaultSchema").Get<String>();
+            
+            //Доступные схемы БД
             String[]? includedSchemas = Configuration.GetSection("OdataToEntity:IncludedSchemas").Get<String[]>();
+            
+            //Схемы БД, которые не стоит брать в рассмотрение
             String[]? excludedSchemas = Configuration.GetSection("OdataToEntity:ExcludedSchemas").Get<String[]>();
 
             if (!String.IsNullOrEmpty(basePath) && basePath[0] != '/')
@@ -84,12 +97,29 @@ namespace OdataToEntity.Test.DynamicDataContext.AspServer
                 informationSchemaSettings.Tables = informationSchemaMapping.Tables;
             }
 
+            #endregion informationSchemaSettings
+
+            ////TODO: For create server from informationSchemaMapping
             var schemaFactory = new DynamicSchemaFactory(provider, connectionString);
             using (ProviderSpecificSchema providerSchema = schemaFactory.CreateSchema(useRelationalNulls))
             {
                 IEdmModel edmModel = DynamicMiddlewareHelper.CreateEdmModel(providerSchema, informationSchemaSettings);
                 app.UseOdataToEntityMiddleware<OePageMiddleware>(basePath, edmModel);
             }
+            
+            ////Load our schema mappings (optional)
+            //InformationSchemaMapping informationSchemaMapping = GetMappings();
+            
+            //TODO: For create server from only connection string, add reference to project \source\OdataToEntity.EfCore.DynamicDataContext
+            //var optionsBuilder = new DbContextOptionsBuilder<DynamicDbContext>();
+            //optionsBuilder = optionsBuilder.UseSqlServer(connectionString, opt => opt.UseRelationalNulls(useRelationalNulls)); //"Server=.\\sqlexpress;Initial Catalog=OdataToEntity;Trusted_Connection=Yes;");
+            //using (ProviderSpecificSchema providerSchema = new SqlServerSchema(optionsBuilder.Options))
+            //{
+            //    IEdmModel edmModel = DynamicMiddlewareHelper.CreateEdmModel(providerSchema, informationSchemaSettings: null);
+            //    app.UseOdataToEntityMiddleware<OePageMiddleware>("/api", edmModel);
+            //}
+
+            #endregion ASP.NET Core Middleware
         }
     }
 }
