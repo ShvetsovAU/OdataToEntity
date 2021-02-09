@@ -13,6 +13,10 @@ using System.Threading.Tasks;
 
 namespace OdataToEntity.Linq2Db
 {
+    /// <summary>
+    /// Для изоляции библиотеки от различных ORM API 
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class OeLinq2DbDataAdapter<T> : Db.OeDataAdapter where T : DataConnection, IOeLinq2DbDataContext
     {
         private sealed class ParameterVisitor : ExpressionVisitor

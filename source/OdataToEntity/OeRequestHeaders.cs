@@ -11,6 +11,17 @@ namespace OdataToEntity
         Full
     };
 
+    /// <summary>
+    /// Постраничная выборка данных
+    /// Server-Driven Paging (http://docs.oasis-open.org/odata/odata/v4.0/os/part1-protocol/odata-v4.0-os-part1-protocol.html#_Toc372793701) позволяет
+    /// получить частичный набор данных размер которого устанавливается через метод OeRequestHeaders.SetMaxPageSize(int maxPageSize).
+    ///
+    /// Сервер возвращает данные и ссылку на следующею часть в аннотации @odata.nextLink, где меткой $skiptoken записано начало следующей части данных.
+    /// Если запрос возвращает данные где в сортировке участвует столбец допускающий значения NULL в базе данных (не указан атрибут Required),
+    /// необходимо установить свойство OeDataAdapter.IsDatabaseNullHighestValue для SQLite, MySql, Sql Server в false, для PostgreSql, Oracle в true.
+    ///
+    /// Если необходимо получить ссылки, а не реальные данные навигационных свойств один ко многим, необходимо вызывать метод OeRequestHeaders.SetNavigationNextLink(true): OeRequestHeaders.JsonDefault.SetMaxPageSize(10).SetNavigationNextLink(true);
+    /// </summary>
     public class OeRequestHeaders
     {
         private static readonly Stream _emptyStream = new MemoryStream();
@@ -21,6 +32,7 @@ namespace OdataToEntity
         {
             MaxPageSize = clone.MaxPageSize;
         }
+        
         protected OeRequestHeaders(String mimeType, OeMetadataLevel metadataLevel, bool streaming, String charset)
         {
             MimeType = mimeType;
@@ -42,6 +54,7 @@ namespace OdataToEntity
             String streamingArg = streaming ? "true" : "false";
             return $"{mimeType};odata.metadata={metadataArg};odata.streaming={streamingArg};charset={charset}";
         }
+        
         private static int GetParameterValue(String acceptHeader, String parameterName, out int valueLength)
         {
             valueLength = 0;
@@ -80,6 +93,7 @@ namespace OdataToEntity
 
             return start;
         }
+        
         public static OeRequestHeaders Parse(String acceptHeader)
         {
             var metadataLevel = OeMetadataLevel.Minimal;
@@ -109,6 +123,7 @@ namespace OdataToEntity
             else
                 return new OeRequestHeaders("application/json", metadataLevel, streaming, "utf-8");
         }
+        
         public static OeRequestHeaders Parse(String acceptHeader, String preferHeader)
         {
             OeRequestHeaders requestHeaders = Parse(acceptHeader);
@@ -123,7 +138,14 @@ namespace OdataToEntity
 
             return requestHeaders.SetMaxPageSize(preferenceHeader.MaxPageSize.GetValueOrDefault());
         }
+        
         protected virtual OeRequestHeaders Clone() => new OeRequestHeaders(this);
+        
+        /// <summary>
+        /// Максимальный размер выборки на сранице
+        /// </summary>
+        /// <param name="maxPageSize"></param>
+        /// <returns></returns>
         public OeRequestHeaders SetMaxPageSize(int maxPageSize)
         {
             if (MaxPageSize == maxPageSize)

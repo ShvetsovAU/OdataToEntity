@@ -5,6 +5,10 @@ using System.Globalization;
 
 namespace OdataToEntity.ModelBuilder
 {
+    /// <summary>
+    /// Формирует OData Entity Data Model (EDM) модель описания данных, предоставляемых вашим сервисом.
+    /// EDM модель необходима библиотеке ODataLib для разбора строки запроса
+    /// </summary>
     public sealed class OeEdmModelBuilder
     {
         private readonly Dictionary<Type, EdmComplexType> _complexTypes;

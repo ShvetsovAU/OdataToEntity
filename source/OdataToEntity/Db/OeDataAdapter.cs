@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace OdataToEntity.Db
 {
+    /// <summary>
+    /// Абстрактный класс адаптера доступа к данным.
+    /// Используется для изоляции библиотеки от различных ORM API.
+    /// </summary>
     public abstract class OeDataAdapter
     {
         public OeDataAdapter(Cache.OeQueryCache? queryCache, OeOperationAdapter operationAdapter)
@@ -29,7 +33,14 @@ namespace OdataToEntity.Db
             get => OperationAdapter.IsCaseSensitive;
             set => OperationAdapter.IsCaseSensitive = value;
         }
+
+        /// <summary>
+        /// Если столбец допускает значения NULL в базе данных (не указан атрибут Required), необходимо установить свойство
+        /// для SQLite, MySql, Sql Server в false,
+        /// для PostgreSql, Oracle в true.
+        /// </summary>
         public bool IsDatabaseNullHighestValue { get; set; }
+        
         public OeOperationAdapter OperationAdapter { get; }
         protected Cache.OeQueryCache QueryCache { get; }
     }

@@ -26,6 +26,8 @@
     <PackageReference Include="Microsoft.OData.Edm" version="$(ODataLibVersion)" />
     <PackageReference Include="Microsoft.Spatial" version="$(ODataLibVersion)" />
     <PackageReference Include="Newtonsoft.Json" Version="$(JsonNetVersion)" />
+    <PackageReference Include="OdataToEntity" Version="2.6.1" />
+    <PackageReference Include="OdataToEntity.EfCore" Version="2.6.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -41,11 +43,6 @@
     <Compile Include="..\..\OdataToEntity.Test.EfCore.SqlServer\OeEfCoreSqlServerDataAdapter.cs" Link="OeEfCoreSqlServerDataAdapter.cs" />
     <Compile Include="..\..\OdataToEntity.Test.EfCore.SqlServer\OrderContextOptions.cs" Link="OrderContextOptions.cs" />
     <Compile Include="..\..\OdataToEntity.Test.EfCore.SqlServer\OrderDataAdapter.cs" Link="OrderDataAdapter.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\source\OdataToEntity.EfCore\OdataToEntity.EfCore.csproj" />
-    <ProjectReference Include="..\..\..\source\OdataToEntity\OdataToEntity.csproj" />
   </ItemGroup>
 
   <ItemGroup>

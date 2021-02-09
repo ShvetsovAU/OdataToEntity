@@ -4,6 +4,9 @@ using System;
 
 namespace OdataToEntity.EfCore.DynamicDataContext
 {
+    /// <summary>
+    /// Динамическое построение схемы данных БД
+    /// </summary>
     public readonly struct DynamicSchemaFactory
     {
         private readonly String _connectionString;
@@ -13,6 +16,7 @@ namespace OdataToEntity.EfCore.DynamicDataContext
         {
             if (provider == null)
                 throw new ArgumentNullException(nameof(provider));
+            
             _provider = provider.ToLowerInvariant();
             _connectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
         }
@@ -27,6 +31,7 @@ namespace OdataToEntity.EfCore.DynamicDataContext
                 _ => throw new InvalidOperationException("Unkown provider " + _provider),
             };
         }
+        
         private DbContextOptions<DynamicDbContext> CreateOptionsSqlServer(bool useRelationalNulls)
         {
             var optionsBuilder = new DbContextOptionsBuilder<DynamicDbContext>();
@@ -34,6 +39,7 @@ namespace OdataToEntity.EfCore.DynamicDataContext
             //optionsBuilder.ReplaceService<IConventionSetBuilder, DynamicConventionSetBuilder>();
             return optionsBuilder.Options;
         }
+        
         private DbContextOptions<DynamicDbContext> CreateOptionsPostgreSql(bool useRelationalNulls)
         {
             var optionsBuilder = new DbContextOptionsBuilder<DynamicDbContext>();
@@ -41,6 +47,7 @@ namespace OdataToEntity.EfCore.DynamicDataContext
             //optionsBuilder.ReplaceService<IConventionSetBuilder, DynamicConventionSetBuilder>();
             return optionsBuilder.Options;
         }
+        
         private DbContextOptions<DynamicDbContext> CreateOptionsMySql(bool useRelationalNulls)
         {
             var optionsBuilder = new DbContextOptionsBuilder<DynamicDbContext>();

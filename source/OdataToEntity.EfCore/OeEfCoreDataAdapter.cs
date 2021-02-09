@@ -21,6 +21,10 @@ namespace OdataToEntity.EfCore
         IQueryable FromSql(Object dataContext, String sql, Object?[] parameters);
     }
 
+    /// <summary>
+    /// Для изоляции библиотеки от различных ORM API 
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class OeEfCoreDataAdapter<T> : Db.OeDataAdapter, IDisposable where T : notnull, DbContext
     {
         private readonly DbContextPool<T>? _dbContextPool;

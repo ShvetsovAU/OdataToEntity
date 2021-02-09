@@ -15,6 +15,10 @@ using System.Threading.Tasks;
 
 namespace OdataToEntity.Ef6
 {
+    /// <summary>
+    /// Для изоляции библиотеки от различных ORM API 
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class OeEf6DataAdapter<T> : Db.OeDataAdapter where T : DbContext
     {
         private sealed class DbSetAdapterImpl<TEntity> : Db.OeEntitySetAdapter where TEntity : class

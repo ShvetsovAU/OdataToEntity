@@ -21,28 +21,39 @@ namespace OdataToEntity.EfCore.DynamicDataContext.InformationSchema
         {
             return CreateMetadataProvider(new InformationSchemaSettings());
         }
+        
         public DynamicMetadataProvider CreateMetadataProvider(InformationSchemaSettings informationSchemaSettings)
         {
             DefaultSchema = informationSchemaSettings.DefaultSchema;
             return new DynamicMetadataProvider(this, informationSchemaSettings);
         }
+        
         public void Dispose()
         {
             _schemaContextPool.Dispose();
         }
+        
         public abstract Type? GetColumnClrType(String dataType);
+        
         public abstract IReadOnlyList<DbGeneratedColumn> GetDbGeneratedColumns();
+        
         public abstract String GetParameterName(String parameterName);
+        
         public SchemaContext GetSchemaContext()
         {
             return (SchemaContext)new DbContextLease(_schemaContextPool, true).Context;
         }
 
         public String? DefaultSchema { get; private set; }
+        
         public bool IsCaseSensitive { get; protected set; }
+        
         public DbContextOptions<DynamicDbContext> DynamicDbContextOptions { get; }
+        
         public ExpressionVisitor? ExpressionVisitor { get; protected set; }
+        
         public bool IsDatabaseNullHighestValue { get; protected set; }
+        
         public OeEfCoreOperationAdapter OperationAdapter { get; protected set; } = null!;
     }
 }

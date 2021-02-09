@@ -21,6 +21,7 @@ namespace OdataToEntity.Test.DynamicDataContext.AspServer
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: false)
                 .AddEnvironmentVariables();
+            
             Configuration = builder.Build();
         }
 
@@ -40,10 +41,19 @@ namespace OdataToEntity.Test.DynamicDataContext.AspServer
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app)
         {
+            //базовый путь в URL сервера
             String basePath = Configuration.GetValue<String>("OdataToEntity:BasePath");
+
+            //тип базы данных, возможные значения mysql, postgresql, sqlserver
             String provider = Configuration.GetValue<String>("OdataToEntity:Provider");
+
+            //строка подключения к базе данных
             String connectionString = Configuration.GetValue<String>("OdataToEntity:ConnectionString");
+
+            //указывает, следует ли использовать семантику реляционной базы данных при сравнении нулевых значений
             bool useRelationalNulls = Configuration.GetValue<bool>("OdataToEntity:UseRelationalNulls");
+
+            //дополнительная настройка отображения базы данных в API
             String? informationSchemaMappingFileName = Configuration.GetValue<String>("OdataToEntity:InformationSchemaMappingFileName");
             String? filter = Configuration.GetValue<String>("OdataToEntity:Filter");
             String? defaultSchema = Configuration.GetSection("OdataToEntity:DefaultSchema").Get<String>();
@@ -56,12 +66,16 @@ namespace OdataToEntity.Test.DynamicDataContext.AspServer
             var informationSchemaSettings = new InformationSchemaSettings();
             if (!String.IsNullOrEmpty(defaultSchema))
                 informationSchemaSettings.DefaultSchema = defaultSchema;
+            
             if (includedSchemas != null)
                 informationSchemaSettings.IncludedSchemas = new HashSet<String>(includedSchemas);
+            
             if (excludedSchemas != null)
                 informationSchemaSettings.ExcludedSchemas = new HashSet<String>(excludedSchemas);
+            
             if (filter != null)
                 informationSchemaSettings.ObjectFilter = Enum.Parse<DbObjectFilter>(filter, true);
+            
             if (informationSchemaMappingFileName != null)
             {
                 String json = File.ReadAllText(informationSchemaMappingFileName);

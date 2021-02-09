@@ -23,12 +23,14 @@ namespace OdataToEntity.AspNetCore
                 services.AddMvcCore(o => o.Conventions.Add(new OeBatchFilterConvention()));
             return services;
         }
+        
         public static IServiceCollection AddOdataToEntityMvcRouting(this IServiceCollection services, IEdmModel edmModel)
         {
             services.AddSingleton(edmModel).AddSingleton<OeRouter>().AddHttpContextAccessor();
             services.AddMvcCore(o => { o.EnableEndpointRouting = false; o.Conventions.Add(new OeBatchFilterConvention()); });
             return services;
         }
+        
         public static IRouteBuilder AddOdataToEntityRoute(this IRouteBuilder routeBuilder)
         {
             var router = routeBuilder.ServiceProvider.GetService<OeRouter>() ??
@@ -36,10 +38,12 @@ namespace OdataToEntity.AspNetCore
             routeBuilder.Routes.Add(router);
             return routeBuilder;
         }
+        
         public static IApplicationBuilder UseOdataToEntityMiddleware(this IApplicationBuilder app, PathString apiPath, IEdmModel edmModel)
         {
             return app.UseOdataToEntityMiddleware<OeMiddleware>(apiPath, edmModel);
         }
+        
         public static IApplicationBuilder UseOdataToEntityMiddleware<TMiddleware>(this IApplicationBuilder app, PathString apiPath, IEdmModel edmModel)
             where TMiddleware : OeMiddleware
         {
@@ -58,6 +62,7 @@ namespace OdataToEntity.AspNetCore
             };
             return app.Use((RequestDelegate next) => new RequestDelegate(new MapMiddleware(next, options).Invoke));
         }
+        
         public static IEdmModel GetEdmModel(this HttpContext httpContext)
         {
             return httpContext.RequestServices.GetService<IEdmModel>() ?? throw new InvalidOperationException("Use AddOdataToEntityMvc for register IEdmModel");
