@@ -91,7 +91,8 @@ namespace OdataToEntity
                 foreach (IEdmEntityContainerElement element in edmModel.EntityContainer.Elements)
                     if (element is IEdmOperationImport operationImport &&
                         String.Compare(operationImport.Name, identifier, StringComparison.OrdinalIgnoreCase) == 0)
-                        return new[] { operationImport };
+                        return new[] {operationImport};
+                
 
                 foreach (IEdmModel refModel in edmModel.ReferencedModels)
                     if (refModel.EntityContainer != null && refModel is EdmModel)
@@ -101,7 +102,7 @@ namespace OdataToEntity
                             return operationImports;
                     }
 
-                return null;
+                return new List<IEdmOperationImport>(); //return null; //TODO: точно null нужно возвращать, а не пустую коллекцию?
             }
         }
 
