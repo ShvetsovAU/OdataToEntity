@@ -32,8 +32,10 @@ namespace OdataToEntity.AspNetCore
                         uriBuilder.Path = request.Path.Value.Substring(1, i - 1);
                 }
             }
+            
             return uriBuilder.Uri;
         }
+        
         public static Uri GetUri(HttpRequest request)
         {
             var path = request.PathBase.Add(request.Path);

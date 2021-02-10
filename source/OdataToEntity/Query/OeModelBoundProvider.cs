@@ -7,6 +7,9 @@ using System.Collections.Generic;
 
 namespace OdataToEntity.Query
 {
+    /// <summary>
+    /// Провайдер привязки модели
+    /// </summary>
     public sealed class OeModelBoundProvider
     {
         private sealed class FilterableVisitor : QueryNodeVisitor<QueryNode>

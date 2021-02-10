@@ -76,10 +76,12 @@ namespace OdataToEntity
 
                 return edmOperations;
             }
+            
             public override IEdmNavigationSource? ResolveNavigationSource(IEdmModel model, String identifier)
             {
                 return OeEdmClrHelper.GetEntitySetOrNull(model, identifier, EnableCaseInsensitive ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal);
             }
+            
             public override IEnumerable<IEdmOperationImport>? ResolveOperationImports(IEdmModel edmModel, String identifier)
             {
                 IEnumerable<IEdmOperationImport>? operationImports = edmModel.FindDeclaredOperationImports(identifier);
@@ -147,9 +149,10 @@ namespace OdataToEntity
 
         private readonly IServiceProvider? _serviceProvider;
 
-        public OeParser(Uri baseUri, IEdmModel edmModel) : this(baseUri, edmModel, null, null)
-        {
-        }
+        public OeParser(Uri baseUri, IEdmModel edmModel) 
+            : this(baseUri, edmModel, null, null)
+        { }
+        
         public OeParser(Uri baseUri, IEdmModel edmModel, Query.OeModelBoundProvider? modelBoundProvider, IServiceProvider? serviceProvider = null)
         {
             BaseUri = baseUri;
@@ -165,11 +168,13 @@ namespace OdataToEntity
             await ExecuteBatchAsync(compositeStream, responseStream, contentType, cancellationToken).ConfigureAwait(false);
             return contentType;
         }
+        
         public async Task ExecuteBatchAsync(Stream requestStream, Stream responseStream, String contentType, CancellationToken cancellationToken)
         {
             var paser = new Parsers.OeBatchParser(BaseUri, EdmModel, _serviceProvider);
             await paser.ExecuteAsync(requestStream, responseStream, contentType, cancellationToken).ConfigureAwait(false);
         }
+        
         public async Task ExecuteGetAsync(Uri requestUri, OeRequestHeaders headers, Stream responseStream, CancellationToken cancellationToken)
         {
             ODataUri odataUri = ParseUri(EdmModel, BaseUri, requestUri, _serviceProvider);
@@ -178,16 +183,19 @@ namespace OdataToEntity
             else
                 await ExecuteQueryAsync(odataUri, headers, responseStream, cancellationToken).ConfigureAwait(false);
         }
+        
         public async Task ExecuteQueryAsync(ODataUri odataUri, OeRequestHeaders headers, Stream responseStream, CancellationToken cancellationToken)
         {
             var parser = new Parsers.OeGetParser(EdmModel.GetEdmModel(odataUri.Path), _serviceProvider, ModelBoundProvider);
             await parser.ExecuteAsync(odataUri, headers, responseStream, cancellationToken).ConfigureAwait(false);
         }
+        
         public async Task ExecuteOperationAsync(ODataUri odataUri, OeRequestHeaders headers, Stream? requestStream, Stream responseStream, CancellationToken cancellationToken)
         {
             var parser = new Parsers.OePostParser(EdmModel.GetEdmModel(odataUri.Path), _serviceProvider);
             await parser.ExecuteAsync(odataUri, requestStream, headers, responseStream, cancellationToken).ConfigureAwait(false);
         }
+        
         public async Task ExecutePostAsync(Uri requestUri, OeRequestHeaders headers, Stream requestStream, Stream responseStream, CancellationToken cancellationToken)
         {
             ODataUri odataUri = ParseUri(EdmModel, BaseUri, requestUri, _serviceProvider);
@@ -198,6 +206,7 @@ namespace OdataToEntity
             else
                 await ExecuteQueryAsync(odataUri, headers, responseStream, cancellationToken).ConfigureAwait(false);
         }
+        
         private static String GetConentType(Stream stream, out ArraySegment<byte> readedBytes)
         {
             var buffer = new byte[128];
@@ -230,23 +239,33 @@ namespace OdataToEntity
 
             throw new InvalidDataException("is not batch stream");
         }
+        
         public static ODataPath ParsePath(IEdmModel edmModel, Uri serviceRoot, Uri uri)
         {
             var uriParser = new ODataUriParser(edmModel, serviceRoot, uri, ServiceProviderImpl.Instance);
             return uriParser.ParsePath();
         }
+        
         public static ODataUri ParseUri(IEdmModel edmModel, Uri relativeUri, IServiceProvider? serviceProvider = null)
         {
             return ParseUri(edmModel, null, relativeUri, serviceProvider);
         }
+
+        /// <summary>
+        /// Формирование парсера адресов OData
+        /// </summary>
+        /// <param name="edmModel">модель описания данных</param>
+        /// <param name="serviceRoot">адрес (путь) до инстанса сервиса</param>
+        /// <param name="uri">полный адрес выполняемого запроса к данным</param>
+        /// <param name="serviceProvider">контейнер IServiceProvider</param>
+        /// <returns></returns>
         public static ODataUri ParseUri(IEdmModel edmModel, Uri? serviceRoot, Uri uri, IServiceProvider? serviceProvider = null)
         {
             serviceProvider = serviceProvider ?? ServiceProviderImpl.Instance;
-            ODataUriParser uriParser;
-            if (serviceRoot == null)
-                uriParser = new ODataUriParser(edmModel, uri, serviceProvider);
-            else
-                uriParser = new ODataUriParser(edmModel, serviceRoot, uri, serviceProvider);
+            ODataUriParser uriParser = serviceRoot == null
+                ? new ODataUriParser(edmModel, uri, serviceProvider)
+                : new ODataUriParser(edmModel, serviceRoot, uri, serviceProvider);
+
             try
             {
                 return uriParser.ParseUri();
@@ -254,18 +273,33 @@ namespace OdataToEntity
             catch (ODataException e) when (e.Message.StartsWith("Could not find a property named", StringComparison.Ordinal))
             {
                 //fix test ApplyGroupByAggregateOrderBy bug #703
-                if (serviceRoot == null)
-                    uriParser = new ODataUriParser(edmModel, uri, serviceProvider);
-                else
-                    uriParser = new ODataUriParser(edmModel, serviceRoot, uri, serviceProvider);
+                uriParser = serviceRoot == null
+                    ? new ODataUriParser(edmModel, uri, serviceProvider)
+                    : new ODataUriParser(edmModel, serviceRoot, uri, serviceProvider);
+
                 uriParser.ParseApply();
                 return uriParser.ParseUri();
             }
         }
 
+        /// <summary>
+        /// Базовый путь до апи (?) типа http://localhost:5000/api
+        /// </summary>
         public Uri BaseUri { get; }
+
+        /// <summary>
+        ///  Модель описания данных OData Entity Data Model (EDM)
+        /// </summary>
         public IEdmModel EdmModel { get; }
+
+        /// <summary>
+        /// Провайдер привязки модели
+        /// </summary>
         public Query.OeModelBoundProvider? ModelBoundProvider { get; }
+
+        /// <summary>
+        /// Реализация IServiceProvider
+        /// </summary>
         public static IServiceProvider ServiceProvider => ServiceProviderImpl.Instance;
     }
 }

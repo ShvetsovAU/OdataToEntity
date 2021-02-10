@@ -100,24 +100,24 @@ namespace OdataToEntity.Test.DynamicDataContext.AspServer
             #endregion informationSchemaSettings
 
             ////TODO: For create server from informationSchemaMapping
-            var schemaFactory = new DynamicSchemaFactory(provider, connectionString);
-            using (ProviderSpecificSchema providerSchema = schemaFactory.CreateSchema(useRelationalNulls))
-            {
-                IEdmModel edmModel = DynamicMiddlewareHelper.CreateEdmModel(providerSchema, informationSchemaSettings);
-                app.UseOdataToEntityMiddleware<OePageMiddleware>(basePath, edmModel);
-            }
-            
+            //var schemaFactory = new DynamicSchemaFactory(provider, connectionString);
+            //using (ProviderSpecificSchema providerSchema = schemaFactory.CreateSchema(useRelationalNulls))
+            //{
+            //    IEdmModel edmModel = DynamicMiddlewareHelper.CreateEdmModel(providerSchema, informationSchemaSettings);
+            //    app.UseOdataToEntityMiddleware<OePageMiddleware>(basePath, edmModel);
+            //}
+
             ////Load our schema mappings (optional)
             //InformationSchemaMapping informationSchemaMapping = GetMappings();
-            
+
             //TODO: For create server from only connection string, add reference to project \source\OdataToEntity.EfCore.DynamicDataContext
-            //var optionsBuilder = new DbContextOptionsBuilder<DynamicDbContext>();
-            //optionsBuilder = optionsBuilder.UseSqlServer(connectionString, opt => opt.UseRelationalNulls(useRelationalNulls)); //"Server=.\\sqlexpress;Initial Catalog=OdataToEntity;Trusted_Connection=Yes;");
-            //using (ProviderSpecificSchema providerSchema = new SqlServerSchema(optionsBuilder.Options))
-            //{
-            //    IEdmModel edmModel = DynamicMiddlewareHelper.CreateEdmModel(providerSchema, informationSchemaSettings: null);
-            //    app.UseOdataToEntityMiddleware<OePageMiddleware>("/api", edmModel);
-            //}
+            var optionsBuilder = new DbContextOptionsBuilder<DynamicDbContext>();
+            optionsBuilder = optionsBuilder.UseSqlServer(connectionString, opt => opt.UseRelationalNulls(useRelationalNulls)); //"Server=.\\sqlexpress;Initial Catalog=OdataToEntity;Trusted_Connection=Yes;");
+            using (ProviderSpecificSchema providerSchema = new SqlServerSchema(optionsBuilder.Options))
+            {
+                IEdmModel edmModel = DynamicMiddlewareHelper.CreateEdmModel(providerSchema, informationSchemaSettings: null);
+                app.UseOdataToEntityMiddleware<OePageMiddleware>("/api", edmModel);
+            }
 
             #endregion ASP.NET Core Middleware
         }

@@ -4,6 +4,9 @@ using System.IO;
 
 namespace OdataToEntity
 {
+    /// <summary>
+    /// Уровень описания метаданных сущности
+    /// </summary>
     public enum OeMetadataLevel
     {
         None,
@@ -12,6 +15,8 @@ namespace OdataToEntity
     };
 
     /// <summary>
+    /// Описание заголовка запроса
+    /// 
     /// Постраничная выборка данных
     /// Server-Driven Paging (http://docs.oasis-open.org/odata/odata/v4.0/os/part1-protocol/odata-v4.0-os-part1-protocol.html#_Toc372793701) позволяет
     /// получить частичный набор данных размер которого устанавливается через метод OeRequestHeaders.SetMaxPageSize(int maxPageSize).
@@ -28,7 +33,8 @@ namespace OdataToEntity
         public static readonly OeRequestHeaders JsonDefault = new OeRequestHeaders("application/json", OeMetadataLevel.Minimal, true, "utf-8");
         public static readonly OeRequestHeaders TextDefault = new OeRequestHeaders("text/plain", OeMetadataLevel.Minimal, true, "utf-8");
 
-        protected OeRequestHeaders(OeRequestHeaders clone) : this(clone.MimeType, clone.MetadataLevel, clone.Streaming, clone.Charset)
+        protected OeRequestHeaders(OeRequestHeaders clone) 
+            : this(clone.MimeType, clone.MetadataLevel, clone.Streaming, clone.Charset)
         {
             MaxPageSize = clone.MaxPageSize;
         }
@@ -43,6 +49,14 @@ namespace OdataToEntity
             ContentType = GetContentType(mimeType, metadataLevel, streaming, charset);
         }
 
+        /// <summary>
+        /// Определить тип контента
+        /// </summary>
+        /// <param name="mimeType"></param>
+        /// <param name="metadataLevel"></param>
+        /// <param name="streaming"></param>
+        /// <param name="charset"></param>
+        /// <returns></returns>
         private static String GetContentType(String mimeType, OeMetadataLevel metadataLevel, bool streaming, String charset)
         {
             var metadataArg = metadataLevel switch
@@ -159,12 +173,39 @@ namespace OdataToEntity
             return requestHeaders;
         }
 
+        /// <summary>
+        /// Кодировка
+        /// </summary>
         public String Charset { get; }
+        
+        /// <summary>
+        /// Тип контента для OData
+        /// </summary>
         public String ContentType { get; }
+
+        /// <summary>
+        /// Уровень описания метаданных сущности
+        /// </summary>
         public OeMetadataLevel MetadataLevel { get; }
+
+        /// <summary>
+        /// Тип иммитации/контента (application/json и т.д.) (?)
+        /// </summary>
         public String MimeType { get; }
+        
+        /// <summary>
+        /// Максимальный размер страницы выборки данных
+        /// </summary>
         public int MaxPageSize { get; private set; }
+        
+        /// <summary>
+        /// Тип контента возвращаемого ответа/результата
+        /// </summary>
         public virtual String? ResponseContentType { get; set; }
+
+        /// <summary>
+        /// Потоковая передача
+        /// </summary>
         public bool Streaming { get; }
     }
 }

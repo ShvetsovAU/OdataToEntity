@@ -32,10 +32,12 @@ namespace OdataToEntity.AspNetCore
             foreach (IEdmModel refModel in edmModel.ReferencedModels)
                 Build(refModel, modelBoundSettingsBuilder, pageSize, navigationNextLink);
         }
+        
         public static OeModelBoundProvider? CreateModelBoundProvider(this HttpContext httpContext)
         {
             return httpContext.CreateModelBoundProvider(httpContext.GetEdmModel());
         }
+        
         public static OeModelBoundProvider? CreateModelBoundProvider(this HttpContext httpContext, IEdmModel edmModel)
         {
             int maxPageSize = GetMaxPageSize(httpContext.Request.Headers);
@@ -52,6 +54,7 @@ namespace OdataToEntity.AspNetCore
             }
             return modelBoundProvider;
         }
+        
         public static OeModelBoundProvider? CreateModelBoundProvider(IEdmModel edmModel, int pageSize, bool navigationNextLink)
         {
             if (pageSize > 0 || navigationNextLink)
