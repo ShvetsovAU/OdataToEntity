@@ -48,6 +48,7 @@ namespace OdataToEntity.EfCore.DynamicDataContext.InformationSchema
                 else
                     tableName = table.TableSchema + "." + table.TableName;
 
+                //Сопоставление маппинга (настроек таблиц) полученного из InformationSchemaMapping.json со схемой БД
                 if (dbNameTableMappings != null)
                 {
                     if (dbNameTableMappings.TryGetValue(table.TableName, out TableMapping? tableMapping) ||
@@ -65,9 +66,11 @@ namespace OdataToEntity.EfCore.DynamicDataContext.InformationSchema
 
                         if (tableMapping.Navigations != null && tableMapping.Navigations.Count > 0)
                         {
+                            //Формирование foregin key's таблицы
                             foreach (NavigationMapping navigationMapping in tableMapping.Navigations)
                                 if (!String.IsNullOrEmpty(navigationMapping.NavigationName) && String.IsNullOrEmpty(navigationMapping.ConstraintName))
                                 {
+                                    //Если в файле не задан foregin key на другую таблицу
                                     String? tableName2 = navigationMapping.TargetTableName;
                                     if (tableName2 != null)
                                     {

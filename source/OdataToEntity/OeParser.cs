@@ -12,6 +12,9 @@ using System.Threading.Tasks;
 
 namespace OdataToEntity
 {
+    /// <summary>
+    /// Переопределение части логики OData.UriPathParser
+    /// </summary>
     public readonly struct OeParser
     {
         private sealed class ContainerBuilder : IContainerBuilder, IServiceProvider

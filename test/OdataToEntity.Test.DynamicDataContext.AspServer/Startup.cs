@@ -110,12 +110,13 @@ namespace OdataToEntity.Test.DynamicDataContext.AspServer
             ////Load our schema mappings (optional)
             //InformationSchemaMapping informationSchemaMapping = GetMappings();
 
-            ////TODO: For create server from only connection string, add reference to project \source\OdataToEntity.EfCore.DynamicDataContext
+            //TODO: For create server from only connection string, add reference to project \source\OdataToEntity.EfCore.DynamicDataContext
             //var optionsBuilder = new DbContextOptionsBuilder<DynamicDbContext>();
-            //optionsBuilder = optionsBuilder.UseSqlServer(connectionString, opt => opt.UseRelationalNulls(useRelationalNulls)); //"Server=.\\sqlexpress;Initial Catalog=OdataToEntity;Trusted_Connection=Yes;");
+            //optionsBuilder = optionsBuilder.UseSqlServer(connectionString, opt => opt.UseRelationalNulls(useRelationalNulls));
             //using (ProviderSpecificSchema providerSchema = new SqlServerSchema(optionsBuilder.Options))
             //{
-            //    IEdmModel edmModel = DynamicMiddlewareHelper.CreateEdmModel(providerSchema, informationSchemaSettings: null);
+            //    //IEdmModel edmModel = DynamicMiddlewareHelper.CreateEdmModel(providerSchema, informationSchemaSettings: null); //так работает не корректно
+            //    IEdmModel edmModel = DynamicMiddlewareHelper.CreateEdmModel(providerSchema, informationSchemaSettings);
             //    app.UseOdataToEntityMiddleware<OePageMiddleware>("/api", edmModel);
             //}
 
