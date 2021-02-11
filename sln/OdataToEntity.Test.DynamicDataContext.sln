@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OdataToEntity.EfCore.Dynami
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OdataToEntity.AspNetCore", "..\source\OdataToEntity.AspNetCore\OdataToEntity.AspNetCore.csproj", "{D0DBEFE3-95C1-47B7-94AA-39D9D6FF6D87}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OdataToEntity.Test.DynamicDataContext.AspServer", "..\test\OdataToEntity.Test.DynamicDataContext.AspServer\OdataToEntity.Test.DynamicDataContext.AspServer.csproj", "{F5204C63-9AA6-44A6-82DB-198BBF5D120E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OdataToEntity.Test.DynamicDataContext.AspServer", "..\test\OdataToEntity.Test.DynamicDataContext.AspServer\OdataToEntity.Test.DynamicDataContext.AspServer.csproj", "{F5204C63-9AA6-44A6-82DB-198BBF5D120E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OdataToEntity.Test.DynamicDataContext.ODataClientTest", "..\test\OdataToEntity.Test.DynamicDataContext.ODataClientTest\OdataToEntity.Test.DynamicDataContext.ODataClientTest.csproj", "{BA29C047-DB89-48EB-8030-93AFCD62F20A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{F5204C63-9AA6-44A6-82DB-198BBF5D120E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5204C63-9AA6-44A6-82DB-198BBF5D120E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5204C63-9AA6-44A6-82DB-198BBF5D120E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA29C047-DB89-48EB-8030-93AFCD62F20A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA29C047-DB89-48EB-8030-93AFCD62F20A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA29C047-DB89-48EB-8030-93AFCD62F20A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA29C047-DB89-48EB-8030-93AFCD62F20A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
