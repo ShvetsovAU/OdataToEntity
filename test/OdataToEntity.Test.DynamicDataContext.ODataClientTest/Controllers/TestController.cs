@@ -4,25 +4,25 @@ using Microsoft.OData.Client;
 using Microsoft.OData.Edm;
 using Microsoft.OData.Edm.Csdl;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest.Controllers
 {
-    [Controller]
+    [ApiController]
+    [Route("api/Test")]
     public class TestController : ControllerBase
     {
-        //[HttpPost("GetByOData")]
         [HttpPost("GetByOData")]
         public void GetByOData()
         {
-
-            var oDataContext = new DataServiceContext(new Uri("http://localhost:5000/api"));//"https://localhost:5001"));
-            oDataContext.Format.UseJson(); //TODO: это и по дефолту видимо так
-            oDataContext.Format.LoadServiceModel = () => GetServiceModel(oDataContext.GetMetadataUri());
+            var dataServerUrl = "http://localhost:5005/api";
+            var oDataContext = new DataServiceContext(new Uri(dataServerUrl));
+            
+            //oDataContext.Format.UseJson(); //TODO: это и по дефолту видимо так
+            //oDataContext.Format.LoadServiceModel = () => GetServiceModel(oDataContext.GetMetadataUri());
+            
             var dataSet = oDataContext.CreateQuery<Project>("Projects");
             //var exists = dataSet.Any();
             //var res = dataSet.Where(i => i.ObjectId == 1).ToList();

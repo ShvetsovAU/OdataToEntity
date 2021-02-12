@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 
 #nullable disable
 
@@ -17,6 +15,8 @@ namespace dbReverse.EntityModel
         {
         }
 
+        #region DbSet
+        
         public virtual DbSet<Activity> Activities { get; set; }
         public virtual DbSet<ActivityAttributeTemplate> ActivityAttributeTemplates { get; set; }
         public virtual DbSet<ActivityCode> ActivityCodes { get; set; }
@@ -108,6 +108,8 @@ namespace dbReverse.EntityModel
         public virtual DbSet<WorkTaskP3DBModel> WorkTaskP3DBModels { get; set; }
         public virtual DbSet<WorkType> WorkTypes { get; set; }
         public virtual DbSet<Worker> Workers { get; set; }
+
+        #endregion DbSet
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
