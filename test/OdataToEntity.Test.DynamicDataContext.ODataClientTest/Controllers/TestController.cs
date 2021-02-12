@@ -29,7 +29,16 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest.Controllers
             //var res2 = ((DataServiceQuery<Project>)dataSet.Include(f => f.CodeForBudgetNumber).Where(i => i.ObjectId == 308398)).ToList();
             //var res3 = dataSet.Where(i => i.ObjectId == 308398).Include(f => f.CodeForBudgetNumber).ToList();
             var res3 = dataSet.Where(i => i.ObjectId == 308398).ToList();
-            var res4 = ((DataServiceQuery<Project>)dataSet.Expand(f => f.CodeForBudgetNumber).Where(i => i.ObjectId == 308398)).Execute();
+
+            //TODO: working
+            var res5 = dataSet.Expand("CodeForBudgetNumber").Where(i => i.ObjectId == 308398).ToList();
+            //TODO: not working, error https://github.com/OData/odata.net/issues/1247. Зависит от способа описания класса модели
+            //var res6 = dataSet.Expand(f => f.CodeForBudgetNumber).Where(i => i.ObjectId == 308398);
+            //TODO: working
+            var res7 = ((DataServiceQuery<Project>)dataSet.Expand(f => f.CodeForBudgetNumber).Where(i => i.ObjectId == 308398)).Execute();
+            //TODO: not working
+            var res4 = ((DataServiceQuery<Project>)dataSet.Expand("CodeForBudgetNumber").Where(i => i.ObjectId == 308398)).Execute();
+                        
 
             //var res5 = ((DataServiceQuery<Project>)dataSet.Expand(f => f.CodeForBudgetNumber).Where(i => i.ObjectId == 308398)).ExecuteAsync();
 
@@ -40,8 +49,8 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest.Controllers
             var firstOrDefault = dataSet.FirstOrDefault();
 
             var where = dataSet.Where(i => i.ObjectId > 30000 && i.Name.Contains("UK")).ToList();
-            var min = dataSet.Min(i => i.ObjectId);
-            var max = dataSet.Max(i => i.ObjectId);
+            var min = dataSet.Min(i => i.ObjectId); //not working
+            var max = dataSet.Max(i => i.ObjectId); //not working
 
 
             #region not supported
@@ -53,8 +62,6 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest.Controllers
             //var any = dataSet.Any(i => i.ObjectId == 308398); //TODO:Не поддерживается
 
             #endregion not supported
-
-
         }
 
         private IEdmModel GetServiceModel(Uri metadataUri)
