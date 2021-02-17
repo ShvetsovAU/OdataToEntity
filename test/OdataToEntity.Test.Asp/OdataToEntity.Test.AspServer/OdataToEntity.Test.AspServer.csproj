@@ -40,9 +40,12 @@
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="$(EfCoreVersion)" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="$(NetCoreVersion)" />
-    <PackageReference Include="OdataToEntity" Version="2.6.1" />
-    <PackageReference Include="OdataToEntity.AspNetCore" Version="2.6.1" />
-    <PackageReference Include="OdataToEntity.EfCore" Version="2.6.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\source\OdataToEntity.AspNetCore\OdataToEntity.AspNetCore.csproj" />
+    <ProjectReference Include="..\..\..\source\OdataToEntity.EfCore\OdataToEntity.EfCore.csproj" />
+    <ProjectReference Include="..\..\..\source\OdataToEntity\OdataToEntity.csproj" />
   </ItemGroup>
 
 </Project>

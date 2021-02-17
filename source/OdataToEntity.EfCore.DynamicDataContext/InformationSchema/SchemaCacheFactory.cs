@@ -16,7 +16,6 @@ namespace OdataToEntity.EfCore.DynamicDataContext.InformationSchema
             var tableFullNameEdmNames = new Dictionary<TableFullName, (String tableEdmName, bool isQueryType)>(tableNameComparer);
             var navigationMappings = new Dictionary<TableFullName, IReadOnlyList<NavigationMapping>>(tableNameComparer);
             Dictionary<(String constraintSchema, String constraintName), IReadOnlyList<KeyColumnUsage>> keyColumns = GetKeyColumns(informationSchema, informationSchemaSettings);
-            List<ReferentialConstraint> referentialConstraints;
 
             using SchemaContext schemaContext = informationSchema.GetSchemaContext();
 
@@ -31,6 +30,7 @@ namespace OdataToEntity.EfCore.DynamicDataContext.InformationSchema
                 tableQuery = tableQuery.Where(t => informationSchemaSettings.IncludedSchemas.Contains(t.TableSchema));
                 referentialConstraintsQuery = referentialConstraintsQuery.Where(t => informationSchemaSettings.IncludedSchemas.Contains(t.ConstraintSchema));
             }
+            
             if (informationSchemaSettings.ExcludedSchemas != null && informationSchemaSettings.ExcludedSchemas.Count > 0)
             {
                 tableQuery = tableQuery.Where(t => !informationSchemaSettings.ExcludedSchemas.Contains(t.TableSchema));
@@ -38,7 +38,7 @@ namespace OdataToEntity.EfCore.DynamicDataContext.InformationSchema
             }
 
             List<Table> tables = tableQuery.ToList();
-            referentialConstraints = referentialConstraintsQuery.ToList();
+            List<ReferentialConstraint> referentialConstraints = referentialConstraintsQuery.ToList();
 
             foreach (Table table in tables)
             {
@@ -70,15 +70,15 @@ namespace OdataToEntity.EfCore.DynamicDataContext.InformationSchema
                             foreach (NavigationMapping navigationMapping in tableMapping.Navigations)
                                 if (!String.IsNullOrEmpty(navigationMapping.NavigationName) && String.IsNullOrEmpty(navigationMapping.ConstraintName))
                                 {
-                                    //Если в файле не задан foregin key на другую таблицу
-                                    String? tableName2 = navigationMapping.TargetTableName;
-                                    if (tableName2 != null)
+                                    //Если в файле не задан foregin key на другую таблицу, получим его
+                                    String? principalTableName = navigationMapping.TargetTableName;
+                                    if (principalTableName != null)
                                     {
-                                        int i = tableName2.IndexOf('.');
+                                        int i = principalTableName.IndexOf('.');
                                         if (i != -1)
-                                            tableName2 = tableName2.Substring(i + 1);
+                                            principalTableName = principalTableName.Substring(i + 1);
 
-                                        navigationMapping.ConstraintName = GetFKeyConstraintName(referentialConstraints, keyColumns, table.TableSchema, table.TableName, tableName2);
+                                        navigationMapping.ConstraintName = GetFKeyConstraintName(referentialConstraints, keyColumns, table.TableSchema, table.TableName, principalTableName);
                                     }
                                 }
 
@@ -114,6 +114,7 @@ namespace OdataToEntity.EfCore.DynamicDataContext.InformationSchema
                 tableNavigations,
                 GetManyToManyProperties(navigationMappings, tableEdmNameFullNames));
         }
+        
         private static String? GetFKeyConstraintName(List<ReferentialConstraint> referentialConstraints,
             Dictionary<(String constraintSchema, String constraintName), IReadOnlyList<KeyColumnUsage>> keyColumns, String tableSchema, String tableName1, String tableName2)
         {
@@ -136,6 +137,7 @@ namespace OdataToEntity.EfCore.DynamicDataContext.InformationSchema
 
             return null;
         }
+        
         private static Dictionary<TableFullName, List<(String constraintName, bool isPrimary)>> GetKeyConstraintNames(ProviderSpecificSchema informationSchema)
         {
             var keyConstraintNames = new Dictionary<TableFullName, List<(String constraintName, bool isPrimary)>>();
@@ -166,6 +168,13 @@ namespace OdataToEntity.EfCore.DynamicDataContext.InformationSchema
                 keyConstraintNames.Add(new TableFullName(tableSchema!, tableName!), constraints);
             return keyConstraintNames;
         }
+        
+        /// <summary>
+        /// Получить список столбцов, которые зависят от внешних ключей
+        /// </summary>
+        /// <param name="informationSchema"></param>
+        /// <param name="informationSchemaSettings"></param>
+        /// <returns></returns>
         private static Dictionary<(String constraintSchema, String constraintName), IReadOnlyList<KeyColumnUsage>> GetKeyColumns(
             ProviderSpecificSchema informationSchema, InformationSchemaSettings informationSchemaSettings)
         {
@@ -179,8 +188,10 @@ namespace OdataToEntity.EfCore.DynamicDataContext.InformationSchema
             IQueryable<KeyColumnUsage> keyColumnQueryable = schemaContext.KeyColumnUsage.AsQueryable();
             if (informationSchemaSettings.IncludedSchemas != null && informationSchemaSettings.IncludedSchemas.Count > 0)
                 keyColumnQueryable = keyColumnQueryable.Where(t => informationSchemaSettings.IncludedSchemas.Contains(t.TableSchema));
+            
             if (informationSchemaSettings.ExcludedSchemas != null && informationSchemaSettings.ExcludedSchemas.Count > 0)
                 keyColumnQueryable = keyColumnQueryable.Where(t => !informationSchemaSettings.ExcludedSchemas.Contains(t.TableSchema));
+            
             foreach (KeyColumnUsage keyColumn in keyColumnQueryable.OrderBy(t => t.TableSchema).ThenBy(t => t.TableName).ThenBy(t => t.ConstraintName).ThenBy(t => t.OrdinalPosition))
             {
                 if (constraintSchema != keyColumn.ConstraintSchema || constraintName != keyColumn.ConstraintName)
@@ -227,6 +238,12 @@ namespace OdataToEntity.EfCore.DynamicDataContext.InformationSchema
 
             return manyToManyProperties;
         }
+        
+        /// <summary>
+        /// Получить список столбцов таблиц БД
+        /// </summary>
+        /// <param name="informationSchema"></param>
+        /// <returns></returns>
         private static Dictionary<TableFullName, List<Column>> GetTableColumns(ProviderSpecificSchema informationSchema)
         {
             var tableColumns = new Dictionary<TableFullName, List<Column>>();

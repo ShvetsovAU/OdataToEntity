@@ -28,21 +28,43 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest.Controllers
             //var res = dataSet.Where(i => i.ObjectId == 1).ToList();
             //var res2 = ((DataServiceQuery<Project>)dataSet.Include(f => f.CodeForBudgetNumber).Where(i => i.ObjectId == 308398)).ToList();
             //var res3 = dataSet.Where(i => i.ObjectId == 308398).Include(f => f.CodeForBudgetNumber).ToList();
+            
+            //TODO: нормально, без Nv prop
             var res3 = dataSet.Where(i => i.ObjectId == 308398).ToList();
+
+            //TODO: нормально, Nv prop не проставляется!
+            var res6 = dataSet.Expand(f => f.CodeForBudgetNumber).Where(i => i.ObjectId == 308398).ToList();
+            
+            
             var res4 = ((DataServiceQuery<Project>)dataSet.Expand(f => f.CodeForBudgetNumber).Where(i => i.ObjectId == 308398)).Execute();
 
             //var res5 = ((DataServiceQuery<Project>)dataSet.Expand(f => f.CodeForBudgetNumber).Where(i => i.ObjectId == 308398)).ExecuteAsync();
 
             //var res5 = ((DataServiceQuery<Project>)dataSet.Expand(f => f.CodeForBudgetNumber).Where(i => i.ObjectId == 308398)).ToList();
             //var proj2 = dataSet.Include(f => f.CodeForBudgetNumber).ToList();
+
+            //TODO: нормально
             var count = dataSet.Count();
+
+            //TODO: нормально
             var first = dataSet.First();
+
+            //TODO: нормально
             var firstOrDefault = dataSet.FirstOrDefault();
 
+            //TODO: нормально
             var where = dataSet.Where(i => i.ObjectId > 30000 && i.Name.Contains("UK")).ToList();
-            var min = dataSet.Min(i => i.ObjectId);
-            var max = dataSet.Max(i => i.ObjectId);
+            
+            //var min = dataSet.Min(i => i.ObjectId);
+            var minByOrder = dataSet.OrderBy(i => i.ObjectId).Take(1);
+            var minByOrder2 = ((DataServiceQuery<Project>)dataSet.OrderBy(i => i.ObjectId)).Take(1);
 
+
+            //var max = dataSet.Max(i => i.ObjectId);
+            var maxByOrder = dataSet.OrderByDescending(i => i.ObjectId).Take(1);
+            var maxByOrder2 = ((DataServiceQuery<Project>)dataSet.OrderByDescending(i => i.ObjectId)).Take(1);
+
+            int j = 0;
 
             #region not supported
 
@@ -53,8 +75,6 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest.Controllers
             //var any = dataSet.Any(i => i.ObjectId == 308398); //TODO:Не поддерживается
 
             #endregion not supported
-
-
         }
 
         private IEdmModel GetServiceModel(Uri metadataUri)

@@ -14,6 +14,7 @@ namespace OdataToEntity.EfCore.DynamicDataContext
         {
             return DynamicTypeDefinitionManager.Create(metadataProvider, CreateDynamicDbContextType());
         }
+        
         protected static Type CreateDynamicDbContextType()
         {
             int dynamicDbContextIndex = Interlocked.Increment(ref _dynamicDbContextIndex);

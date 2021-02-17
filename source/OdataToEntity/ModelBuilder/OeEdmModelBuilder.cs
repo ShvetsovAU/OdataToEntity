@@ -32,14 +32,17 @@ namespace OdataToEntity.ModelBuilder
             var edmComplexType = new EdmComplexType(complexType.Namespace, complexType.Name);
             _complexTypes.Add(complexType, edmComplexType);
         }
+        
         public void AddEnumType(Type enumType)
         {
             _enumTypes.Add(enumType, CreateEdmEnumType(enumType));
         }
+        
         public void AddOperation(OeOperationConfiguration operationConfiguration)
         {
             _operationConfigurations.Add(operationConfiguration);
         }
+        
         private void AddOperations()
         {
             IReadOnlyList<OeOperationConfiguration> operations = _dataAdapter.OperationAdapter.GetOperations();
@@ -47,6 +50,7 @@ namespace OdataToEntity.ModelBuilder
                 for (int i = 0; i < operations.Count; i++)
                     AddOperation(operations[i]);
         }
+        
         private EdmAction BuildAction(OeOperationConfiguration operationConfiguration, Dictionary<Type, EntityTypeInfo> entityTypeInfos)
         {
             var edmAction = new EdmAction(operationConfiguration.NamespaceName, operationConfiguration.Name, null);
@@ -58,6 +62,7 @@ namespace OdataToEntity.ModelBuilder
 
             return edmAction;
         }
+        
         public EdmModel BuildEdmModel(params IEdmModel[] refModels)
         {
             AddOperations();
@@ -160,6 +165,7 @@ namespace OdataToEntity.ModelBuilder
 
             return edmModel;
         }
+        
         private Dictionary<Type, EntityTypeInfo> BuildEntityTypes(IEdmModel[] refModels)
         {
             var entityTypeInfos = new Dictionary<Type, EntityTypeInfo>();
