@@ -11,7 +11,7 @@ namespace dbReverse.EntityModel
         {
             ActivityUDFs = new HashSet<ActivityUDF>();
             ProjectCodeForArchiveProjectNumber_Objects = new HashSet<Project>();
-            ProjectCodeForBudgetNumber_Objects = new HashSet<Project>();
+            //ProjectCodeForBudgetNumber_Objects = new HashSet<Project>();
             ProjectCodeForSystemName_Objects = new HashSet<Project>();
             ProjectUDFTypeForPlacement_Objects = new HashSet<Project>();
             ResAssignUDFs = new HashSet<ResAssignUDF>();
@@ -25,7 +25,7 @@ namespace dbReverse.EntityModel
 
         public virtual ICollection<ActivityUDF> ActivityUDFs { get; set; }
         public virtual ICollection<Project> ProjectCodeForArchiveProjectNumber_Objects { get; set; }
-        public virtual ICollection<Project> ProjectCodeForBudgetNumber_Objects { get; set; }
+        //public virtual ICollection<Project> ProjectCodeForBudgetNumber_Objects { get; set; }
         public virtual ICollection<Project> ProjectCodeForSystemName_Objects { get; set; }
         public virtual ICollection<Project> ProjectUDFTypeForPlacement_Objects { get; set; }
         public virtual ICollection<ResAssignUDF> ResAssignUDFs { get; set; }
