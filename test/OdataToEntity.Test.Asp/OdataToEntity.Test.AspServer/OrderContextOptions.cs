@@ -47,12 +47,15 @@ namespace OdataToEntity.Test.Model
             {
                 IsDatabaseNullHighestValue = dataAdapter.IsDatabaseNullHighestValue
             };
+            
             return order2DataAdapter.BuildEdmModelFromEfCoreModel(orderEdmModel);
         }
+        
         public static DbContextOptions<OrderContext> Create(bool useRelationalNulls)
         {
             return Create<OrderContext>(useRelationalNulls);
         }
+        
         public static DbContextOptions<T> Create<T>(bool useRelationalNulls) where T : DbContext
         {
             var optionsBuilder = new DbContextOptionsBuilder<T>();
@@ -60,6 +63,7 @@ namespace OdataToEntity.Test.Model
             optionsBuilder.UseLoggerFactory(ConsoleLoggerFactory);
             return optionsBuilder.Options;
         }
+        
         public static DbContextOptions<T> CreateOptions<T>(DbContext dbContext) where T : DbContext
         {
             var serviceProvider = (IInfrastructure<IServiceProvider>)dbContext;

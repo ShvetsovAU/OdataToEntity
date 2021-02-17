@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AssemblyName>ASE.MD.MDP2.Product.MDP2Service.Infrastructure</AssemblyName>
+    <RootNamespace>ASE.MD.MDP2.Product.MDP2Service.Infrastructure</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ASE.MD.Platform.Utils.ModelsBase" Version="2.4.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MDP2Service.Localization\MDP2Service.Localization.csproj" />
+  </ItemGroup>
+
+</Project>

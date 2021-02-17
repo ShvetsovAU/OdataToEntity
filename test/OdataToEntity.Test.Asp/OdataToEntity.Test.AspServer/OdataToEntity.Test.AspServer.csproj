@@ -43,6 +43,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\source\MDP2Service.Models\MDP2Service.Models.csproj" />
     <ProjectReference Include="..\..\..\source\OdataToEntity.AspNetCore\OdataToEntity.AspNetCore.csproj" />
     <ProjectReference Include="..\..\..\source\OdataToEntity.EfCore\OdataToEntity.EfCore.csproj" />
     <ProjectReference Include="..\..\..\source\OdataToEntity\OdataToEntity.csproj" />
