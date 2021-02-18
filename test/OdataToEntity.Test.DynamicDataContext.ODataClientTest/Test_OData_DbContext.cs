@@ -1,18 +1,19 @@
 ﻿using dbReverse.EntityModel;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using OdataToEntity.Test.DynamicDataContext.ODataClientTest.EntityModel.Enums;
 
 namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
 {
     public class Test_OData_DbContext : DbContext
     {
-        public Test_OData_DbContext()
-        {
-        }
+    
+        //    public Test_OData_DbContext()
+    //    {}
 
         public Test_OData_DbContext(DbContextOptions<Test_OData_DbContext> options)
             : base(options)
-        {
-        }
+        { }
 
         #region DbSet's
         
@@ -1879,6 +1880,9 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasName("PK_dbo.UDFType");
 
                 entity.ToTable("UDFType");
+
+                entity.Property(p => p.DataType)
+                    .HasConversion(new EnumToNumberConverter<UDFDataType, byte>());
 
                 entity.Property(e => e.Title)
                     .IsRequired()

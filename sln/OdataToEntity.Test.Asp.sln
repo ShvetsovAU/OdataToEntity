@@ -23,6 +23,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MDP2Service.Localization", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MDP2Service.Utils", "..\source\MDP2Service.Utils\MDP2Service.Utils.csproj", "{E83D7BB4-1FC3-4540-90AA-B1476F24718D}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OdataToEntity.Test.DynamicDataContext.ODataClientTest", "..\test\OdataToEntity.Test.DynamicDataContext.ODataClientTest\OdataToEntity.Test.DynamicDataContext.ODataClientTest.csproj", "{2DB54F35-275F-4476-8341-706A753CE23A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{E83D7BB4-1FC3-4540-90AA-B1476F24718D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E83D7BB4-1FC3-4540-90AA-B1476F24718D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E83D7BB4-1FC3-4540-90AA-B1476F24718D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DB54F35-275F-4476-8341-706A753CE23A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DB54F35-275F-4476-8341-706A753CE23A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DB54F35-275F-4476-8341-706A753CE23A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DB54F35-275F-4476-8341-706A753CE23A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

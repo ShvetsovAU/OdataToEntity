@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using OdataToEntity.Test.DynamicDataContext.ODataClientTest.EntityModel.Enums;
 
 #nullable disable
 
@@ -18,7 +19,8 @@ namespace dbReverse.EntityModel
         }
 
         public int ObjectId { get; set; }
-        public byte DataType { get; set; }
+        //public byte DataType { get; set; }
+        public UDFDataType DataType { get; set; }
         public bool IsSecureCode { get; set; }
         public byte SubjectArea { get; set; }
         public string Title { get; set; }
