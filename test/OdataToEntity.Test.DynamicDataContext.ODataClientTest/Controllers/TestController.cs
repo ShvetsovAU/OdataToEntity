@@ -36,7 +36,7 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest.Controllers
             var res6 = dataSet.Expand(f => f.CodeForBudgetNumber).Where(i => i.ObjectId == 308398).ToList();
             
             
-            var res4 = ((DataServiceQuery<Project>)dataSet.Expand(f => f.CodeForBudgetNumber).Where(i => i.ObjectId == 308398)).Execute();
+            var res8 = ((DataServiceQuery<Project>)dataSet.Expand(f => f.CodeForBudgetNumber).Where(i => i.ObjectId == 308398)).Execute();
 
             //TODO: working
             var res5 = dataSet.Expand("CodeForBudgetNumber").Where(i => i.ObjectId == 308398).ToList();

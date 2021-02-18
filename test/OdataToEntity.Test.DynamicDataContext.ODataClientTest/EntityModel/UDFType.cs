@@ -25,7 +25,7 @@ namespace dbReverse.EntityModel
 
         public virtual ICollection<ActivityUDF> ActivityUDFs { get; set; }
         public virtual ICollection<Project> ProjectCodeForArchiveProjectNumber_Objects { get; set; }
-        //public virtual ICollection<Project> ProjectCodeForBudgetNumber_Objects { get; set; }
+        public virtual ICollection<Project> ProjectCodeForBudgetNumber_Objects { get; set; }
         public virtual ICollection<Project> ProjectCodeForSystemName_Objects { get; set; }
         public virtual ICollection<Project> ProjectUDFTypeForPlacement_Objects { get; set; }
         public virtual ICollection<ResAssignUDF> ResAssignUDFs { get; set; }
