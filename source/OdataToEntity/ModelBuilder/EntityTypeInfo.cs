@@ -8,6 +8,9 @@ using System.Reflection;
 
 namespace OdataToEntity.ModelBuilder
 {
+    /// <summary>
+    /// Информация о типе сущности
+    /// </summary>
     internal sealed class EntityTypeInfo
     {
         private readonly bool _isDbQuery;

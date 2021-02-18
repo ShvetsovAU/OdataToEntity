@@ -39,14 +39,17 @@ namespace OdataToEntity.EfCore.DynamicDataContext.InformationSchema
         {
             _informationSchema.Dispose();
         }
+        
         public IReadOnlyList<Column> GetColumns(in TableFullName tableFullName)
         {
             return _tableColumns[tableFullName];
         }
+        
         public IReadOnlyList<KeyColumnUsage> GetKeyColumns(String constraintSchema, String constraintName)
         {
             return _keyColumns[(constraintSchema, constraintName)];
         }
+        
         public IReadOnlyList<(String constraintName, bool isPrimary)> GetKeyConstraintNames(in TableFullName tableFullName)
         {
             if (_keyConstraintNames.TryGetValue(tableFullName, out List<(String constraintName, bool isPrimary)>? constraints))
@@ -54,6 +57,7 @@ namespace OdataToEntity.EfCore.DynamicDataContext.InformationSchema
 
             return Array.Empty<(String constraintName, bool isPrimary)>();
         }
+        
         public IReadOnlyList<(String NavigationName, TableFullName ManyToManyTarget)> GetManyToManyProperties(in TableFullName tableFullName)
         {
             if (_manyToManyProperties.TryGetValue(tableFullName, out List<(String NavigationName, TableFullName ManyToManyTarget)>? tableManyToManyProperties))
@@ -61,6 +65,7 @@ namespace OdataToEntity.EfCore.DynamicDataContext.InformationSchema
 
             return Array.Empty<(String NavigationName, TableFullName ManyToManyTarget)>();
         }
+        
         public IReadOnlyList<Navigation> GetNavigations(in TableFullName tableFullName)
         {
             if (_tableNavigations.TryGetValue(tableFullName, out List<Navigation>? navigations))
@@ -68,6 +73,7 @@ namespace OdataToEntity.EfCore.DynamicDataContext.InformationSchema
 
             return Array.Empty<Navigation>();
         }
+        
         public IReadOnlyList<OeOperationConfiguration> GetRoutines(DynamicTypeDefinitionManager typeDefinitionManager, InformationSchemaSettings informationSchemaSettings)
         {
             if (_routines == null)
@@ -178,14 +184,31 @@ namespace OdataToEntity.EfCore.DynamicDataContext.InformationSchema
 
             return _routines;
         }
+
+        /// <summary>
+        /// Получить имя таблицы в схеме EDM
+        /// </summary>
+        /// <param name="tableFullName"></param>
+        /// <returns></returns>
         public String GetTableEdmName(in TableFullName tableFullName)
         {
             return _tableFullNameEdmNames[tableFullName].tableEdmName;
         }
+
+        /// <summary>
+        /// Получить список имен таблиц схемы данных
+        /// </summary>
+        /// <returns></returns>
         public ICollection<TableFullName> GetTableFullNames()
         {
             return _tableFullNameEdmNames.Keys;
         }
+
+        /// <summary>
+        /// Определить является ли сущность типом запроса (не таблица, а view)
+        /// </summary>
+        /// <param name="tableFullName"></param>
+        /// <returns></returns>
         public bool IsQueryType(in TableFullName tableFullName)
         {
             return _tableFullNameEdmNames[tableFullName].isQueryType;

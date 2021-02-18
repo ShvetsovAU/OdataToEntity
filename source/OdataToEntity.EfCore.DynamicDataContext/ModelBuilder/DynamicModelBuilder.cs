@@ -13,6 +13,9 @@ namespace OdataToEntity.EfCore.DynamicDataContext.ModelBuilder
 {
     public class DynamicModelBuilder
     {
+        /// <summary>
+        /// Коллекция связей таблиц БД с динамическими типами
+        /// </summary>
         private readonly Dictionary<TableFullName, EntityType> _entityTypes;
 
         public DynamicModelBuilder(DynamicMetadataProvider metadataProvider, DynamicTypeDefinitionManager typeDefinitionManager)
@@ -23,6 +26,16 @@ namespace OdataToEntity.EfCore.DynamicDataContext.ModelBuilder
             _entityTypes = new Dictionary<TableFullName, EntityType>();
         }
 
+        /// <summary>
+        /// Провайдер описания метаданных
+        /// </summary>
+        public DynamicMetadataProvider MetadataProvider { get; }
+
+        /// <summary>
+        /// Менеджер работы с динамическими типами
+        /// </summary>
+        public DynamicTypeDefinitionManager TypeDefinitionManager { get; }
+
         public void Build(Microsoft.EntityFrameworkCore.ModelBuilder modelBuilder)
         {
             foreach (TableFullName tableFullName in MetadataProvider.GetTableFullNames())
@@ -30,16 +43,35 @@ namespace OdataToEntity.EfCore.DynamicDataContext.ModelBuilder
                 CreateEntityType(modelBuilder, tableFullName);
                 CreateNavigationProperties(modelBuilder, tableFullName);
             }
+#if DEBUG
+            int o = 0;
+#endif
         }
+
+        /// <summary>
+        /// Создание динамического типа для БД и его параметризация
+        /// </summary>
+        /// <param name="modelBuilder"></param>
+        /// <param name="tableFullName"></param>
+        /// <returns></returns>
         private EntityType CreateEntityType(Microsoft.EntityFrameworkCore.ModelBuilder modelBuilder, in TableFullName tableFullName)
         {
             if (!_entityTypes.TryGetValue(tableFullName, out EntityType? entityType))
             {
+#if DEBUG
+                if (tableFullName.Name.Contains("UDFType") || tableFullName.Name.Contains("Project"))
+                {
+                    int o = 0;
+                }
+#endif
+
                 (String[] propertyNames, bool isPrimary)[] keys = MetadataProvider.GetKeys(tableFullName);
                 bool isQueryType = keys.Length == 0 ? true : MetadataProvider.IsQueryType(tableFullName);
 
                 String tableEdmName = MetadataProvider.GetTableEdmName(tableFullName);
                 var dynamicTypeDefinition = TypeDefinitionManager.GetOrAddDynamicTypeDefinition(tableFullName, isQueryType, tableEdmName);
+                
+                //Сопоставление динамического типа таблице БД
                 EntityTypeBuilder entityTypeBuilder = modelBuilder.Entity(dynamicTypeDefinition.DynamicTypeType).ToTable(tableFullName.Name, tableFullName.Schema);
 
                 entityType = (EntityType)entityTypeBuilder.Metadata;
@@ -80,6 +112,12 @@ namespace OdataToEntity.EfCore.DynamicDataContext.ModelBuilder
                 hasDefaultValue.SetValue(propertyGetter, GetDefaultValueFunc(efProperty));
             }
         }
+        
+        /// <summary>
+        /// Создание свойств навигации для динамической сущности
+        /// </summary>
+        /// <param name="modelBuilder"></param>
+        /// <param name="tableFullName"></param>
         private void CreateNavigationProperties(Microsoft.EntityFrameworkCore.ModelBuilder modelBuilder, in TableFullName tableFullName)
         {
             foreach (String propertyName in MetadataProvider.GetNavigationProperties(tableFullName))
@@ -126,6 +164,7 @@ namespace OdataToEntity.EfCore.DynamicDataContext.ModelBuilder
                 }
             }
         }
+        
         private static Delegate GetDefaultValueFunc(IProperty property)
         {
             ParameterExpression parameterExpression = Expression.Parameter(property.DeclaringEntityType.ClrType);
@@ -134,8 +173,5 @@ namespace OdataToEntity.EfCore.DynamicDataContext.ModelBuilder
             expression = expression.MakeHasDefaultValue(property);
             return Expression.Lambda(expression, new[] { parameterExpression }).Compile();
         }
-
-        public DynamicMetadataProvider MetadataProvider { get; }
-        public DynamicTypeDefinitionManager TypeDefinitionManager { get; }
     }
 }

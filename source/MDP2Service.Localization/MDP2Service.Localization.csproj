@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AssemblyName>ASE.MD.MDP2.Product.MDP2Service.Localization</AssemblyName>
+    <RootNamespace>ASE.MD.MDP2.Product.MDP2Service.Localization</RootNamespace>
+  </PropertyGroup>
+
+</Project>

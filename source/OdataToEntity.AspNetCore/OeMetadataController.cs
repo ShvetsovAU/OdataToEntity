@@ -15,11 +15,13 @@ namespace OdataToEntity.AspNetCore
             base.HttpContext.Response.ContentType = "application/xml";
             GetCsdlSchema(base.HttpContext.GetEdmModel(), base.HttpContext.Response.Body);
         }
+        
         protected void GetJsonSchema()
         {
             base.HttpContext.Response.ContentType = "application/schema+json";
             GetJsonSchema(base.HttpContext.GetEdmModel(), base.HttpContext.Response.Body);
         }
+        
         private static bool GetCsdlSchema(IEdmModel edmModel, Stream stream)
         {
             using (var memoryStream = new MemoryStream()) //kestrel allow only async operation
@@ -34,6 +36,7 @@ namespace OdataToEntity.AspNetCore
 
             return false;
         }
+        
         private static void GetJsonSchema(IEdmModel edmModel, Stream stream)
         {
             using (var memoryStream = new MemoryStream()) //kestrel allow only async operation

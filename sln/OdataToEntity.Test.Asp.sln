@@ -15,6 +15,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OdataToEntity.Test.AspMvcSe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OdataToEntity.AspNetCore", "..\source\OdataToEntity.AspNetCore\OdataToEntity.AspNetCore.csproj", "{FDCC9F11-E9F8-48B1-9DD0-25D8930D1C20}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MDP2Service.Models", "..\source\MDP2Service.Models\MDP2Service.Models.csproj", "{760290D6-FFF2-4ACC-B653-42407496ADB6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MDP2Service.Infrastructure", "..\source\MDP2Service.Infrastructure\MDP2Service.Infrastructure.csproj", "{524AD76D-34C2-4E08-B8FF-4D34920B5C5B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MDP2Service.Localization", "..\source\MDP2Service.Localization\MDP2Service.Localization.csproj", "{B2D4A0CC-4917-4CA8-AB80-6BB2C6032576}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MDP2Service.Utils", "..\source\MDP2Service.Utils\MDP2Service.Utils.csproj", "{E83D7BB4-1FC3-4540-90AA-B1476F24718D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +53,22 @@ Global
 		{FDCC9F11-E9F8-48B1-9DD0-25D8930D1C20}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FDCC9F11-E9F8-48B1-9DD0-25D8930D1C20}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FDCC9F11-E9F8-48B1-9DD0-25D8930D1C20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{760290D6-FFF2-4ACC-B653-42407496ADB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{760290D6-FFF2-4ACC-B653-42407496ADB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{760290D6-FFF2-4ACC-B653-42407496ADB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{760290D6-FFF2-4ACC-B653-42407496ADB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{524AD76D-34C2-4E08-B8FF-4D34920B5C5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{524AD76D-34C2-4E08-B8FF-4D34920B5C5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{524AD76D-34C2-4E08-B8FF-4D34920B5C5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{524AD76D-34C2-4E08-B8FF-4D34920B5C5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2D4A0CC-4917-4CA8-AB80-6BB2C6032576}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2D4A0CC-4917-4CA8-AB80-6BB2C6032576}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2D4A0CC-4917-4CA8-AB80-6BB2C6032576}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2D4A0CC-4917-4CA8-AB80-6BB2C6032576}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E83D7BB4-1FC3-4540-90AA-B1476F24718D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E83D7BB4-1FC3-4540-90AA-B1476F24718D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E83D7BB4-1FC3-4540-90AA-B1476F24718D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E83D7BB4-1FC3-4540-90AA-B1476F24718D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

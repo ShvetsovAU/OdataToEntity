@@ -15,12 +15,40 @@ namespace OdataToEntity.EfCore.DynamicDataContext.InformationSchema
             IsCollection = isCollection;
         }
 
+        /// <summary>
+        /// Схема БД в которой работает текущее ограничение
+        /// </summary>
         public String ConstraintSchema { get; }
+        
+        /// <summary>
+        /// Имя связанного ограничения с текущим ограниченим
+        /// </summary>
         public String DependentConstraintName { get; }
+        
+        /// <summary>
+        /// Имя навигационного свойства
+        /// </summary>
         public String NavigationName { get; }
+        
+        /// <summary>
+        /// Является ли коллекцией элеметонов
+        /// </summary>
         public bool IsCollection { get; }
+        
+        /// <summary>
+        /// Имя главного ограничения (Primary key)
+        /// </summary>
         public String PrincipalConstraintName { get; }
 
+        /// <summary>
+        /// Формирование списка полей навигации для таблиц БД
+        /// </summary>
+        /// <param name="referentialConstraints">список ограничей внешнего ключа (foreign keys)</param>
+        /// <param name="keyColumns">список зависящих от ограничений столбцов таблиц</param>
+        /// <param name="tableFullNameEdmNames">список таблиц схемы EDM</param>
+        /// <param name="navigationMappings">список переопределенных значений из файла InformationSchemaMapping.json</param>
+        /// <param name="tableColumns">описание столбцов таблиц БД</param>
+        /// <returns></returns>
         public static Dictionary<TableFullName, List<Navigation>> GetNavigations(
             IReadOnlyList<ReferentialConstraint> referentialConstraints,
             IReadOnlyDictionary<(String constraintSchema, String constraintName), IReadOnlyList<KeyColumnUsage>> keyColumns,
@@ -28,10 +56,21 @@ namespace OdataToEntity.EfCore.DynamicDataContext.InformationSchema
             IReadOnlyDictionary<TableFullName, IReadOnlyList<NavigationMapping>> navigationMappings,
             IReadOnlyDictionary<TableFullName, List<Column>> tableColumns)
         {
+            //Описание ограничений внешних ключей таблиц
             var tableNavigations = new Dictionary<TableFullName, List<Navigation>>();
+            
+            //Описание ограничений внешних ключей таблиц
             var navigationCounter = new Dictionary<(String, String, String), List<IReadOnlyList<KeyColumnUsage>>>();
+            
             foreach (ReferentialConstraint fkey in referentialConstraints)
             {
+#if DEBUG
+                if (fkey.ConstraintName.Contains("Project") || fkey.ConstraintName.Contains("Activity"))
+                {
+                    int u = 0;
+                }
+#endif
+
                 IReadOnlyList<KeyColumnUsage> dependentKeyColumns = keyColumns[(fkey.ConstraintSchema, fkey.ConstraintName)];
 
                 KeyColumnUsage dependentKeyColumn = dependentKeyColumns[0];
@@ -45,14 +84,15 @@ namespace OdataToEntity.EfCore.DynamicDataContext.InformationSchema
                     continue;
 
                 bool selfReferences = false;
-                String? dependentNavigationName = GetNavigationMappingName(navigationMappings, fkey, dependentKeyColumn);
+
+                //Зависимое навигационное свойство
+                String? dependentNavigationName = GetNavigationMappingName(navigationMappings, fkey, dependentKeyColumn); //Получить настройки, сделанные в файле InformationSchemaMapping.json
                 if (dependentNavigationName == null)
                 {
                     selfReferences = dependentKeyColumn.TableSchema == principalKeyColumn.TableSchema && dependentKeyColumn.TableName == principalKeyColumn.TableName;
-                    if (selfReferences)
-                        dependentNavigationName = "Parent";
-                    else
-                        dependentNavigationName = Humanizer.InflectorExtensions.Singularize(d.dependentEdmName);
+                    dependentNavigationName = selfReferences
+                        ? "Parent"
+                        : Humanizer.InflectorExtensions.Singularize(d.dependentEdmName);
 
                     (String, String, String) dependentKey = (fkey.ConstraintSchema, dependentKeyColumn.TableName, principalKeyColumn.TableName);
                     if (navigationCounter.TryGetValue(dependentKey, out List<IReadOnlyList<KeyColumnUsage>>? columnsList))
@@ -72,7 +112,8 @@ namespace OdataToEntity.EfCore.DynamicDataContext.InformationSchema
                     dependentNavigationName = GetUniqueName(dependentColumns, dependentNavigationName, columnsList.Count);
                 }
 
-                String? principalNavigationName = GetNavigationMappingName(navigationMappings, fkey, principalKeyColumn);
+                //Главное навигационное свойство
+                String? principalNavigationName = GetNavigationMappingName(navigationMappings, fkey, principalKeyColumn);//Получить настройки, сделанные в файле InformationSchemaMapping.json
                 if (principalNavigationName == null)
                 {
                     if (dependentKeyColumn.TableSchema == principalKeyColumn.TableSchema && dependentKeyColumn.TableName == principalKeyColumn.TableName)
@@ -121,6 +162,8 @@ namespace OdataToEntity.EfCore.DynamicDataContext.InformationSchema
                     principalNavigations.Add(new Navigation(fkey.ConstraintSchema, fkey.ConstraintName, fkey.UniqueConstraintName, navigationName, isCollection));
                 }
             }
+
+            //Проверка существования описания внешнего ключа в коллекции navigationCounter
             static bool FKeyExist(List<IReadOnlyList<KeyColumnUsage>> keyColumnsList, IReadOnlyList<KeyColumnUsage> keyColumns)
             {
                 for (int i = 0; i < keyColumnsList.Count; i++)
@@ -137,14 +180,18 @@ namespace OdataToEntity.EfCore.DynamicDataContext.InformationSchema
 
                 return false;
             }
+            
             static int GetCountName(IReadOnlyList<Column> columns, String navigationName)
             {
                 int counter = 0;
                 for (int i = 0; i < columns.Count; i++)
                     if (String.Compare(navigationName, columns[i].ColumnName, StringComparison.OrdinalIgnoreCase) == 0)
                         counter++;
+                
                 return counter;
             }
+
+            //Получить настройки, сделанные в файле InformationSchemaMapping.json
             static String? GetNavigationMappingName(IReadOnlyDictionary<TableFullName, IReadOnlyList<NavigationMapping>> navigationMappings,
                 ReferentialConstraint fkey, KeyColumnUsage keyColumn)
             {
@@ -159,6 +206,8 @@ namespace OdataToEntity.EfCore.DynamicDataContext.InformationSchema
 
                 return null;
             }
+            
+            //Получить уникальное имя для ссылки на навигационное имя
             static String GetUniqueName(IReadOnlyList<Column> columns, String navigationName, int counter)
             {
                 int counter2;

@@ -20,10 +20,8 @@ namespace OdataToEntity.EfCore.DynamicDataContext.ModelBuilder
             _schemaCache = SchemaCacheFactory.Create(informationSchema, _informationSchemaSettings);
         }
 
-        public void Dispose()
-        {
-            _schemaCache.Dispose();
-        }
+        public ProviderSpecificSchema InformationSchema { get; }
+
         public DynamicDependentPropertyInfo GetDependentProperties(in TableFullName tableFullName, String navigationPropertyName)
         {
             IReadOnlyList<Navigation> navigations = _schemaCache.GetNavigations(tableFullName);
@@ -43,15 +41,18 @@ namespace OdataToEntity.EfCore.DynamicDataContext.ModelBuilder
 
             throw new InvalidOperationException("Navigation property " + navigationPropertyName + " not found in table " + tableFullName);
         }
+        
         public IReadOnlyList<(String NavigationName, TableFullName ManyToManyTarget)> GetManyToManyProperties(in TableFullName tableFullName)
         {
             return _schemaCache.GetManyToManyProperties(tableFullName);
         }
+        
         public IEnumerable<String> GetNavigationProperties(TableFullName tableFullName)
         {
             foreach (Navigation navigation in _schemaCache.GetNavigations(tableFullName))
                 yield return navigation.NavigationName;
         }
+        
         public (String[] propertyNames, bool isPrimary)[] GetKeys(in TableFullName tableFullName)
         {
             IReadOnlyList<(String constraintName, bool isPrimary)> constraints = _schemaCache.GetKeyConstraintNames(tableFullName);
@@ -64,6 +65,7 @@ namespace OdataToEntity.EfCore.DynamicDataContext.ModelBuilder
                     var key = new String[keyColumns.Count];
                     for (int j = 0; j < key.Length; j++)
                         key[j] = keyColumns[j].ColumnName;
+                    
                     keys[i] = (key, constraints[i].isPrimary);
                 }
 
@@ -72,10 +74,12 @@ namespace OdataToEntity.EfCore.DynamicDataContext.ModelBuilder
 
             return Array.Empty<(String[] propertyNames, bool isPrimary)>();
         }
+        
         public IReadOnlyList<OeOperationConfiguration> GetRoutines(DynamicTypeDefinitionManager typeDefinitionManager)
         {
             return _schemaCache.GetRoutines(typeDefinitionManager, _informationSchemaSettings);
         }
+        
         public IEnumerable<DynamicPropertyInfo> GetStructuralProperties(TableFullName tableFullName)
         {
             foreach (Column column in _schemaCache.GetColumns(tableFullName))
@@ -96,19 +100,39 @@ namespace OdataToEntity.EfCore.DynamicDataContext.ModelBuilder
                 yield return new DynamicPropertyInfo(column.ColumnName, propertyType, isNullabe, databaseGenerated);
             }
         }
+        
+        /// <summary>
+        /// Получить имя таблицы в схеме EDM
+        /// </summary>
+        /// <param name="tableFullName"></param>
+        /// <returns></returns>
         public String GetTableEdmName(in TableFullName tableFullName)
         {
             return _schemaCache.GetTableEdmName(tableFullName);
         }
+        
+        /// <summary>
+        /// Получить список имен таблиц схемы данных
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<TableFullName> GetTableFullNames()
         {
             return _schemaCache.GetTableFullNames();
         }
+        
+        /// <summary>
+        /// Определить является ли сущность типом запроса (не таблица, а view)
+        /// </summary>
+        /// <param name="tableFullName"></param>
+        /// <returns></returns>
         public bool IsQueryType(in TableFullName tableFullName)
         {
             return _schemaCache.IsQueryType(tableFullName);
         }
 
-        public ProviderSpecificSchema InformationSchema { get; }
+        public void Dispose()
+        {
+            _schemaCache.Dispose();
+        }
     }
 }

@@ -6,19 +6,23 @@
       "Navigations": [
         {
           "ConstraintName": "FK_dbo.Projects_dbo.UDFType_CodeForArchiveProjectNumber_ObjectId",
-          "NavigationName": "CodeForArchiveProjectNumber"
+          
+          "TargetTableName": "dbo.UDFType"
         },
         {
           "ConstraintName": "FK_dbo.Projects_dbo.UDFType_UDFTypeForPlacement_ObjectId",
-          "NavigationName": "UDFTypeForPlacement"
+          
+          "TargetTableName": "dbo.UDFType"
         },
         {
           "ConstraintName": "FK_dbo.Projects_dbo.UDFType_CodeForBudgetNumber_ObjectId",
-          "NavigationName": "CodeForBudgetNumber"
+          
+          "TargetTableName": "dbo.UDFType"
         },
         {
           "ConstraintName": "FK_dbo.Projects_dbo.UDFType_CodeForSystemName_ObjectId",
-          "NavigationName": "CodeForSystemName"
+          
+          "TargetTableName": "dbo.UDFType"
         },
 
         {
