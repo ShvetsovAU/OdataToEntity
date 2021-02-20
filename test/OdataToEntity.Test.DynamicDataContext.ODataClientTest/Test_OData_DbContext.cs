@@ -239,9 +239,9 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasMaxLength(60);
 
                 entity.Property(e => e.Description).HasMaxLength(120);
-
-                entity.HasOne(d => d.ParentObject)
-                    .WithMany(p => p.InverseParentObject)
+                
+                entity.HasOne(d => d.Parent)
+                    .WithMany(p => p.Children)
                     .HasForeignKey(d => d.ParentObjectId)
                     .HasConstraintName("FK_dbo.ActivityCode_dbo.ActivityCode_ParentObjectId");
             });
@@ -1209,7 +1209,8 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasName("PK_dbo.PerformerActivityCodes");
 
                 entity.HasOne(d => d.PerformerCode_Object)
-                    .WithMany(p => p.PerformerActivityCodes)
+                    //.WithMany(p => p.PerformerActivityCodes)
+                    .WithMany()
                     .HasForeignKey(d => d.PerformerCode_ObjectId)
                     .HasConstraintName("FK_dbo.PerformerActivityCodes_dbo.ActivityCode_PerformerCode_ObjectId");
 
@@ -1981,27 +1982,20 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasName("PK_dbo.WorkTasks");
 
                 entity.HasIndex(e => e.Curator_ObjectId, "IX_Curator_ObjectId");
-
                 entity.HasIndex(e => e.Performer_ObjectId, "IX_Performer_ObjectId");
-
                 entity.HasIndex(e => e.ProjectId, "IX_ProjectId");
 
                 entity.Property(e => e.ActualDataToPrimaveraAPIDateTime).HasColumnType("datetime");
-
                 entity.Property(e => e.DateOfIssue).HasColumnType("datetime");
-
                 entity.Property(e => e.LastStatusChangedTime).HasColumnType("datetime");
-
                 entity.Property(e => e.Name).IsRequired();
-
                 entity.Property(e => e.Number).IsRequired();
-
                 entity.Property(e => e.PlannedDateEnd).HasColumnType("datetime");
-
                 entity.Property(e => e.PlannedDateStart).HasColumnType("datetime");
 
                 entity.HasOne(d => d.ConstructionObject)
-                    .WithMany(p => p.WorkTaskConstructionObjects)
+                    //.WithMany(p => p.WorkTaskConstructionObjects)
+                    .WithMany()
                     .HasForeignKey(d => d.ConstructionObjectId)
                     .HasConstraintName("FK_dbo.WorkTasks_dbo.ActivityCode_ConstructionObjectId");
 
@@ -2022,12 +2016,14 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasConstraintName("FK_dbo.WorkTasks_dbo.Projects_ProjectId");
 
                 entity.HasOne(d => d.ProjectPart)
-                    .WithMany(p => p.WorkTaskProjectParts)
+                    //.WithMany(p => p.WorkTaskProjectParts)
+                    .WithMany()
                     .HasForeignKey(d => d.ProjectPartId)
                     .HasConstraintName("FK_dbo.WorkTasks_dbo.ActivityCode_ProjectPartId");
 
                 entity.HasOne(d => d.SystemName)
-                    .WithMany(p => p.WorkTaskSystemNames)
+                    //.WithMany(p => p.WorkTaskSystemNames)
+                    .WithMany()
                     .HasForeignKey(d => d.SystemNameId)
                     .HasConstraintName("FK_dbo.WorkTasks_dbo.ActivityCode_SystemNameId");
             });
