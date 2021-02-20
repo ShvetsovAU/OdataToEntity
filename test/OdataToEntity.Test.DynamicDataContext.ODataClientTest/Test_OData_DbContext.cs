@@ -1166,7 +1166,7 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
 
                 entity.HasIndex(e => e.RuleId, "IX_RuleId");
 
-                entity.HasOne(d => d.Rule)
+                entity.HasOne(d => d.RuleCreateActivityId)
                     .WithMany(p => p.PartActivityIds)
                     .HasForeignKey(d => d.RuleId)
                     .HasConstraintName("FK_dbo.PartActivityIds_dbo.RuleCreateActivityIds_RuleId");
