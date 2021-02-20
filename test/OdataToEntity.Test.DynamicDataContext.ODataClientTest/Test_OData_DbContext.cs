@@ -388,7 +388,8 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasConstraintName("FK_dbo.ActivityTypes_dbo.ActivityTemplates_ActivityTemplateObjectId");
 
                 entity.HasOne(d => d.Calendar)
-                    .WithMany(p => p.ActivityTypes)
+                    //.WithMany(p => p.ActivityTypes)
+                    .WithMany()
                     .HasForeignKey(d => d.CalendarObjectId)
                     .HasConstraintName("FK_dbo.ActivityTypes_dbo.Calendar_CalendarObjectId");
 
@@ -564,14 +565,13 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                 entity.HasIndex(e => e.ProjectObjectId, "IX_ProjectObjectId");
 
                 entity.Property(e => e.HolidayOrExceptions).HasColumnType("xml");
-
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(60);
 
                 entity.Property(e => e.StandardWorkWeek).HasColumnType("xml");
 
-                entity.HasOne(d => d.ProjectObject)
+                entity.HasOne(d => d.Project)
                     .WithMany(p => p.Calendars)
                     .HasForeignKey(d => d.ProjectObjectId)
                     .HasConstraintName("FK_dbo.Calendar_dbo.Projects_ProjectObjectId");
@@ -614,24 +614,22 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                 entity.ToTable("CodeResource");
 
                 entity.HasIndex(e => e.ResourceObjectId, "IX_ResourceObjectId");
-
                 entity.HasIndex(e => e.TypeObjectId, "IX_TypeObjectId");
-
                 entity.HasIndex(e => e.ValueObjectId, "IX_ValueObjectId");
 
                 entity.Property(e => e.ValueName).HasMaxLength(100);
 
-                entity.HasOne(d => d.ResourceObject)
+                entity.HasOne(d => d.Resource)
                     .WithMany(p => p.CodeResources)
                     .HasForeignKey(d => d.ResourceObjectId)
                     .HasConstraintName("FK_dbo.CodeResource_dbo.Resource_ResourceObjectId");
 
-                entity.HasOne(d => d.TypeObject)
+                entity.HasOne(d => d.ResourceCodeType)
                     .WithMany(p => p.CodeResources)
                     .HasForeignKey(d => d.TypeObjectId)
                     .HasConstraintName("FK_dbo.CodeResource_dbo.ResourceCodeType_TypeObjectId");
 
-                entity.HasOne(d => d.ValueObject)
+                entity.HasOne(d => d.ResourceCode)
                     .WithMany(p => p.CodeResources)
                     .HasForeignKey(d => d.ValueObjectId)
                     .HasConstraintName("FK_dbo.CodeResource_dbo.ResourceCode_ValueObjectId");
@@ -1476,22 +1474,22 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
 
                 entity.Property(e => e.Title).HasMaxLength(40);
 
-                entity.HasOne(d => d.CalendarObject)
+                entity.HasOne(d => d.Calendar)
                     .WithMany(p => p.Resources)
                     .HasForeignKey(d => d.CalendarObjectId)
                     .HasConstraintName("FK_dbo.Resource_dbo.Calendar_CalendarObjectId");
 
-                entity.HasOne(d => d.CurrencyObject)
+                entity.HasOne(d => d.Currency)
                     .WithMany(p => p.Resources)
                     .HasForeignKey(d => d.CurrencyObjectId)
                     .HasConstraintName("FK_dbo.Resource_dbo.Currency_CurrencyObjectId");
 
-                entity.HasOne(d => d.Parent_Object)
-                    .WithMany(p => p.InverseParent_Object)
+                entity.HasOne(d => d.Parent)
+                    .WithMany(p => p.Children)
                     .HasForeignKey(d => d.Parent_ObjectId)
                     .HasConstraintName("FK_dbo.Resource_dbo.Resource_Parent_ObjectId");
 
-                entity.HasOne(d => d.UnitOfMeasureObject)
+                entity.HasOne(d => d.UnitOfMeasure)
                     .WithMany(p => p.Resources)
                     .HasForeignKey(d => d.UnitOfMeasureObjectId)
                     .HasConstraintName("FK_dbo.Resource_dbo.UnitOfMeasure_UnitOfMeasureObjectId");
@@ -1600,20 +1598,14 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                 entity.HasIndex(e => e.ResourceObjectId, "IX_ResourceObjectId");
 
                 entity.Property(e => e.EffectiveDate).HasColumnType("datetime");
-
                 entity.Property(e => e.MaxUnitsPerTime).HasColumnType("decimal(16, 8)");
-
                 entity.Property(e => e.PricePerUnit).HasColumnType("decimal(21, 8)");
-
                 entity.Property(e => e.PricePerUnit2).HasColumnType("decimal(21, 8)");
-
                 entity.Property(e => e.PricePerUnit3).HasColumnType("decimal(21, 8)");
-
                 entity.Property(e => e.PricePerUnit4).HasColumnType("decimal(21, 8)");
-
                 entity.Property(e => e.PricePerUnit5).HasColumnType("decimal(21, 8)");
 
-                entity.HasOne(d => d.ResourceObject)
+                entity.HasOne(d => d.Resource)
                     .WithMany(p => p.ResourceRates)
                     .HasForeignKey(d => d.ResourceObjectId)
                     .HasConstraintName("FK_dbo.ResourceRate_dbo.Resource_ResourceObjectId");
