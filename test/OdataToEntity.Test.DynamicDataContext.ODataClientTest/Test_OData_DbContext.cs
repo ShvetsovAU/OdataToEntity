@@ -1834,12 +1834,12 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
 
                 entity.HasIndex(e => e.UserGroup_ObjectId, "IX_UserGroup_ObjectId");
 
-                entity.HasOne(d => d.EPS_Object)
+                entity.HasOne(d => d.EPS)
                     .WithMany(p => p.UserGroupEPs)
                     .HasForeignKey(d => d.EPS_ObjectId)
                     .HasConstraintName("FK_dbo.UserGroupEPS_dbo.EPS_EPS_ObjectId");
 
-                entity.HasOne(d => d.UserGroup_Object)
+                entity.HasOne(d => d.UserGroup)
                     .WithMany(p => p.UserGroupEPs)
                     .HasForeignKey(d => d.UserGroup_ObjectId)
                     .HasConstraintName("FK_dbo.UserGroupEPS_dbo.UserGroups_UserGroup_ObjectId");
@@ -1854,12 +1854,12 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
 
                 entity.HasIndex(e => e.User_ObjectId, "IX_User_ObjectId");
 
-                entity.HasOne(d => d.UserGroup_Object)
+                entity.HasOne(d => d.UserGroup)
                     .WithMany(p => p.UserGroupUsers)
                     .HasForeignKey(d => d.UserGroup_ObjectId)
                     .HasConstraintName("FK_dbo.UserGroupUsers_dbo.UserGroups_UserGroup_ObjectId");
 
-                entity.HasOne(d => d.User_Object)
+                entity.HasOne(d => d.User)
                     .WithMany(p => p.UserGroupUsers)
                     .HasForeignKey(d => d.User_ObjectId)
                     .HasConstraintName("FK_dbo.UserGroupUsers_dbo.Users_User_ObjectId");
