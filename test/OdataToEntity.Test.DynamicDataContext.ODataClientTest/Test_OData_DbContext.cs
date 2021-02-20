@@ -642,7 +642,7 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
 
                 entity.HasIndex(e => e.PaintingQuerryObjectId, "IX_PaintingQuerryObjectId");
 
-                entity.HasOne(d => d.PaintingQuerryObject)
+                entity.HasOne(d => d.PaintingQuerry)
                     .WithMany(p => p.CommonConditions)
                     .HasForeignKey(d => d.PaintingQuerryObjectId)
                     .OnDelete(DeleteBehavior.Cascade)
