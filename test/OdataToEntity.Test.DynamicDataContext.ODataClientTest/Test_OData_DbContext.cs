@@ -772,7 +772,7 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
 
                 entity.HasIndex(e => e.Report3dObjectId, "IX_Report3dObjectId");
 
-                entity.HasOne(d => d.Report3dObject)
+                entity.HasOne(d => d.Report3D)
                     .WithMany(p => p.Element3Ds)
                     .HasForeignKey(d => d.Report3dObjectId)
                     .OnDelete(DeleteBehavior.Cascade)
