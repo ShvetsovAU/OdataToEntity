@@ -200,7 +200,8 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                 entity.Property(e => e.UnitsPercentComplete).HasColumnType("decimal(7, 4)");
 
                 entity.HasOne(d => d.ActivityType)
-                    .WithMany(p => p.Activities)
+                    //.WithMany(p => p.Activities)
+                    .WithMany()
                     .HasForeignKey(d => d.ActivityTypeObjectId)
                     .OnDelete(DeleteBehavior.SetNull)
                     .HasConstraintName("FK_dbo.Activity_dbo.ActivityTypes_ActivityTypeObjectId");
@@ -220,7 +221,7 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                 entity.Property(e => e.PlannedUnitsPerTime).HasColumnType("decimal(16, 8)");
 
                 entity.HasOne(d => d.ActivityType)
-                    .WithMany(p => p.ActivityAttributeTemplates)
+                    .WithMany(p => p.Attributes)
                     .HasForeignKey(d => d.ActivityTypeId)
                     .HasConstraintName("FK_dbo.ActivityAttributeTemplates_dbo.ActivityTypes_ActivityTypeId");
             });
@@ -375,25 +376,23 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasName("PK_dbo.ActivityTypes");
 
                 entity.HasIndex(e => e.CalendarObjectId, "IX_CalendarObjectId");
-
                 entity.HasIndex(e => e.RuleId, "IX_RuleId");
 
                 entity.Property(e => e.Name).IsRequired();
-
                 entity.Property(e => e.PercentCompleteType).HasDefaultValueSql("((2))");
 
-                entity.HasOne(d => d.ActivityTemplateObject)
+                entity.HasOne(d => d.ActivityTemplate)
                     .WithMany(p => p.ActivityTypes)
                     .HasForeignKey(d => d.ActivityTemplateObjectId)
                     .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_dbo.ActivityTypes_dbo.ActivityTemplates_ActivityTemplateObjectId");
 
-                entity.HasOne(d => d.CalendarObject)
+                entity.HasOne(d => d.Calendar)
                     .WithMany(p => p.ActivityTypes)
                     .HasForeignKey(d => d.CalendarObjectId)
                     .HasConstraintName("FK_dbo.ActivityTypes_dbo.Calendar_CalendarObjectId");
 
-                entity.HasOne(d => d.Rule)
+                entity.HasOne(d => d.RuleCreateActivityId)
                     .WithMany(p => p.ActivityTypes)
                     .HasForeignKey(d => d.RuleId)
                     .HasConstraintName("FK_dbo.ActivityTypes_dbo.RuleCreateActivityIds_RuleId");
