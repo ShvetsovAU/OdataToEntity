@@ -1040,7 +1040,7 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasConstraintName("FK_dbo.P3DBIsometricDrawingAttributeRelations_dbo.Documents_IsometricDrawingObjectId");
 
                 entity.HasOne(d => d.ModelAttributeRelation)
-                    .WithMany(p => p.P3DBIsometricDrawingAttributeRelations)
+                    .WithMany(p => p.IsometricDrawingAttributeRelations)
                     .HasForeignKey(d => d.ModelAttributeRelationObjectId)
                     .HasConstraintName("FK_dbo.P3DBIsometricDrawingAttributeRelations_dbo.P3DBModelAttributeRelations_ModelAttributeRelationObjectId");
             });
@@ -1091,7 +1091,7 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
 
                 entity.Property(e => e.AttributeName).IsRequired();
 
-                entity.HasOne(d => d.ModelObject)
+                entity.HasOne(d => d.Model)
                     //.WithMany(p => p.P3DBModelAttributeRelations)
                     .WithMany()
                     .HasForeignKey(d => d.ModelObjectId)
