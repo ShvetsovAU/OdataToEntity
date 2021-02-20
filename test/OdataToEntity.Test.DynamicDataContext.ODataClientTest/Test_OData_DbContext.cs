@@ -396,7 +396,7 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasConstraintName("FK_dbo.ActivityTypes_dbo.Calendar_CalendarObjectId");
 
                 entity.HasOne(d => d.RuleCreateActivityId)
-                    .WithMany(p => p.ActivityTypes)
+                    .WithMany(p => p.ActivityAttributes)
                     .HasForeignKey(d => d.RuleId)
                     .HasConstraintName("FK_dbo.ActivityTypes_dbo.RuleCreateActivityIds_RuleId");
             });
@@ -1169,7 +1169,7 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                 entity.HasIndex(e => e.RuleId, "IX_RuleId");
 
                 entity.HasOne(d => d.RuleCreateActivityId)
-                    .WithMany(p => p.PartActivityIds)
+                    .WithMany(p => p.PartsActivityId)
                     .HasForeignKey(d => d.RuleId)
                     .HasConstraintName("FK_dbo.PartActivityIds_dbo.RuleCreateActivityIds_RuleId");
             });
