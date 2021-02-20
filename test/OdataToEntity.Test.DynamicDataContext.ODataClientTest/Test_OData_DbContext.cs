@@ -360,7 +360,8 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasConstraintName("FK_dbo.ActivityPeriodFacts_dbo.Activity_ActivityId");
 
                 entity.HasOne(d => d.Period)
-                    .WithMany(p => p.ActivityPeriodFacts)
+                    //.WithMany(p => p.ActivityPeriodFacts)
+                    .WithMany()
                     .HasForeignKey(d => d.PeriodId)
                     .HasConstraintName("FK_dbo.ActivityPeriodFacts_dbo.Periods_PeriodId");
             });
