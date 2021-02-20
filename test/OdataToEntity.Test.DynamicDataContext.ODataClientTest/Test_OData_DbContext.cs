@@ -1192,7 +1192,7 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasConstraintName("FK_dbo.PerformerActivityCodes_dbo.ActivityCode_PerformerCode_ObjectId");
 
                 entity.HasOne(d => d.Performer)
-                    .WithMany(p => p.PerformerActivityCodes)
+                    .WithMany(p => p.PerformerCodes)
                     .HasForeignKey(d => d.Performer_ObjectId)
                     .HasConstraintName("FK_dbo.PerformerActivityCodes_dbo.Performers_Performer_ObjectId");
 
@@ -1212,7 +1212,7 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                 entity.Property(e => e.Name).IsRequired();
 
                 entity.HasOne(d => d.Performer)
-                    .WithMany(p => p.PerformerTeams)
+                    .WithMany(p => p.Teams)
                     .HasForeignKey(d => d.PerformerId)
                     .HasConstraintName("FK_dbo.PerformerTeams_dbo.Performers_PerformerId");
             });
@@ -1789,7 +1789,7 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasConstraintName("FK_dbo.Users_dbo.Curators_CuratorObjectId");
 
                 entity.HasOne(d => d.Performer)
-                    .WithMany(p => p.Users)
+                    .WithMany(p => p.PerformerUsers)
                     .HasForeignKey(d => d.Performer_ObjectId)
                     .HasConstraintName("FK_dbo.Users_dbo.Performers_Performer_ObjectId");
 
@@ -1968,7 +1968,7 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasConstraintName("FK_dbo.WorkTasks_dbo.Curators_Curator_ObjectId");
 
                 entity.HasOne(d => d.Performer)
-                    .WithMany(p => p.WorkTasks)
+                    .WithMany(p => p.PerformerWorkTasks)
                     .HasForeignKey(d => d.Performer_ObjectId)
                     .HasConstraintName("FK_dbo.WorkTasks_dbo.Performers_Performer_ObjectId");
 
@@ -2072,7 +2072,8 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                 entity.Property(e => e.Title).IsRequired();
 
                 entity.HasOne(d => d.Performer_Object)
-                    .WithMany(p => p.Workers)
+                    //.WithMany(p => p.Workers)
+                    .WithMany()
                     .HasForeignKey(d => d.Performer_ObjectId)
                     .HasConstraintName("FK_dbo.Workers_dbo.Performers_Performer_ObjectId");
             });
