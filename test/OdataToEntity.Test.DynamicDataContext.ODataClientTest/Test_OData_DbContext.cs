@@ -1300,17 +1300,17 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasConstraintName("FK_dbo.Projects_dbo.UDFType_CodeForSystemName_ObjectId");
 
                 entity.HasOne(d => d.CodeTypeForConstructionObject)
-                    .WithMany(p => p.ProjectCodeTypeForConstructionObject_Objects)
+                    .WithMany(p => p.ProjectsCodeTypeForConstructionObject)
                     .HasForeignKey(d => d.CodeTypeForConstructionObject_ObjectId)
                     .HasConstraintName("FK_dbo.Projects_dbo.ActivityCodeType_CodeTypeForConstructionObject_ObjectId");
 
                 entity.HasOne(d => d.CodeTypeForPerformer)
-                    .WithMany(p => p.ProjectCodeTypeForPerformer_Objects)
+                    .WithMany(p => p.ProjectsWithCodeTypeForPerformer)
                     .HasForeignKey(d => d.CodeTypeForPerformer_ObjectId)
                     .HasConstraintName("FK_dbo.Projects_dbo.ActivityCodeType_CodeTypeForPerformer_ObjectId");
 
                 entity.HasOne(d => d.CodeTypeForProjectPart)
-                    .WithMany(p => p.ProjectCodeTypeForProjectPart_Objects)
+                    .WithMany(p => p.ProjectsCodeTypeForProjectPart)
                     .HasForeignKey(d => d.CodeTypeForProjectPart_ObjectId)
                     .HasConstraintName("FK_dbo.Projects_dbo.ActivityCodeType_CodeTypeForProjectPart_ObjectId");
 
