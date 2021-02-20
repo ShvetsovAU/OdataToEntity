@@ -940,7 +940,6 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                 entity.HasIndex(e => e.ActivityObjectId, "IX_ActivityObjectId");
 
                 entity.Property(e => e.RecordGuid).ValueGeneratedNever();
-
                 entity.Property(e => e.ImportDate).HasColumnType("datetime");
 
                 entity.HasOne(d => d.Activity)
@@ -963,7 +962,7 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasForeignKey(d => d.OgAttributeId)
                     .HasConstraintName("FK_dbo.OgToActivityMappings_dbo.OgUdfTypes_OgAttributeId");
 
-                entity.HasOne(d => d.ProjectObject)
+                entity.HasOne(d => d.Project)
                     .WithMany(p => p.OgToActivityMappings)
                     .HasForeignKey(d => d.ProjectObjectId)
                     .HasConstraintName("FK_dbo.OgToActivityMappings_dbo.Projects_ProjectObjectId");

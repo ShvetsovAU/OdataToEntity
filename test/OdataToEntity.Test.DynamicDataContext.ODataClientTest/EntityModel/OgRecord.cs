@@ -7,6 +7,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace dbReverse.EntityModel
 {
+    #region scaffold model
+
     //public partial class OgRecord
     //{
     //    public OgRecord()
@@ -25,6 +27,8 @@ namespace dbReverse.EntityModel
     //    public virtual Activity ActivityObject { get; set; }
     //    public virtual ICollection<OgUDFValue> OgUDFValues { get; set; }
     //}
+
+    #endregion scaffold model
 
     /// <summary>
     /// Запись из ОГ
