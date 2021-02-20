@@ -978,7 +978,7 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
 
                 entity.Property(e => e.DateValue).HasColumnType("datetime");
 
-                entity.HasOne(d => d.GU)
+                entity.HasOne(d => d.OgRecord)
                     .WithMany(p => p.OgUdfValues)
                     .HasForeignKey(d => d.GUID)
                     .HasConstraintName("FK_dbo.OgUDFValues_dbo.OgRecords_GUID");
