@@ -517,7 +517,7 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                 entity.HasIndex(e => e.AssemblyUnitsImportRultId, "IX_AssemblyUnitsImportRultId");
 
                 entity.HasOne(d => d.AssemblyUnitsImportRule)
-                    .WithMany(p => p.AssemblyUnitConditions)
+                    .WithMany(p => p.Conditions)
                     .HasForeignKey(d => d.AssemblyUnitsImportRultId)
                     .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_dbo.AssemblyUnitConditions_dbo.AssemblyUnitsImportRules_AssemblyUnitsImportRultId");
