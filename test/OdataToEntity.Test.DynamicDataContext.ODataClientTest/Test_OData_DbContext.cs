@@ -1808,7 +1808,7 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .IsRequired()
                     .HasMaxLength(255);
 
-                entity.HasOne(d => d.UserObject)
+                entity.HasOne(d => d.User)
                     //.WithMany(p => p.UserAudits)
                     .WithMany()
                     .HasForeignKey(d => d.UserObjectId)
