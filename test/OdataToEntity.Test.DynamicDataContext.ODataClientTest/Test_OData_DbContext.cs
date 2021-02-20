@@ -295,7 +295,6 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasName("PK_dbo.ActivityPerformerTeamRefs");
 
                 entity.HasIndex(e => e.ActivityId, "IX_ActivityId");
-
                 entity.HasIndex(e => e.PerformerTeamId, "IX_PerformerTeamId");
 
                 entity.HasOne(d => d.Activity)
