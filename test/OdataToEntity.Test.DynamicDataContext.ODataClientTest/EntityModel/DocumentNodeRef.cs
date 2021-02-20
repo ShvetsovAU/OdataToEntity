@@ -1,16 +1,41 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 #nullable disable
 
 namespace dbReverse.EntityModel
 {
+    #region scaffold model
+
+    //public partial class DocumentNodeRef
+    //{
+    //    public Guid ObjectId { get; set; }
+    //    public Guid DocumentId { get; set; }
+    //    public string NodeUID { get; set; }
+
+    //    public virtual Document Document { get; set; }
+    //}
+
+    #endregion scaffold model
+
     public partial class DocumentNodeRef
     {
-        public Guid ObjectId { get; set; }
-        public Guid DocumentId { get; set; }
-        public string NodeUID { get; set; }
+        public DocumentNodeRef() { }
 
+        public DocumentNodeRef(Guid documentId, string nodeUid)
+        {
+            ObjectId = Guid.NewGuid();
+            DocumentId = documentId;
+            NodeUID = nodeUid;
+        }
+
+        [Key]
+        public Guid ObjectId { get; set; }
+
+        public Guid DocumentId { get; set; }
+        [Required]
         public virtual Document Document { get; set; }
+
+        public string NodeUID { get; set; }
     }
 }
