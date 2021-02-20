@@ -42,7 +42,7 @@ namespace dbReverse.EntityModel
         public virtual ActivityCodeType CodeTypeForConstructionObject { get; set; }
         public virtual ActivityCodeType CodeTypeForPerformer { get; set; }
         public virtual ActivityCodeType CodeTypeForProjectPart { get; set; }
-        public virtual EP EPS_Object { get; set; }
+        public virtual EPS EPS_Object { get; set; }
         public virtual User LastUpdateUser_Object { get; set; }
         public virtual UDFType UDFTypeForPlacement_Object { get; set; }
         public virtual ICollection<Calendar> Calendars { get; set; }

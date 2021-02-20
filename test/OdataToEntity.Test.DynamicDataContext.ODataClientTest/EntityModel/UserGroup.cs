@@ -9,7 +9,7 @@ namespace dbReverse.EntityModel
     {
         public UserGroup()
         {
-            UserGroupEPs = new HashSet<UserGroupEP>();
+            UserGroupEPs = new HashSet<UserGroupEPS>();
             UserGroupUsers = new HashSet<UserGroupUser>();
         }
 
@@ -17,7 +17,7 @@ namespace dbReverse.EntityModel
         public string Name { get; set; }
         public bool FullAccess { get; set; }
 
-        public virtual ICollection<UserGroupEP> UserGroupEPs { get; set; }
+        public virtual ICollection<UserGroupEPS> UserGroupEPs { get; set; }
         public virtual ICollection<UserGroupUser> UserGroupUsers { get; set; }
     }
 }

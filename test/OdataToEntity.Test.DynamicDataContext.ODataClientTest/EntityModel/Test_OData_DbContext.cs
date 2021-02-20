@@ -46,7 +46,7 @@ namespace dbReverse.EntityModel
 //        public virtual DbSet<Document> Documents { get; set; }
 //        public virtual DbSet<DocumentNodeRef> DocumentNodeRefs { get; set; }
 //        public virtual DbSet<DocumentWorkTask> DocumentWorkTasks { get; set; }
-//        public virtual DbSet<EP> EPs { get; set; }
+//        public virtual DbSet<EPS> EPs { get; set; }
 //        public virtual DbSet<Element3D> Element3Ds { get; set; }
 //        public virtual DbSet<FilterAnnotaion> FilterAnnotaions { get; set; }
 //        public virtual DbSet<Indicator> Indicators { get; set; }
@@ -97,7 +97,7 @@ namespace dbReverse.EntityModel
 //        public virtual DbSet<User> Users { get; set; }
 //        public virtual DbSet<UserAudit> UserAudits { get; set; }
 //        public virtual DbSet<UserGroup> UserGroups { get; set; }
-//        public virtual DbSet<UserGroupEP> UserGroupEPs { get; set; }
+//        public virtual DbSet<UserGroupEPS> UserGroupEPs { get; set; }
 //        public virtual DbSet<UserGroupUser> UserGroupUsers { get; set; }
 //        public virtual DbSet<UserStateSettings> UserStateSettings { get; set; }
 //        public virtual DbSet<View_2> View_2s { get; set; }
@@ -820,7 +820,7 @@ namespace dbReverse.EntityModel
 //                    .HasConstraintName("FK_dbo.DocumentWorkTasks_dbo.WorkTasks_WorkTask_ObjectId");
 //            });
 
-//            modelBuilder.Entity<EP>(entity =>
+//            modelBuilder.Entity<EPS>(entity =>
 //            {
 //                entity.HasKey(e => e.ObjectId)
 //                    .HasName("PK_dbo.EPS");
@@ -1863,7 +1863,7 @@ namespace dbReverse.EntityModel
 //                entity.Property(e => e.Name).IsRequired();
 //            });
 
-//            modelBuilder.Entity<UserGroupEP>(entity =>
+//            modelBuilder.Entity<UserGroupEPS>(entity =>
 //            {
 //                entity.HasKey(e => new { e.UserGroup_ObjectId, e.EPS_ObjectId })
 //                    .HasName("PK_dbo.UserGroupEPS");

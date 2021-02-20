@@ -10,7 +10,7 @@ namespace dbReverse.EntityModel
         public P3DBModel()
         {
             AssemblyUnits = new HashSet<AssemblyUnit>();
-            EPs = new HashSet<EP>();
+            EPs = new HashSet<EPS>();
             P3DBActivitiesRelations = new HashSet<P3DBActivitiesRelation>();
             P3DBModelAttributeRelations = new HashSet<P3DBModelAttributeRelation>();
             P3DBModelElements = new HashSet<P3DBModelElement>();
@@ -40,7 +40,7 @@ namespace dbReverse.EntityModel
         public virtual User RelationsLastUpdateUser_Object { get; set; }
         public virtual User User_Object { get; set; }
         public virtual ICollection<AssemblyUnit> AssemblyUnits { get; set; }
-        public virtual ICollection<EP> EPs { get; set; }
+        public virtual ICollection<EPS> EPs { get; set; }
         public virtual ICollection<P3DBActivitiesRelation> P3DBActivitiesRelations { get; set; }
         public virtual ICollection<P3DBModelAttributeRelation> P3DBModelAttributeRelations { get; set; }
         public virtual ICollection<P3DBModelElement> P3DBModelElements { get; set; }

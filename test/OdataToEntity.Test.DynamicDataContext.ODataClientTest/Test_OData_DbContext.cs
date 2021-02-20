@@ -46,7 +46,7 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
         public virtual DbSet<Document> Documents { get; set; }
         public virtual DbSet<DocumentNodeRef> DocumentNodeRefs { get; set; }
         public virtual DbSet<DocumentWorkTask> DocumentWorkTasks { get; set; }
-        public virtual DbSet<EP> EPs { get; set; }
+        public virtual DbSet<EPS> EPs { get; set; }
         public virtual DbSet<Element3D> Element3Ds { get; set; }
         public virtual DbSet<FilterAnnotaion> FilterAnnotaions { get; set; }
         public virtual DbSet<Indicator> Indicators { get; set; }
@@ -98,7 +98,7 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserAudit> UserAudits { get; set; }
         public virtual DbSet<UserGroup> UserGroups { get; set; }
-        public virtual DbSet<UserGroupEP> UserGroupEPs { get; set; }
+        public virtual DbSet<UserGroupEPS> UserGroupEPs { get; set; }
         public virtual DbSet<UserGroupUser> UserGroupUsers { get; set; }
         public virtual DbSet<UserStateSettings> UserStateSettings { get; set; }
         public virtual DbSet<View_2> View_2s { get; set; }
@@ -739,7 +739,7 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasConstraintName("FK_dbo.DocumentWorkTasks_dbo.WorkTasks_WorkTask_ObjectId");
             });
 
-            modelBuilder.Entity<EP>(entity =>
+            modelBuilder.Entity<EPS>(entity =>
             {
                 entity.HasKey(e => e.ObjectId)
                     .HasName("PK_dbo.EPS");
@@ -747,18 +747,17 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                 entity.ToTable("EPS");
 
                 entity.HasIndex(e => e.P3DBModel_ObjectId, "IX_P3DBModel_ObjectId");
-
                 entity.HasIndex(e => e.ParentId, "IX_ParentId");
 
                 entity.Property(e => e.CodeName).HasMaxLength(200);
 
-                entity.HasOne(d => d.P3DBModel_Object)
+                entity.HasOne(d => d.P3DBModel)
                     .WithMany(p => p.EPs)
                     .HasForeignKey(d => d.P3DBModel_ObjectId)
                     .HasConstraintName("FK_dbo.EPS_dbo.P3DBModel_P3DBModel_ObjectId");
 
                 entity.HasOne(d => d.Parent)
-                    .WithMany(p => p.InverseParent)
+                    .WithMany(p => p.Children)
                     .HasForeignKey(d => d.ParentId)
                     .HasConstraintName("FK_dbo.EPS_dbo.EPS_ParentId");
             });
@@ -1186,18 +1185,18 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                 entity.HasKey(e => new { e.Performer_ObjectId, e.Project_ObjectId })
                     .HasName("PK_dbo.PerformerActivityCodes");
 
-                entity.HasOne(d => d.PerformerCode_Object)
+                entity.HasOne(d => d.PerformerCode)
                     //.WithMany(p => p.PerformerActivityCodes)
                     .WithMany()
                     .HasForeignKey(d => d.PerformerCode_ObjectId)
                     .HasConstraintName("FK_dbo.PerformerActivityCodes_dbo.ActivityCode_PerformerCode_ObjectId");
 
-                entity.HasOne(d => d.Performer_Object)
+                entity.HasOne(d => d.Performer)
                     .WithMany(p => p.PerformerActivityCodes)
                     .HasForeignKey(d => d.Performer_ObjectId)
                     .HasConstraintName("FK_dbo.PerformerActivityCodes_dbo.Performers_Performer_ObjectId");
 
-                entity.HasOne(d => d.Project_Object)
+                entity.HasOne(d => d.Project)
                     .WithMany(p => p.PerformerActivityCodes)
                     .HasForeignKey(d => d.Project_ObjectId)
                     .HasConstraintName("FK_dbo.PerformerActivityCodes_dbo.Projects_Project_ObjectId");
@@ -1827,7 +1826,7 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                 entity.Property(e => e.Name).IsRequired();
             });
 
-            modelBuilder.Entity<UserGroupEP>(entity =>
+            modelBuilder.Entity<UserGroupEPS>(entity =>
             {
                 entity.HasKey(e => new { e.UserGroup_ObjectId, e.EPS_ObjectId })
                     .HasName("PK_dbo.UserGroupEPS");
