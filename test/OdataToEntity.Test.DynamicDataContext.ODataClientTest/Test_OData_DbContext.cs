@@ -816,13 +816,13 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                 entity.Property(e => e.EventDate).HasColumnType("datetime");
                 entity.Property(e => e.EventMessage).IsRequired();
 
-                entity.HasOne(d => d.User_Object)
+                entity.HasOne(d => d.User)
                     //.WithMany(p => p.JournalRecords)
                     .WithMany()
                     .HasForeignKey(d => d.User_ObjectId)
                     .HasConstraintName("FK_dbo.JournalRecords_dbo.Users_User_ObjectId");
 
-                entity.HasOne(d => d.WorkTask_Object)
+                entity.HasOne(d => d.WorkTask)
                     .WithMany(p => p.LogMessages)
                     .HasForeignKey(d => d.WorkTask_ObjectId)
                     .HasConstraintName("FK_dbo.JournalRecords_dbo.WorkTasks_WorkTask_ObjectId");
