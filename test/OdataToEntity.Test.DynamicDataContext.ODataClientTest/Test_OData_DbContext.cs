@@ -305,7 +305,8 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasConstraintName("FK_dbo.ActivityPerformerTeamRefs_dbo.Activity_ActivityId");
 
                 entity.HasOne(d => d.PerformerTeam)
-                    .WithMany(p => p.ActivityPerformerTeamRefs)
+                    //.WithMany(p => p.ActivityPerformerTeamRefs)
+                    .WithMany()
                     .HasForeignKey(d => d.PerformerTeamId)
                     .HasConstraintName("FK_dbo.ActivityPerformerTeamRefs_dbo.PerformerTeams_PerformerTeamId");
             });
