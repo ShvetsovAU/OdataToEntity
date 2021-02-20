@@ -1,11 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel;
+using OdataToEntity.Test.DynamicDataContext.ODataClientTest.EntityModel;
 
 #nullable disable
 
 namespace dbReverse.EntityModel
 {
+    #region scaffold model
+
     //public partial class CodeActivity
     //{
     //    public int ActivityObjectId { get; set; }
@@ -18,6 +20,8 @@ namespace dbReverse.EntityModel
     //    public virtual ActivityCode ValueObject { get; set; }
     //}
 
+    #endregion scaffold model
+    
     /// <summary>
     /// Код работы
     /// </summary>

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using ASE.MD.MDP2.Product.MDP2Service.Models.CustomAttributes;
-using ASE.MD.MDP2.Product.MDP2Service.Models.Interfaces;
+using OdataToEntity.Test.DynamicDataContext.ODataClientTest.CustomAttributes;
+using OdataToEntity.Test.DynamicDataContext.ODataClientTest.Interfaces;
 
 #nullable disable
 

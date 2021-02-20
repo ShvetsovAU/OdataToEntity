@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using ASE.MD.MDP2.Product.MDP2Service.Models.CustomAttributes;
-using ASE.MD.MDP2.Product.MDP2Service.Models.Interfaces;
+using OdataToEntity.Test.DynamicDataContext.ODataClientTest.CustomAttributes;
+using OdataToEntity.Test.DynamicDataContext.ODataClientTest.Interfaces;
 
 #nullable disable
 
 namespace dbReverse.EntityModel
 {
+    #region scaffold model
+
     //public partial class ActivityExpense
     //{
     //    public int ObjectId { get; set; }
@@ -33,6 +33,8 @@ namespace dbReverse.EntityModel
 
     //    public virtual Activity ActivityObject { get; set; }
     //}
+
+    #endregion scaffold model
 
     //DB Valid
     /// <summary>
