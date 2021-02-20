@@ -1648,7 +1648,7 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
 
                 entity.Property(e => e.EventDate).HasColumnType("datetime");
 
-                entity.HasOne(d => d.UserObject)
+                entity.HasOne(d => d.User)
                     //.WithMany(p => p.SupplierPortalJournals)
                     .WithMany()
                     .HasForeignKey(d => d.UserObjectId)
