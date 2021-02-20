@@ -1034,7 +1034,8 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                 entity.Property(e => e.AttributeName).IsRequired();
 
                 entity.HasOne(d => d.IsometricDrawingObject)
-                    .WithMany(p => p.P3DBIsometricDrawingAttributeRelations)
+                    //.WithMany(p => p.P3DBIsometricDrawingAttributeRelations)
+                    .WithMany()
                     .HasForeignKey(d => d.IsometricDrawingObjectId)
                     .HasConstraintName("FK_dbo.P3DBIsometricDrawingAttributeRelations_dbo.Documents_IsometricDrawingObjectId");
 
