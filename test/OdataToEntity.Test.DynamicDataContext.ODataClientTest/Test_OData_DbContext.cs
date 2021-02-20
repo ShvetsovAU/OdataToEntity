@@ -958,7 +958,8 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                 entity.HasIndex(e => e.ProjectObjectId, "IX_ProjectObjectId");
 
                 entity.HasOne(d => d.OgAttribute)
-                    .WithMany(p => p.OgToActivityMappings)
+                    //.WithMany(p => p.OgToActivityMappings)
+                    .WithMany()
                     .HasForeignKey(d => d.OgAttributeId)
                     .HasConstraintName("FK_dbo.OgToActivityMappings_dbo.OgUdfTypes_OgAttributeId");
 
