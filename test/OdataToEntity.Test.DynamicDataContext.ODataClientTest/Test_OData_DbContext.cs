@@ -1032,13 +1032,13 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
 
                 entity.Property(e => e.AttributeName).IsRequired();
 
-                entity.HasOne(d => d.IsometricDrawingObject)
+                entity.HasOne(d => d.IsometricDrawing)
                     //.WithMany(p => p.P3DBIsometricDrawingAttributeRelations)
                     .WithMany()
                     .HasForeignKey(d => d.IsometricDrawingObjectId)
                     .HasConstraintName("FK_dbo.P3DBIsometricDrawingAttributeRelations_dbo.Documents_IsometricDrawingObjectId");
 
-                entity.HasOne(d => d.ModelAttributeRelationObject)
+                entity.HasOne(d => d.ModelAttributeRelation)
                     .WithMany(p => p.P3DBIsometricDrawingAttributeRelations)
                     .HasForeignKey(d => d.ModelAttributeRelationObjectId)
                     .HasConstraintName("FK_dbo.P3DBIsometricDrawingAttributeRelations_dbo.P3DBModelAttributeRelations_ModelAttributeRelationObjectId");
