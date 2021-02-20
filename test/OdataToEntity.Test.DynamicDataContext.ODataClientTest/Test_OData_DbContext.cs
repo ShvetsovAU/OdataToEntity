@@ -1110,7 +1110,7 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                 entity.Property(e => e.InternalPath).IsRequired();
                 entity.Property(e => e.UID).IsRequired();
 
-                entity.HasOne(d => d.P3DBModel)
+                entity.HasOne(d => d.Model)
                     //.WithMany(p => p.P3DBModelElements)
                     .WithMany()
                     .HasForeignKey(d => d.P3DBModelId)
