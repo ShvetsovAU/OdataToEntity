@@ -403,15 +403,11 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                 entity.ToTable("ActivityUDF");
 
                 entity.HasIndex(e => e.ActivityId, "IX_ActivityId");
-
                 entity.HasIndex(e => e.TypeObjectId, "IX_TypeObjectId");
 
                 entity.Property(e => e.CostValue).HasColumnType("decimal(18, 0)");
-
                 entity.Property(e => e.DoubleValue).HasColumnType("decimal(18, 2)");
-
                 entity.Property(e => e.FinishDateValue).HasColumnType("datetime");
-
                 entity.Property(e => e.StartDateValue).HasColumnType("datetime");
 
                 entity.HasOne(d => d.Activity)
@@ -419,7 +415,7 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasForeignKey(d => d.ActivityId)
                     .HasConstraintName("FK_dbo.ActivityUDF_dbo.Activity_ActivityId");
 
-                entity.HasOne(d => d.TypeObject)
+                entity.HasOne(d => d.UDFType)
                     .WithMany(p => p.ActivityUDFs)
                     .HasForeignKey(d => d.TypeObjectId)
                     .HasConstraintName("FK_dbo.ActivityUDF_dbo.UDFType_TypeObjectId");
