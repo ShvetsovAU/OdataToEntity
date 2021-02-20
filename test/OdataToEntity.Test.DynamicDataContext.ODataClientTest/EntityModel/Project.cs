@@ -13,7 +13,7 @@ namespace dbReverse.EntityModel
             OgToActivityMappings = new HashSet<OgToActivityMapping>();
             PerformerActivityCodes = new HashSet<PerformerActivityCode>();
             Relationships = new HashSet<Relationship>();
-            WBs = new HashSet<WB>();
+            WBs = new HashSet<WorkBreakdownStructure>();
             WorkTasks = new HashSet<WorkTask>();
         }
 
@@ -49,7 +49,7 @@ namespace dbReverse.EntityModel
         public virtual ICollection<OgToActivityMapping> OgToActivityMappings { get; set; }
         public virtual ICollection<PerformerActivityCode> PerformerActivityCodes { get; set; }
         public virtual ICollection<Relationship> Relationships { get; set; }
-        public virtual ICollection<WB> WBs { get; set; }
+        public virtual ICollection<WorkBreakdownStructure> WBs { get; set; }
         public virtual ICollection<WorkTask> WorkTasks { get; set; }
     }
 }

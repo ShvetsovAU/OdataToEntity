@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using OdataToEntity.Test.DynamicDataContext.ODataClientTest.EntityModel.Enums;
 
 #nullable disable

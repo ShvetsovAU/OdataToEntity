@@ -5,12 +5,12 @@ using System.Collections.Generic;
 
 namespace dbReverse.EntityModel
 {
-    public partial class WB
+    public partial class WorkBreakdownStructure
     {
-        public WB()
+        public WorkBreakdownStructure()
         {
             Activities = new HashSet<Activity>();
-            InverseParentObject = new HashSet<WB>();
+            InverseParentObject = new HashSet<WorkBreakdownStructure>();
         }
 
         public int ObjectId { get; set; }
@@ -34,9 +34,9 @@ namespace dbReverse.EntityModel
         public byte Status { get; set; }
         public int? WBSCategoryObjectId { get; set; }
 
-        public virtual WB ParentObject { get; set; }
+        public virtual WorkBreakdownStructure ParentObject { get; set; }
         public virtual Project ProjectObject { get; set; }
         public virtual ICollection<Activity> Activities { get; set; }
-        public virtual ICollection<WB> InverseParentObject { get; set; }
+        public virtual ICollection<WorkBreakdownStructure> InverseParentObject { get; set; }
     }
 }

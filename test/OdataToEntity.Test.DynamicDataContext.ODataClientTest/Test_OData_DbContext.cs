@@ -102,7 +102,7 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
         public virtual DbSet<UserGroupUser> UserGroupUsers { get; set; }
         public virtual DbSet<UserStateSetting> UserStateSettings { get; set; }
         public virtual DbSet<View_2> View_2s { get; set; }
-        public virtual DbSet<WB> WBs { get; set; }
+        public virtual DbSet<WorkBreakdownStructure> WBs { get; set; }
         public virtual DbSet<WorkTask> WorkTasks { get; set; }
         public virtual DbSet<WorkTaskAttributeValue> WorkTaskAttributeValues { get; set; }
         public virtual DbSet<WorkTaskNumberPart> WorkTaskNumberParts { get; set; }
@@ -139,124 +139,73 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                 entity.HasIndex(e => e.WBSObjectId, "IX_WBSObjectId");
 
                 entity.Property(e => e.ActualDuration).HasColumnType("decimal(18, 2)");
-
                 entity.Property(e => e.ActualFinishDate).HasColumnType("datetime");
-
                 entity.Property(e => e.ActualLaborCost).HasColumnType("decimal(18, 2)");
-
                 entity.Property(e => e.ActualLaborUnits).HasColumnType("decimal(18, 2)");
-
                 entity.Property(e => e.ActualLaborUnitsManualValue).HasColumnType("decimal(18, 2)");
-
                 entity.Property(e => e.ActualNonLaborCost).HasColumnType("decimal(18, 2)");
-
                 entity.Property(e => e.ActualNonLaborUnits).HasColumnType("decimal(18, 2)");
-
                 entity.Property(e => e.ActualStartDate).HasColumnType("datetime");
-
                 entity.Property(e => e.ActualThisPeriodLaborCost).HasColumnType("decimal(18, 2)");
-
                 entity.Property(e => e.ActualThisPeriodLaborUnits).HasColumnType("decimal(17, 6)");
-
                 entity.Property(e => e.ActualThisPeriodNonLaborCost).HasColumnType("decimal(18, 2)");
-
                 entity.Property(e => e.ActualThisPeriodNonLaborUnits).HasColumnType("decimal(17, 6)");
-
                 entity.Property(e => e.ActualUnitsPerTime).HasColumnType("decimal(16, 8)");
-
                 entity.Property(e => e.AtCompletionDuration).HasColumnType("decimal(18, 2)");
-
                 entity.Property(e => e.AtCompletionLaborCost).HasColumnType("decimal(18, 2)");
-
                 entity.Property(e => e.AtCompletionLaborUnits).HasColumnType("decimal(18, 2)");
-
                 entity.Property(e => e.AtCompletionNonLaborCost).HasColumnType("decimal(18, 2)");
-
                 entity.Property(e => e.AtCompletionNonLaborUnits).HasColumnType("decimal(18, 2)");
-
                 entity.Property(e => e.DurationPercentComplete).HasColumnType("decimal(7, 4)");
-
                 entity.Property(e => e.EstimatedWeight).HasColumnType("decimal(10, 2)");
-
                 entity.Property(e => e.ExpectedFinishDate).HasColumnType("datetime");
-
                 entity.Property(e => e.ExternalEarlyStartDate).HasColumnType("datetime");
-
                 entity.Property(e => e.ExternalLateFinishDate).HasColumnType("datetime");
-
                 entity.Property(e => e.Feedback).HasMaxLength(4000);
-
                 entity.Property(e => e.FinishDate).HasColumnType("datetime");
-
                 entity.Property(e => e.Id)
                     .IsRequired()
                     .HasMaxLength(40);
 
                 entity.Property(e => e.MinimumPercentComplete).HasColumnType("decimal(7, 4)");
-
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(120);
 
                 entity.Property(e => e.NonLaborUnitsPercentComplete).HasColumnType("decimal(5, 2)");
-
                 entity.Property(e => e.PercentComplete).HasColumnType("decimal(7, 4)");
-
                 entity.Property(e => e.PhysicalPercentComplete).HasColumnType("decimal(20, 4)");
-
                 entity.Property(e => e.PlannedDateOfDelivery).HasColumnType("datetime");
-
                 entity.Property(e => e.PlannedDuration).HasColumnType("decimal(17, 6)");
-
                 entity.Property(e => e.PlannedFinishDate).HasColumnType("datetime");
-
                 entity.Property(e => e.PlannedLaborCost).HasColumnType("decimal(18, 2)");
-
                 entity.Property(e => e.PlannedLaborUnits).HasColumnType("decimal(17, 6)");
-
                 entity.Property(e => e.PlannedNonLaborCost).HasColumnType("decimal(18, 2)");
-
                 entity.Property(e => e.PlannedNonLaborUnits).HasColumnType("decimal(17, 6)");
-
                 entity.Property(e => e.PlannedStartDate).HasColumnType("datetime");
-
                 entity.Property(e => e.PrimaryConstraintDate).HasColumnType("datetime");
-
                 entity.Property(e => e.RemainingDuration).HasColumnType("decimal(17, 6)");
-
                 entity.Property(e => e.RemainingEarlyFinishDate).HasColumnType("datetime");
-
                 entity.Property(e => e.RemainingEarlyStartDate).HasColumnType("datetime");
-
                 entity.Property(e => e.RemainingLaborCost).HasColumnType("decimal(18, 2)");
-
                 entity.Property(e => e.RemainingLaborUnits).HasColumnType("decimal(17, 6)");
-
                 entity.Property(e => e.RemainingLateFinishDate).HasColumnType("datetime");
-
                 entity.Property(e => e.RemainingLateStartDate).HasColumnType("datetime");
-
                 entity.Property(e => e.RemainingNonLaborCost).HasColumnType("decimal(18, 2)");
-
                 entity.Property(e => e.RemainingNonLaborUnits).HasColumnType("decimal(17, 6)");
-
                 entity.Property(e => e.ResumeDate).HasColumnType("datetime");
-
                 entity.Property(e => e.SecondaryConstraintDate).HasColumnType("datetime");
-
                 entity.Property(e => e.StartDate).HasColumnType("datetime");
-
                 entity.Property(e => e.SuspendDate).HasColumnType("datetime");
-
                 entity.Property(e => e.UnitsPercentComplete).HasColumnType("decimal(7, 4)");
 
-                entity.HasOne(d => d.ActivityTypeObject)
+                entity.HasOne(d => d.ActivityType)
                     .WithMany(p => p.Activities)
                     .HasForeignKey(d => d.ActivityTypeObjectId)
                     .OnDelete(DeleteBehavior.SetNull)
                     .HasConstraintName("FK_dbo.Activity_dbo.ActivityTypes_ActivityTypeObjectId");
 
-                entity.HasOne(d => d.WBSObject)
+                entity.HasOne(d => d.WorkBreakdownStructure)
                     .WithMany(p => p.Activities)
                     .HasForeignKey(d => d.WBSObjectId)
                     .OnDelete(DeleteBehavior.Cascade)
@@ -319,32 +268,22 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                 entity.HasIndex(e => e.ActivityObjectId, "IX_ActivityObjectId");
 
                 entity.Property(e => e.ActualCost).HasColumnType("decimal(23, 6)");
-
                 entity.Property(e => e.ActualUnits).HasColumnType("decimal(18, 2)");
-
                 entity.Property(e => e.DocumentNumber).HasMaxLength(32);
-
                 entity.Property(e => e.ExpenseItem)
                     .IsRequired()
                     .HasMaxLength(120);
 
                 entity.Property(e => e.ExpensePercentComplete).HasColumnType("decimal(18, 2)");
-
                 entity.Property(e => e.PlannedCost).HasColumnType("decimal(23, 6)");
-
                 entity.Property(e => e.PlannedUnits).HasColumnType("decimal(19, 6)");
-
                 entity.Property(e => e.PricePerUnit).HasColumnType("decimal(21, 8)");
-
                 entity.Property(e => e.RemainingCost).HasColumnType("decimal(23, 6)");
-
                 entity.Property(e => e.RemainingUnits).HasColumnType("decimal(19, 6)");
-
                 entity.Property(e => e.UnitOfMeasure).HasMaxLength(30);
-
                 entity.Property(e => e.Vendor).HasMaxLength(100);
-
-                entity.HasOne(d => d.ActivityObject)
+                
+                entity.HasOne(d => d.Activity)
                     .WithMany(p => p.ActivityExpenses)
                     .HasForeignKey(d => d.ActivityObjectId)
                     .HasConstraintName("FK_dbo.ActivityExpense_dbo.Activity_ActivityObjectId");
@@ -360,7 +299,8 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                 entity.HasIndex(e => e.PerformerTeamId, "IX_PerformerTeamId");
 
                 entity.HasOne(d => d.Activity)
-                    .WithMany(p => p.ActivityPerformerTeamRefs)
+                    //.WithMany(p => p.ActivityPerformerTeamRefs)
+                    .WithMany()
                     .HasForeignKey(d => d.ActivityId)
                     .HasConstraintName("FK_dbo.ActivityPerformerTeamRefs_dbo.Activity_ActivityId");
 
@@ -377,24 +317,16 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                 entity.HasIndex(e => e.ActivityObjectId, "IX_ActivityObjectId");
 
                 entity.Property(e => e.ActualExpenseCost).HasColumnType("decimal(18, 2)");
-
                 entity.Property(e => e.ActualLaborCost).HasColumnType("decimal(18, 2)");
-
                 entity.Property(e => e.ActualLaborUnits).HasColumnType("decimal(18, 2)");
-
                 entity.Property(e => e.ActualNonLaborCost).HasColumnType("decimal(18, 2)");
-
                 entity.Property(e => e.ActualNonLaborUnits).HasColumnType("decimal(18, 2)");
-
                 entity.Property(e => e.EarnedValueCost).HasColumnType("decimal(18, 2)");
-
                 entity.Property(e => e.EarnedValueLaborUnits).HasColumnType("decimal(18, 2)");
-
                 entity.Property(e => e.PlannedValueCost).HasColumnType("decimal(18, 2)");
-
                 entity.Property(e => e.PlannedValueLaborUnits).HasColumnType("decimal(18, 2)");
 
-                entity.HasOne(d => d.ActivityObject)
+                entity.HasOne(d => d.Activity)
                     .WithMany(p => p.ActivityPeriodActuals)
                     .HasForeignKey(d => d.ActivityObjectId)
                     .HasConstraintName("FK_dbo.ActivityPeriodActual_dbo.Activity_ActivityObjectId");
@@ -509,7 +441,7 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                 entity.Property(e => e.PlannedDurationPercent).HasColumnType("decimal(19, 16)");
 
                 entity.HasOne(d => d.Activity)
-                    .WithMany(p => p.ActivityWorkTaskRefs)
+                    .WithMany(p => p.WorkTasks)
                     .HasForeignKey(d => d.ActivityId)
                     .HasConstraintName("FK_dbo.ActivityWorkTaskRefs_dbo.Activity_ActivityId");
 
@@ -668,24 +600,22 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                 entity.ToTable("CodeActivity");
 
                 entity.HasIndex(e => e.ActivityObjectId, "IX_ActivityObjectId");
-
                 entity.HasIndex(e => e.TypeObjectId, "IX_TypeObjectId");
-
                 entity.HasIndex(e => e.ValueObjectId, "IX_ValueObjectId");
 
                 entity.Property(e => e.ValueName).HasMaxLength(100);
 
-                entity.HasOne(d => d.ActivityObject)
+                entity.HasOne(d => d.Activity)
                     .WithMany(p => p.CodeActivities)
                     .HasForeignKey(d => d.ActivityObjectId)
                     .HasConstraintName("FK_dbo.CodeActivity_dbo.Activity_ActivityObjectId");
 
-                entity.HasOne(d => d.TypeObject)
+                entity.HasOne(d => d.ActivityCodeType)
                     .WithMany(p => p.CodeActivities)
                     .HasForeignKey(d => d.TypeObjectId)
                     .HasConstraintName("FK_dbo.CodeActivity_dbo.ActivityCodeType_TypeObjectId");
 
-                entity.HasOne(d => d.ValueObject)
+                entity.HasOne(d => d.ActivityCode)
                     .WithMany(p => p.CodeActivities)
                     .HasForeignKey(d => d.ValueObjectId)
                     .HasConstraintName("FK_dbo.CodeActivity_dbo.ActivityCode_ValueObjectId");
@@ -1032,7 +962,7 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
 
                 entity.Property(e => e.ImportDate).HasColumnType("datetime");
 
-                entity.HasOne(d => d.ActivityObject)
+                entity.HasOne(d => d.Activity)
                     .WithMany(p => p.OgRecords)
                     .HasForeignKey(d => d.ActivityObjectId)
                     .HasConstraintName("FK_dbo.OgRecords_dbo.Activity_ActivityObjectId");
@@ -1068,7 +998,7 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                 entity.Property(e => e.DateValue).HasColumnType("datetime");
 
                 entity.HasOne(d => d.GU)
-                    .WithMany(p => p.OgUDFValues)
+                    .WithMany(p => p.OgUdfValues)
                     .HasForeignKey(d => d.GUID)
                     .HasConstraintName("FK_dbo.OgUDFValues_dbo.OgRecords_GUID");
             });
@@ -1090,12 +1020,13 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
 
                 entity.Property(e => e.InternalPath).IsRequired();
 
-                entity.HasOne(d => d.ActivityObject)
-                    .WithMany(p => p.P3DBActivitiesRelations)
+                entity.HasOne(d => d.Activity)
+                    //.WithMany(p => p.P3DBActivitiesRelations)
+                    .WithMany()
                     .HasForeignKey(d => d.ActivityObjectId)
                     .HasConstraintName("FK_dbo.P3DBActivitiesRelations_dbo.Activity_ActivityObjectId");
 
-                entity.HasOne(d => d.P3DBModel)
+                entity.HasOne(d => d.Model)
                     .WithMany(p => p.P3DBActivitiesRelations)
                     .HasForeignKey(d => d.P3DBModelId)
                     .HasConstraintName("FK_dbo.P3DBActivitiesRelations_dbo.P3DBModel_P3DBModelId");
@@ -1429,15 +1360,13 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                 entity.ToTable("Relationship");
 
                 entity.HasIndex(e => e.PredecessorActivityObjectId, "IX_PredecessorActivityObjectId");
-
                 entity.HasIndex(e => e.ProjectObjectId, "IX_ProjectObjectId");
-
                 entity.HasIndex(e => e.SuccessorActivityObjectId, "IX_SuccessorActivityObjectId");
 
                 entity.Property(e => e.Lag).HasColumnType("decimal(17, 6)");
 
                 entity.HasOne(d => d.PredecessorActivityObject)
-                    .WithMany(p => p.RelationshipPredecessorActivityObjects)
+                    .WithMany(p => p.PredecessorActivityRelationships)
                     .HasForeignKey(d => d.PredecessorActivityObjectId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_dbo.Relationship_dbo.Activity_PredecessorActivityObjectId");
@@ -1448,7 +1377,7 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasConstraintName("FK_dbo.Relationship_dbo.Projects_ProjectObjectId");
 
                 entity.HasOne(d => d.SuccessorActivityObject)
-                    .WithMany(p => p.RelationshipSuccessorActivityObjects)
+                    .WithMany(p => p.SuccessorActivityRelationships)
                     .HasForeignKey(d => d.SuccessorActivityObjectId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_dbo.Relationship_dbo.Activity_SuccessorActivityObjectId");
@@ -1504,23 +1433,19 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                 entity.ToTable("ResAssignUDF");
 
                 entity.HasIndex(e => e.ResAssignId, "IX_ResAssignId");
-
                 entity.HasIndex(e => e.TypeObjectId, "IX_TypeObjectId");
 
                 entity.Property(e => e.CostValue).HasColumnType("decimal(18, 0)");
-
                 entity.Property(e => e.DoubleValue).HasColumnType("decimal(18, 2)");
-
                 entity.Property(e => e.FinishDateValue).HasColumnType("datetime");
-
                 entity.Property(e => e.StartDateValue).HasColumnType("datetime");
 
-                entity.HasOne(d => d.ResAssign)
+                entity.HasOne(d => d.ResourceAssignment)
                     .WithMany(p => p.ResAssignUDFs)
                     .HasForeignKey(d => d.ResAssignId)
                     .HasConstraintName("FK_dbo.ResAssignUDF_dbo.ResourceAssignment_ResAssignId");
 
-                entity.HasOne(d => d.TypeObject)
+                entity.HasOne(d => d.UDFType)
                     .WithMany(p => p.ResAssignUDFs)
                     .HasForeignKey(d => d.TypeObjectId)
                     .HasConstraintName("FK_dbo.ResAssignUDF_dbo.UDFType_TypeObjectId");
@@ -1594,87 +1519,51 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                 entity.ToTable("ResourceAssignment");
 
                 entity.HasIndex(e => e.ActivityObjectId, "IX_ActivityObjectId");
-
                 entity.HasIndex(e => e.ResourceObjectId, "IX_ResourceObjectId");
 
                 entity.Property(e => e.ActualCost).HasColumnType("decimal(18, 2)");
-
                 entity.Property(e => e.ActualFinishDate).HasColumnType("datetime");
-
                 entity.Property(e => e.ActualOvertimeCost).HasColumnType("decimal(23, 6)");
-
                 entity.Property(e => e.ActualOvertimeUnits).HasColumnType("decimal(17, 6)");
-
                 entity.Property(e => e.ActualRegularCost).HasColumnType("decimal(23, 6)");
-
                 entity.Property(e => e.ActualRegularUnits).HasColumnType("decimal(17, 6)");
-
                 entity.Property(e => e.ActualStartDate).HasColumnType("datetime");
-
                 entity.Property(e => e.ActualThisPeriodCost).HasColumnType("decimal(23, 6)");
-
                 entity.Property(e => e.ActualThisPeriodUnits).HasColumnType("decimal(17, 6)");
-
                 entity.Property(e => e.ActualUnits).HasColumnType("decimal(17, 6)");
-
                 entity.Property(e => e.AtCompletionCost).HasColumnType("decimal(23, 6)");
-
                 entity.Property(e => e.AtCompletionUnits).HasColumnType("decimal(17, 6)");
-
                 entity.Property(e => e.FinishDate).HasColumnType("datetime");
-
                 entity.Property(e => e.OvertimeFactor).HasColumnType("decimal(5, 3)");
-
                 entity.Property(e => e.PendingActualOvertimeUnits).HasColumnType("decimal(17, 6)");
-
                 entity.Property(e => e.PendingActualRegularUnits).HasColumnType("decimal(17, 6)");
-
                 entity.Property(e => e.PendingPercentComplete).HasColumnType("decimal(5, 2)");
-
                 entity.Property(e => e.PendingRemainingUnits).HasColumnType("decimal(17, 6)");
-
                 entity.Property(e => e.PlannedCost).HasColumnType("decimal(23, 6)");
-
                 entity.Property(e => e.PlannedDuration).HasColumnType("decimal(23, 6)");
-
                 entity.Property(e => e.PlannedFinishDate).HasColumnType("datetime");
-
                 entity.Property(e => e.PlannedLag).HasColumnType("decimal(17, 6)");
-
                 entity.Property(e => e.PlannedStartDate).HasColumnType("datetime");
-
                 entity.Property(e => e.PlannedUnits).HasColumnType("decimal(17, 6)");
-
                 entity.Property(e => e.PlannedUnitsPerTime).HasColumnType("decimal(16, 8)");
-
                 entity.Property(e => e.PricePerUnit).HasColumnType("decimal(21, 8)");
-
                 entity.Property(e => e.RemainingCost).HasColumnType("decimal(23, 6)");
-
                 entity.Property(e => e.RemainingDuration).HasColumnType("decimal(18, 2)");
-
                 entity.Property(e => e.RemainingFinishDate).HasColumnType("datetime");
-
                 entity.Property(e => e.RemainingLag).HasColumnType("decimal(17, 6)");
-
                 entity.Property(e => e.RemainingStartDate).HasColumnType("datetime");
-
                 entity.Property(e => e.RemainingUnits).HasColumnType("decimal(17, 6)");
-
                 entity.Property(e => e.RemainingUnitsPerTime).HasColumnType("decimal(16, 8)");
-
                 entity.Property(e => e.ResourceRequest).HasMaxLength(1);
-
                 entity.Property(e => e.StartDate).HasColumnType("datetime");
-
                 entity.Property(e => e.UnitsPercentComplete).HasColumnType("decimal(19, 16)");
 
-                entity.HasOne(d => d.ActivityObject)
+                entity.HasOne(d => d.Activity)
                     .WithMany(p => p.ResourceAssignments)
                     .HasForeignKey(d => d.ActivityObjectId)
                     .HasConstraintName("FK_dbo.ResourceAssignment_dbo.Activity_ActivityObjectId");
 
-                entity.HasOne(d => d.ResourceObject)
+                entity.HasOne(d => d.Resource)
                     .WithMany(p => p.ResourceAssignments)
                     .HasForeignKey(d => d.ResourceObjectId)
                     .HasConstraintName("FK_dbo.ResourceAssignment_dbo.Resource_ResourceObjectId");
@@ -2031,24 +1920,24 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasConstraintName("FK_dbo.UserStateSettings_dbo.Users_User_ObjectId");
             });
 
-            modelBuilder.Entity<View_2>(entity =>
-            {
-                entity.HasNoKey();
+            //modelBuilder.Entity<View_2>(entity =>
+            //{
+            //    entity.HasNoKey();
 
-                entity.ToView("View_2");
+            //    entity.ToView("View_2");
 
-                entity.Property(e => e.Id)
-                    .IsRequired()
-                    .HasMaxLength(40);
+            //    entity.Property(e => e.Id)
+            //        .IsRequired()
+            //        .HasMaxLength(40);
 
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(120);
+            //    entity.Property(e => e.Name)
+            //        .IsRequired()
+            //        .HasMaxLength(120);
 
-                entity.Property(e => e.ValueName).HasMaxLength(100);
-            });
+            //    entity.Property(e => e.ValueName).HasMaxLength(100);
+            //});
 
-            modelBuilder.Entity<WB>(entity =>
+            modelBuilder.Entity<WorkBreakdownStructure>(entity =>
             {
                 entity.HasKey(e => e.ObjectId)
                     .HasName("PK_dbo.WBS");
@@ -2056,27 +1945,19 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                 entity.ToTable("WBS");
 
                 entity.HasIndex(e => e.ParentObjectId, "IX_ParentObjectId");
-
                 entity.HasIndex(e => e.ProjectObjectId, "IX_ProjectObjectId");
 
                 entity.Property(e => e.AnticipatedFinishDate).HasColumnType("datetime");
-
                 entity.Property(e => e.AnticipatedStartDate).HasColumnType("datetime");
-
                 entity.Property(e => e.Code)
                     .IsRequired()
                     .HasMaxLength(40);
 
                 entity.Property(e => e.EarnedValueETCUserValue).HasColumnType("decimal(10, 2)");
-
                 entity.Property(e => e.EarnedValueUserPercent).HasColumnType("decimal(5, 2)");
-
                 entity.Property(e => e.EstimatedWeight).HasColumnType("decimal(10, 2)");
-
                 entity.Property(e => e.IndependentETCLaborUnits).HasColumnType("decimal(17, 6)");
-
                 entity.Property(e => e.IndependentETCTotalCost).HasColumnType("decimal(23, 6)");
-
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(100);

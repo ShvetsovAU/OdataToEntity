@@ -101,7 +101,7 @@ namespace dbReverse.EntityModel
 //        public virtual DbSet<UserGroupUser> UserGroupUsers { get; set; }
 //        public virtual DbSet<UserStateSetting> UserStateSettings { get; set; }
 //        public virtual DbSet<View_2> View_2s { get; set; }
-//        public virtual DbSet<WB> WBs { get; set; }
+//        public virtual DbSet<WorkBreakdownStructure> WBs { get; set; }
 //        public virtual DbSet<WorkTask> WorkTasks { get; set; }
 //        public virtual DbSet<WorkTaskAttributeValue> WorkTaskAttributeValues { get; set; }
 //        public virtual DbSet<WorkTaskNumberPart> WorkTaskNumberParts { get; set; }
@@ -1938,7 +1938,7 @@ namespace dbReverse.EntityModel
 //                entity.Property(e => e.ValueName).HasMaxLength(100);
 //            });
 
-//            modelBuilder.Entity<WB>(entity =>
+//            modelBuilder.Entity<WorkBreakdownStructure>(entity =>
 //            {
 //                entity.HasKey(e => e.ObjectId)
 //                    .HasName("PK_dbo.WBS");
