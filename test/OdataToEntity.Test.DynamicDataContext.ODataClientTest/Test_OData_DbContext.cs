@@ -489,25 +489,20 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasName("PK_dbo.AssemblyUnits");
 
                 entity.HasIndex(e => e.P3DBModelId, "IX_P3DBModelId");
-
                 entity.HasIndex(e => e.UserObjectId, "IX_UserObjectId");
 
                 entity.Property(e => e.ImportDate).HasColumnType("datetime");
-
                 entity.Property(e => e.InternalPath).IsRequired();
-
                 entity.Property(e => e.NominalDiameter).HasColumnType("decimal(18, 9)");
-
                 entity.Property(e => e.OuterDiameter).HasColumnType("decimal(18, 9)");
-
                 entity.Property(e => e.PipeWallLength).HasColumnType("decimal(18, 9)");
 
-                entity.HasOne(d => d.P3DBModel)
+                entity.HasOne(d => d.Model)
                     .WithMany(p => p.AssemblyUnits)
                     .HasForeignKey(d => d.P3DBModelId)
                     .HasConstraintName("FK_dbo.AssemblyUnits_dbo.P3DbModel_P3DBModelId");
 
-                entity.HasOne(d => d.UserObject)
+                entity.HasOne(d => d.User)
                     .WithMany(p => p.AssemblyUnits)
                     .HasForeignKey(d => d.UserObjectId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
@@ -536,13 +531,11 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                 entity.HasIndex(e => e.ObjectId, "IX_ObjectId");
 
                 entity.Property(e => e.ObjectId).ValueGeneratedNever();
-
                 entity.Property(e => e.LastFinishDate).HasColumnType("datetime");
-
                 entity.Property(e => e.ManualFinishDate).HasColumnType("datetime");
 
                 entity.HasOne(d => d.Object)
-                    .WithOne(p => p.AssemblyUnitState)
+                    .WithOne(p => p.UnitState)
                     .HasForeignKey<AssemblyUnitState>(d => d.ObjectId)
                     .HasConstraintName("FK_dbo.AssemblyUnitStates_dbo.AssemblyUnits_ObjectId");
             });
