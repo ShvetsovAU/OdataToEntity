@@ -1661,7 +1661,6 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasName("PK_dbo.SupplierRecords");
 
                 entity.Property(e => e.ObjectId).ValueGeneratedNever();
-
                 entity.Property(e => e.ImportDate).HasColumnType("datetime");
             });
 
@@ -1671,7 +1670,6 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasName("PK_dbo.SupplierRecordsToActivities");
 
                 entity.HasIndex(e => e.ActivityId, "IX_ActivityId");
-
                 entity.HasIndex(e => e.RecordId, "IX_RecordId");
 
                 entity.HasOne(d => d.Activity)
@@ -1679,7 +1677,7 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasForeignKey(d => d.ActivityId)
                     .HasConstraintName("FK_dbo.SupplierRecordsToActivities_dbo.Activity_ActivityId");
 
-                entity.HasOne(d => d.Record)
+                entity.HasOne(d => d.SupplierRecord)
                     .WithMany(p => p.SupplierRecordsToActivities)
                     .HasForeignKey(d => d.RecordId)
                     .HasConstraintName("FK_dbo.SupplierRecordsToActivities_dbo.SupplierRecords_RecordId");
@@ -1690,19 +1688,15 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                 entity.ToTable("SupplierUDF");
 
                 entity.HasIndex(e => e.SupplierRecordId, "IX_SupplierRecordId");
-
                 entity.HasIndex(e => e.UdfTypeObjectId, "IX_UdfTypeObjectId");
 
                 entity.Property(e => e.CostValue).HasColumnType("decimal(18, 2)");
-
                 entity.Property(e => e.DoubleValue).HasColumnType("decimal(18, 2)");
-
                 entity.Property(e => e.FinishDateValue).HasColumnType("datetime");
-
                 entity.Property(e => e.StartDateValue).HasColumnType("datetime");
 
                 entity.HasOne(d => d.SupplierRecord)
-                    .WithMany(p => p.SupplierUDFs)
+                    .WithMany(p => p.UdfValues)
                     .HasForeignKey(d => d.SupplierRecordId)
                     .HasConstraintName("FK_dbo.SupplierUDF_dbo.SupplierRecords_SupplierRecordId");
 
