@@ -534,7 +534,7 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                 entity.Property(e => e.LastFinishDate).HasColumnType("datetime");
                 entity.Property(e => e.ManualFinishDate).HasColumnType("datetime");
 
-                entity.HasOne(d => d.Object)
+                entity.HasOne(d => d.AssemblyUnit)
                     .WithOne(p => p.UnitState)
                     .HasForeignKey<AssemblyUnitState>(d => d.ObjectId)
                     .HasConstraintName("FK_dbo.AssemblyUnitStates_dbo.AssemblyUnits_ObjectId");
