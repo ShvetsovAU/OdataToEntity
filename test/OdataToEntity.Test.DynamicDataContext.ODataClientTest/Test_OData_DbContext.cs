@@ -1700,8 +1700,9 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasForeignKey(d => d.SupplierRecordId)
                     .HasConstraintName("FK_dbo.SupplierUDF_dbo.SupplierRecords_SupplierRecordId");
 
-                entity.HasOne(d => d.UdfTypeObject)
-                    .WithMany(p => p.SupplierUDFs)
+                entity.HasOne(d => d.SupplierUDFType)
+                    //.WithMany(p => p.SupplierUDFs)
+                    .WithMany()
                     .HasForeignKey(d => d.UdfTypeObjectId)
                     .HasConstraintName("FK_dbo.SupplierUDF_dbo.SupplierUDFType_UdfTypeObjectId");
             });
