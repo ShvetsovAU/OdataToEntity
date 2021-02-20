@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace dbReverse.EntityModel
 {
-    public partial class UserStateSetting
+    public partial class UserStateSettings
     {
         public short User_ObjectId { get; set; }
         public string StatesJson { get; set; }

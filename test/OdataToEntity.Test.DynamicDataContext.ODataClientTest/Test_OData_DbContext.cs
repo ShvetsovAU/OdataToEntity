@@ -100,7 +100,7 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
         public virtual DbSet<UserGroup> UserGroups { get; set; }
         public virtual DbSet<UserGroupEP> UserGroupEPs { get; set; }
         public virtual DbSet<UserGroupUser> UserGroupUsers { get; set; }
-        public virtual DbSet<UserStateSetting> UserStateSettings { get; set; }
+        public virtual DbSet<UserStateSettings> UserStateSettings { get; set; }
         public virtual DbSet<View_2> View_2s { get; set; }
         public virtual DbSet<WorkBreakdownStructure> WBs { get; set; }
         public virtual DbSet<WorkTask> WorkTasks { get; set; }
@@ -439,7 +439,7 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasConstraintName("FK_dbo.ActivityWorkTaskRefs_dbo.Activity_ActivityId");
 
                 entity.HasOne(d => d.WorkTask)
-                    .WithMany(p => p.ActivityWorkTaskRefs)
+                    .WithMany(p => p.Activities)
                     .HasForeignKey(d => d.WorkTaskId)
                     .HasConstraintName("FK_dbo.ActivityWorkTaskRefs_dbo.WorkTasks_WorkTaskId");
             });
@@ -504,7 +504,8 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasConstraintName("FK_dbo.AssemblyUnits_dbo.P3DbModel_P3DBModelId");
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.AssemblyUnits)
+                    //.WithMany(p => p.AssemblyUnits)
+                    .WithMany()
                     .HasForeignKey(d => d.UserObjectId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_dbo.AssemblyUnits_dbo.Users_UserObjectId");
@@ -810,22 +811,20 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasName("PK_dbo.JournalRecords");
 
                 entity.HasIndex(e => e.User_ObjectId, "IX_User_ObjectId");
-
                 entity.HasIndex(e => e.WorkTask_ObjectId, "IX_WorkTask_ObjectId");
 
                 entity.Property(e => e.ObjectId).ValueGeneratedNever();
-
                 entity.Property(e => e.EventDate).HasColumnType("datetime");
-
                 entity.Property(e => e.EventMessage).IsRequired();
 
                 entity.HasOne(d => d.User_Object)
-                    .WithMany(p => p.JournalRecords)
+                    //.WithMany(p => p.JournalRecords)
+                    .WithMany()
                     .HasForeignKey(d => d.User_ObjectId)
                     .HasConstraintName("FK_dbo.JournalRecords_dbo.Users_User_ObjectId");
 
                 entity.HasOne(d => d.WorkTask_Object)
-                    .WithMany(p => p.JournalRecords)
+                    .WithMany(p => p.LogMessages)
                     .HasForeignKey(d => d.WorkTask_ObjectId)
                     .HasConstraintName("FK_dbo.JournalRecords_dbo.WorkTasks_WorkTask_ObjectId");
             });
@@ -1053,34 +1052,29 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                 entity.ToTable("P3DBModel");
 
                 entity.HasIndex(e => e.RelationsLastUpdateUser_ObjectId, "IX_RelationsLastUpdateUser_ObjectId");
-
                 entity.HasIndex(e => e.User_ObjectId, "IX_User_ObjectId");
 
                 entity.Property(e => e.ObjectId).ValueGeneratedNever();
-
                 entity.Property(e => e.Content)
                     .IsRequired()
                     .HasDefaultValueSql("(0x)");
 
                 entity.Property(e => e.CreatedDate).HasColumnType("datetime");
-
                 entity.Property(e => e.MD5).HasMaxLength(32);
-
                 entity.Property(e => e.Name).IsRequired();
-
                 entity.Property(e => e.RelationsLastUpdateDate).HasColumnType("datetime");
-
                 entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
-
                 entity.Property(e => e.User_ObjectId).HasDefaultValueSql("((1))");
 
                 entity.HasOne(d => d.RelationsLastUpdateUser_Object)
-                    .WithMany(p => p.P3DBModelRelationsLastUpdateUser_Objects)
+                    //.WithMany(p => p.P3DBModelRelationsLastUpdateUser_Objects)
+                    .WithMany()
                     .HasForeignKey(d => d.RelationsLastUpdateUser_ObjectId)
                     .HasConstraintName("FK_dbo.P3DBModel_dbo.Users_RelationsLastUpdateUser_ObjectId");
 
                 entity.HasOne(d => d.User_Object)
-                    .WithMany(p => p.P3DBModelUser_Objects)
+                    //.WithMany(p => p.P3DBModelUser_Objects)
+                    .WithMany()
                     .HasForeignKey(d => d.User_ObjectId)
                     .HasConstraintName("FK_dbo.P3DBModel_dbo.Users_User_ObjectId");
             });
@@ -1242,17 +1236,12 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasName("PK_dbo.Projects");
 
                 entity.HasIndex(e => e.CodeForArchiveProjectNumber_ObjectId, "IX_CodeForArchiveProjectNumber_ObjectId");
-
                 entity.HasIndex(e => e.CodeTypeForPerformer_ObjectId, "IX_CodeTypeForPerformer_ObjectId");
-
                 entity.HasIndex(e => e.EPS_ObjectId, "IX_EPS_ObjectId");
-
                 entity.HasIndex(e => e.LastUpdateUser_ObjectId, "IX_LastUpdateUser_ObjectId");
-
                 entity.HasIndex(e => e.UDFTypeForPlacement_ObjectId, "IX_UDFTypeForPlacement_ObjectId");
 
                 entity.Property(e => e.DataDate).HasColumnType("datetime");
-
                 entity.Property(e => e.HasErrors)
                     .IsRequired()
                     .HasDefaultValueSql("((1))");
@@ -1262,7 +1251,6 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasMaxLength(40);
 
                 entity.Property(e => e.LastUpdateDateTime).HasColumnType("datetime");
-
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(100);
@@ -1303,7 +1291,8 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasConstraintName("FK_dbo.Projects_dbo.EPS_EPS_ObjectId");
 
                 entity.HasOne(d => d.LastUpdateUser_Object)
-                    .WithMany(p => p.Projects)
+                    //.WithMany(p => p.Projects)
+                    .WithMany()
                     .HasForeignKey(d => d.LastUpdateUser_ObjectId)
                     .HasConstraintName("FK_dbo.Projects_dbo.Users_LastUpdateUser_ObjectId");
 
@@ -1658,7 +1647,8 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                 entity.Property(e => e.EventDate).HasColumnType("datetime");
 
                 entity.HasOne(d => d.UserObject)
-                    .WithMany(p => p.SupplierPortalJournals)
+                    //.WithMany(p => p.SupplierPortalJournals)
+                    .WithMany()
                     .HasForeignKey(d => d.UserObjectId)
                     .HasConstraintName("FK_dbo.SupplierPortalJournals_dbo.Users_UserObjectId");
             });
@@ -1778,13 +1768,10 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasName("PK_dbo.Users");
 
                 entity.HasIndex(e => e.Performer_ObjectId, "IX_Performer_ObjectId");
-
                 entity.HasIndex(e => e.UserRole_ObjectId, "IX_UserRole_ObjectId");
 
                 entity.Property(e => e.DomainName).HasMaxLength(120);
-
                 entity.Property(e => e.Email).HasMaxLength(256);
-
                 entity.Property(e => e.Login)
                     .IsRequired()
                     .HasMaxLength(40);
@@ -1794,20 +1781,19 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasMaxLength(80);
 
                 entity.Property(e => e.Password).HasMaxLength(128);
-
                 entity.Property(e => e.PhoneNumber).HasMaxLength(40);
 
-                entity.HasOne(d => d.CuratorObject)
+                entity.HasOne(d => d.Curator)
                     .WithMany(p => p.Users)
                     .HasForeignKey(d => d.CuratorObjectId)
                     .HasConstraintName("FK_dbo.Users_dbo.Curators_CuratorObjectId");
 
-                entity.HasOne(d => d.Performer_Object)
+                entity.HasOne(d => d.Performer)
                     .WithMany(p => p.Users)
                     .HasForeignKey(d => d.Performer_ObjectId)
                     .HasConstraintName("FK_dbo.Users_dbo.Performers_Performer_ObjectId");
 
-                entity.HasOne(d => d.UserRole_Object)
+                entity.HasOne(d => d.UserRole)
                     .WithMany(p => p.Users)
                     .HasForeignKey(d => d.UserRole_ObjectId)
                     .HasConstraintName("FK_dbo.Users_dbo.Roles_UserRole_ObjectId");
@@ -1821,13 +1807,13 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                 entity.HasIndex(e => e.UserObjectId, "IX_UserObjectId");
 
                 entity.Property(e => e.DateEvent).HasColumnType("datetime");
-
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(255);
 
                 entity.HasOne(d => d.UserObject)
-                    .WithMany(p => p.UserAudits)
+                    //.WithMany(p => p.UserAudits)
+                    .WithMany()
                     .HasForeignKey(d => d.UserObjectId)
                     .HasConstraintName("FK_dbo.UserAudits_dbo.Users_UserObjectId");
             });
@@ -1882,7 +1868,7 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasConstraintName("FK_dbo.UserGroupUsers_dbo.Users_User_ObjectId");
             });
 
-            modelBuilder.Entity<UserStateSetting>(entity =>
+            modelBuilder.Entity<UserStateSettings>(entity =>
             {
                 entity.HasKey(e => e.User_ObjectId)
                     .HasName("PK_dbo.UserStateSettings");
@@ -1892,8 +1878,8 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                 entity.Property(e => e.User_ObjectId).ValueGeneratedNever();
 
                 entity.HasOne(d => d.User_Object)
-                    .WithOne(p => p.UserStateSetting)
-                    .HasForeignKey<UserStateSetting>(d => d.User_ObjectId)
+                    .WithOne(p => p.StateSettings)
+                    .HasForeignKey<UserStateSettings>(d => d.User_ObjectId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_dbo.UserStateSettings_dbo.Users_User_ObjectId");
             });
@@ -1976,12 +1962,12 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasForeignKey(d => d.ConstructionObjectId)
                     .HasConstraintName("FK_dbo.WorkTasks_dbo.ActivityCode_ConstructionObjectId");
 
-                entity.HasOne(d => d.Curator_Object)
+                entity.HasOne(d => d.Curator)
                     .WithMany(p => p.WorkTasks)
                     .HasForeignKey(d => d.Curator_ObjectId)
                     .HasConstraintName("FK_dbo.WorkTasks_dbo.Curators_Curator_ObjectId");
 
-                entity.HasOne(d => d.Performer_Object)
+                entity.HasOne(d => d.Performer)
                     .WithMany(p => p.WorkTasks)
                     .HasForeignKey(d => d.Performer_ObjectId)
                     .HasConstraintName("FK_dbo.WorkTasks_dbo.Performers_Performer_ObjectId");

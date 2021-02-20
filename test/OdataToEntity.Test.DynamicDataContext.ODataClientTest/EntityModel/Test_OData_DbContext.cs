@@ -99,7 +99,7 @@ namespace dbReverse.EntityModel
 //        public virtual DbSet<UserGroup> UserGroups { get; set; }
 //        public virtual DbSet<UserGroupEP> UserGroupEPs { get; set; }
 //        public virtual DbSet<UserGroupUser> UserGroupUsers { get; set; }
-//        public virtual DbSet<UserStateSetting> UserStateSettings { get; set; }
+//        public virtual DbSet<UserStateSettings> UserStateSettings { get; set; }
 //        public virtual DbSet<View_2> View_2s { get; set; }
 //        public virtual DbSet<WorkBreakdownStructure> WBs { get; set; }
 //        public virtual DbSet<WorkTask> WorkTasks { get; set; }
@@ -1905,7 +1905,7 @@ namespace dbReverse.EntityModel
 //                    .HasConstraintName("FK_dbo.UserGroupUsers_dbo.Users_User_ObjectId");
 //            });
 
-//            modelBuilder.Entity<UserStateSetting>(entity =>
+//            modelBuilder.Entity<UserStateSettings>(entity =>
 //            {
 //                entity.HasKey(e => e.User_ObjectId)
 //                    .HasName("PK_dbo.UserStateSettings");
@@ -1915,8 +1915,8 @@ namespace dbReverse.EntityModel
 //                entity.Property(e => e.User_ObjectId).ValueGeneratedNever();
 
 //                entity.HasOne(d => d.User_Object)
-//                    .WithOne(p => p.UserStateSetting)
-//                    .HasForeignKey<UserStateSetting>(d => d.User_ObjectId)
+//                    .WithOne(p => p.UserStateSettings)
+//                    .HasForeignKey<UserStateSettings>(d => d.User_ObjectId)
 //                    .OnDelete(DeleteBehavior.ClientSetNull)
 //                    .HasConstraintName("FK_dbo.UserStateSettings_dbo.Users_User_ObjectId");
 //            });
