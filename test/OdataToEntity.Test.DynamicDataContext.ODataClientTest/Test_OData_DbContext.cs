@@ -1346,7 +1346,7 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_dbo.Relationship_dbo.Activity_PredecessorActivityObjectId");
 
-                entity.HasOne(d => d.ProjectObject)
+                entity.HasOne(d => d.Project)
                     .WithMany(p => p.Relationships)
                     .HasForeignKey(d => d.ProjectObjectId)
                     .HasConstraintName("FK_dbo.Relationship_dbo.Projects_ProjectObjectId");
