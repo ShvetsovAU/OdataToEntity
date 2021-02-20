@@ -450,7 +450,7 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
 
                 entity.HasIndex(e => e.Report3dObjectId, "IX_Report3dObjectId");
 
-                entity.HasOne(d => d.Report3dObject)
+                entity.HasOne(d => d.Report3D)
                     .WithMany(p => p.Annotations)
                     .HasForeignKey(d => d.Report3dObjectId)
                     .HasConstraintName("FK_dbo.Annotations_dbo.Report3D_Report3dObjectId");
@@ -463,8 +463,8 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
 
                 entity.HasIndex(e => e.AnnotationObjectId, "IX_AnnotationObjectId");
 
-                entity.HasOne(d => d.AnnotationObject)
-                    .WithMany(p => p.AnnotationConditions)
+                entity.HasOne(d => d.Annotation)
+                    .WithMany(p => p.Conditions)
                     .HasForeignKey(d => d.AnnotationObjectId)
                     .HasConstraintName("FK_dbo.AnnotationConditions_dbo.Annotations_Annotation_ObjectId");
             });
@@ -476,8 +476,8 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
 
                 entity.HasIndex(e => e.AnnotationObjectId, "IX_AnnotationObjectId");
 
-                entity.HasOne(d => d.AnnotationObject)
-                    .WithMany(p => p.AnnotationInfos)
+                entity.HasOne(d => d.Annotation)
+                    .WithMany(p => p.AnnotationsInfo)
                     .HasForeignKey(d => d.AnnotationObjectId)
                     .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_dbo.AnnotationInfoes_dbo.Annotations_AnnotationObjectId");
@@ -794,8 +794,8 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
 
                 entity.HasIndex(e => e.AnnotationObjectId, "IX_AnnotationObjectId");
 
-                entity.HasOne(d => d.AnnotationObject)
-                    .WithMany(p => p.FilterAnnotaions)
+                entity.HasOne(d => d.Annotation)
+                    .WithMany(p => p.Filters)
                     .HasForeignKey(d => d.AnnotationObjectId)
                     .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_dbo.FilterAnnotaions_dbo.Annotations_AnnotationObjectId");
