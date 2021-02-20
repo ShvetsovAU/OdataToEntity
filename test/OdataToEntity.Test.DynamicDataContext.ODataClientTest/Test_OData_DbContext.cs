@@ -1561,8 +1561,8 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .IsRequired()
                     .HasMaxLength(100);
 
-                entity.HasOne(d => d.ParentObject)
-                    .WithMany(p => p.InverseParentObject)
+                entity.HasOne(d => d.Parent)
+                    .WithMany(p => p.Children)
                     .HasForeignKey(d => d.ParentObjectId)
                     .HasConstraintName("FK_dbo.ResourceCode_dbo.ResourceCode_ParentObjectId");
             });
