@@ -809,12 +809,12 @@ namespace dbReverse.EntityModel
 
 //                entity.HasIndex(e => e.WorkTask_ObjectId, "IX_WorkTask_ObjectId");
 
-//                entity.HasOne(d => d.Document_Object)
+//                entity.HasOne(d => d.Document)
 //                    .WithMany(p => p.DocumentWorkTasks)
 //                    .HasForeignKey(d => d.Document_ObjectId)
 //                    .HasConstraintName("FK_dbo.DocumentWorkTasks_dbo.Documents_Document_ObjectId");
 
-//                entity.HasOne(d => d.WorkTask_Object)
+//                entity.HasOne(d => d.WorkTask)
 //                    .WithMany(p => p.DocumentWorkTasks)
 //                    .HasForeignKey(d => d.WorkTask_ObjectId)
 //                    .HasConstraintName("FK_dbo.DocumentWorkTasks_dbo.WorkTasks_WorkTask_ObjectId");
@@ -833,7 +833,7 @@ namespace dbReverse.EntityModel
 
 //                entity.Property(e => e.CodeName).HasMaxLength(200);
 
-//                entity.HasOne(d => d.P3DBModel_Object)
+//                entity.HasOne(d => d.P3DBModel)
 //                    .WithMany(p => p.EPs)
 //                    .HasForeignKey(d => d.P3DBModel_ObjectId)
 //                    .HasConstraintName("FK_dbo.EPS_dbo.P3DBModel_P3DBModel_ObjectId");
@@ -906,7 +906,7 @@ namespace dbReverse.EntityModel
 //                    .HasForeignKey(d => d.User_ObjectId)
 //                    .HasConstraintName("FK_dbo.JournalRecords_dbo.Users_User_ObjectId");
 
-//                entity.HasOne(d => d.WorkTask_Object)
+//                entity.HasOne(d => d.WorkTask)
 //                    .WithMany(p => p.JournalRecords)
 //                    .HasForeignKey(d => d.WorkTask_ObjectId)
 //                    .HasConstraintName("FK_dbo.JournalRecords_dbo.WorkTasks_WorkTask_ObjectId");
@@ -1376,12 +1376,12 @@ namespace dbReverse.EntityModel
 
 //                entity.HasIndex(e => e.WorkTask_ObjectId, "IX_WorkTask_ObjectId");
 
-//                entity.HasOne(d => d.Report3D_Object)
+//                entity.HasOne(d => d.Report3D)
 //                    .WithMany(p => p.Report3DWorkTasks)
 //                    .HasForeignKey(d => d.Report3D_ObjectId)
 //                    .HasConstraintName("FK_dbo.Report3DWorkTask_dbo.Report3D_Report3D_ObjectId");
 
-//                entity.HasOne(d => d.WorkTask_Object)
+//                entity.HasOne(d => d.WorkTask)
 //                    .WithMany(p => p.Report3DWorkTasks)
 //                    .HasForeignKey(d => d.WorkTask_ObjectId)
 //                    .HasConstraintName("FK_dbo.Report3DWorkTask_dbo.WorkTasks_WorkTask_ObjectId");
@@ -2052,7 +2052,7 @@ namespace dbReverse.EntityModel
 //                    .HasForeignKey(d => d.AttributeType_ObjectId)
 //                    .HasConstraintName("FK_dbo.WorkTaskAttributeValues_dbo.AttributesTypes_AttributeType_ObjectId");
 
-//                entity.HasOne(d => d.WorkTask_Object)
+//                entity.HasOne(d => d.WorkTask)
 //                    .WithMany(p => p.WorkTaskAttributeValues)
 //                    .HasForeignKey(d => d.WorkTask_ObjectId)
 //                    .HasConstraintName("FK_dbo.WorkTaskAttributeValues_dbo.WorkTasks_WorkTask_ObjectId");
@@ -2075,12 +2075,12 @@ namespace dbReverse.EntityModel
 
 //                entity.HasIndex(e => e.WorkTask_ObjectId, "IX_WorkTask_ObjectId");
 
-//                entity.HasOne(d => d.P3DBModel_Object)
+//                entity.HasOne(d => d.P3DBModel)
 //                    .WithMany(p => p.WorkTaskP3DBModels)
 //                    .HasForeignKey(d => d.P3DBModel_ObjectId)
 //                    .HasConstraintName("FK_dbo.WorkTaskP3DBModel_dbo.P3DBModel_P3DBModel_ObjectId");
 
-//                entity.HasOne(d => d.WorkTask_Object)
+//                entity.HasOne(d => d.WorkTask)
 //                    .WithMany(p => p.WorkTaskP3DBModels)
 //                    .HasForeignKey(d => d.WorkTask_ObjectId)
 //                    .HasConstraintName("FK_dbo.WorkTaskP3DBModel_dbo.WorkTasks_WorkTask_ObjectId");

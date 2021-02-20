@@ -74,11 +74,11 @@ namespace dbReverse.EntityModel
     {
         public WorkTask()
         {
-            this.LogMessages = new List<JournalRecord>();
-            this.WorkTaskAttributeValues = new List<WorkTaskAttributeValue>();
-            this.P3DBElements = new List<P3DBModel>();
-            this.Activities = new List<ActivityWorkTaskRef>();
-            this.DocFiles = new List<Document>();
+            this.LogMessages = new HashSet<JournalRecord>();
+            this.WorkTaskAttributeValues = new HashSet<WorkTaskAttributeValue>();
+            //this.P3DBElements = new HashSet<P3DBModel>();
+            this.Activities = new HashSet<ActivityWorkTaskRef>();
+            //this.DocFiles = new HashSet<Document>();
 
             DocumentWorkTasks = new HashSet<DocumentWorkTask>();
             Report3DWorkTasks = new HashSet<Report3DWorkTask>();
@@ -89,94 +89,10 @@ namespace dbReverse.EntityModel
         [Required]
         public int ObjectId { get; set; }
 
-        public DateTime? DateOfIssue { get; set; }
-
-        [Required]
-        public DateTime PlannedDateStart { get; set; }
-
-        [Required]
-        public DateTime PlannedDateEnd { get; set; }
-
-        public DateTime? LastStatusChangedTime { get; set; }
-
-        public string Period { get; set; }
-
-        [Required]
-        public string Name { get; set; }
-
-        [MaxLength]
-        public string Comment { get; set; }
-
-        [Required]
-        public string Number { get; set; }
-
-        public int Version { get; set; }
-
-        public virtual ICollection<JournalRecord> LogMessages { get; set; }
-
-        public Int16 Performer_ObjectId { get; set; }
-
         /// <summary>
-        /// Исполнитель
+        /// Дата последней отправки факт. данных в Примаверу через API
         /// </summary>
-        [Required]
-        [ForeignKey("Performer_ObjectId")]
-        public virtual Performer Performer { get; set; }
-
-        public int Curator_ObjectId { get; set; }
-
-        /// <summary>
-        /// Куратор
-        /// </summary>
-        [Required]
-        [ForeignKey("Curator_ObjectId")]
-        public virtual Curator Curator { get; set; }
-
-        [Required]
-        public byte Status { get; set; }
-
-        public bool IsCustomPeriod { get; set; }
-
-        /// <summary>
-        /// Список частей номера РЗ в сериализованном виде (нужно для последующего обновления частей типа Поле в номере РЗ без потери настроенного текста)
-        /// </summary>
-        public string NumberParts { get; set; }
-
-        [NotMapped]
-        public NumberPart[] NumberPartsList
-        {
-            get { return string.IsNullOrWhiteSpace(NumberParts) ? null : SerializationManager.JsonDeserialize(NumberParts) as NumberPart[]; }
-            set { NumberParts = value == null ? null : SerializationManager.JsonSerialize(value); }
-        }
-
-        public virtual ICollection<WorkTaskAttributeValue> WorkTaskAttributeValues { get; set; }
-
-        public virtual ICollection<P3DBModel> P3DBElements { get; set; }
-
-        public virtual ICollection<ActivityWorkTaskRef> Activities { get; set; }
-
-        /// <summary>
-        /// Список документов текущего РЗ
-        /// </summary>
-        public virtual ICollection<Document> DocFiles { get; set; }
-
-        /// <summary>
-        /// Прикрепленные 3д отчеты
-        /// </summary>
-        public virtual ICollection<Report3D> Reports3D { get; set; }
-
-        public int ProjectId { get; set; }
-        [ForeignKey("ProjectId")]
-        [Required]
-        public virtual Project Project { get; set; }
-
-        [NotMapped]
-        public bool IsChecked { get; set; }
-
-        /// <summary>
-        /// Номер чертежа
-        /// </summary>
-        public string ProjectNumber { get; set; }
+        public DateTime? ActualDataToPrimaveraAPIDateTime { get; set; }
 
         /// <summary>
         /// Номер сметы
@@ -190,16 +106,23 @@ namespace dbReverse.EntityModel
         /// </summary>
         public virtual ActivityCode ConstructionObject { get; set; }
 
-        [ForeignKey("ProjectPart")]
-        public int? ProjectPartId { get; set; }
+        [MaxLength]
+        public string Comment { get; set; }
+
+        public int Curator_ObjectId { get; set; }
         /// <summary>
-        /// Часть проекта
+        /// Куратор
         /// </summary>
-        public virtual ActivityCode ProjectPart { get; set; }
+        [Required]
+        [ForeignKey("Curator_ObjectId")]
+        public virtual Curator Curator { get; set; }
 
+        public DateTime? DateOfIssue { get; set; }
+        
+        public bool IsCustomPeriod { get; set; }
 
-        [ForeignKey("SystemName")]
-        public int? SystemNameId { get; set; }
+        [NotMapped]
+        public bool IsChecked { get; set; }
 
         /// <summary>
         /// Изменялись ли фактические данные работ
@@ -208,20 +131,81 @@ namespace dbReverse.EntityModel
         [Required]
         public bool IsActualDataChange { get; set; }
 
-        /// <summary>
-        /// Дата последней отправки факт. данных в Примаверу через API
-        /// </summary>
-        public DateTime? ActualDataToPrimaveraAPIDateTime { get; set; }
+        public DateTime? LastStatusChangedTime { get; set; }
 
+        [Required]
+        public string Name { get; set; }
+
+        [Required]
+        public string Number { get; set; }
+
+        /// <summary>
+        /// Список частей номера РЗ в сериализованном виде (нужно для последующего обновления частей типа Поле в номере РЗ без потери настроенного текста)
+        /// </summary>
+        public string NumberParts { get; set; }
+
+        [NotMapped]
+        public NumberPart[] NumberPartsList
+        {
+            get { return string.IsNullOrWhiteSpace(NumberParts) ? null : SerializationManager.JsonDeserialize(NumberParts) as NumberPart[]; }
+            set { NumberParts = value == null ? null : SerializationManager.JsonSerialize(value); }
+        }
+        
+        public Int16 Performer_ObjectId { get; set; }
+        /// <summary>
+        /// Исполнитель
+        /// </summary>
+        [Required]
+        [ForeignKey("Performer_ObjectId")]
+        public virtual Performer Performer { get; set; }
+
+        [Required]
+        public DateTime PlannedDateStart { get; set; }
+
+        [Required]
+        public DateTime PlannedDateEnd { get; set; }
+
+        public int ProjectId { get; set; }
+        [ForeignKey("ProjectId")]
+        [Required]
+        public virtual Project Project { get; set; }
+
+        /// <summary>
+        /// Номер чертежа
+        /// </summary>
+        public string ProjectNumber { get; set; }
+        
+        [ForeignKey("ProjectPart")]
+        public int? ProjectPartId { get; set; }
+        /// <summary>
+        /// Часть проекта
+        /// </summary>
+        public virtual ActivityCode ProjectPart { get; set; }
+
+        [Required]
+        public byte Status { get; set; }
+
+        [ForeignKey("SystemName")]
+        public int? SystemNameId { get; set; }
         /// <summary>
         /// Наименование системы
         /// </summary>
         public virtual ActivityCode SystemName { get; set; }
 
+        public int Version { get; set; }
+
         /// <summary>
         /// Режим формирования работ
         /// </summary>
         public WorkTaskPriorityMode PriorityMode { get; set; }
+
+        public virtual ICollection<ActivityWorkTaskRef> Activities { get; set; }
+
+        //TODO: использовать <see cref="DocumentWorkTasks">
+        ///// <summary>
+        ///// Список документов текущего РЗ
+        ///// </summary>
+        //public virtual ICollection<Document> DocFiles { get; set; }
 
         /// <summary>
         /// Для связи многие ко многим Документов в и РЗ
@@ -229,10 +213,19 @@ namespace dbReverse.EntityModel
         [NotMapped]
         public virtual ICollection<DocumentWorkTask> DocumentWorkTasks { get; set; }
 
+        public virtual ICollection<JournalRecord> LogMessages { get; set; }
+
+        //TODO: использовать <see cref="Report3DWorkTasks">
+        ///// <summary>
+        ///// Прикрепленные 3д отчеты
+        ///// </summary>
+        //public virtual ICollection<Report3D> Reports3D { get; set; }
+
         /// <summary>
         /// Для связи многие ко многим отчетов и РЗ
         /// </summary>
-        [NotMapped]
+        //[NotMapped]
+        [InverseProperty("WorkTask")]
         public virtual ICollection<Report3DWorkTask> Report3DWorkTasks { get; set; }
 
         /// <summary>
@@ -240,5 +233,10 @@ namespace dbReverse.EntityModel
         /// </summary>
         [NotMapped]
         public virtual ICollection<WorkTaskP3DBModel> WorkTaskP3DBModels { get; set; }
+
+        public virtual ICollection<WorkTaskAttributeValue> WorkTaskAttributeValues { get; set; }
+
+        //TODO: использовать WorkTaskP3DBModels
+        //public virtual ICollection<P3DBModel> P3DBElements { get; set; }
     }
 }

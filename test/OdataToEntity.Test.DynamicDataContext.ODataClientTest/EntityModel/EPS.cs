@@ -25,7 +25,7 @@ namespace dbReverse.EntityModel
     //    public int? ParentId { get; set; }
     //    public Guid? P3DBModel_ObjectId { get; set; }
 
-    //    public virtual P3DBModel P3DBModel_Object { get; set; }
+    //    public virtual P3DBModel P3DBModel { get; set; }
     //    public virtual EPS Parent { get; set; }
     //    public virtual ICollection<EPS> InverseParent { get; set; }
     //    public virtual ICollection<Project> Projects { get; set; }

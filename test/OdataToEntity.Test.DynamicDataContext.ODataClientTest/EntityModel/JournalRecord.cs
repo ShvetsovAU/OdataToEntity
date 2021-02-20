@@ -18,7 +18,7 @@ namespace dbReverse.EntityModel
     //    public int WorkTask_ObjectId { get; set; }
 
     //    public virtual User User_Object { get; set; }
-    //    public virtual WorkTask WorkTask_Object { get; set; }
+    //    public virtual WorkTask WorkTask { get; set; }
     //}
 
     #endregion scaffold model
