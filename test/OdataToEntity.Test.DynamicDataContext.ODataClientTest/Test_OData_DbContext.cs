@@ -427,11 +427,9 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasName("PK_dbo.ActivityWorkTaskRefs");
 
                 entity.HasIndex(e => e.ActivityId, "IX_ActivityId");
-
                 entity.HasIndex(e => e.WorkTaskId, "IX_WorkTaskId");
 
                 entity.Property(e => e.DurationPercentComplete).HasColumnType("decimal(5, 2)");
-
                 entity.Property(e => e.PlannedDurationPercent).HasColumnType("decimal(19, 16)");
 
                 entity.HasOne(d => d.Activity)
