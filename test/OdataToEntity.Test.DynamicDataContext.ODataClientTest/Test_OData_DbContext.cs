@@ -2068,7 +2068,7 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
 
                 entity.Property(e => e.Title).IsRequired();
 
-                entity.HasOne(d => d.Performer_Object)
+                entity.HasOne(d => d.Performer)
                     //.WithMany(p => p.Workers)
                     .WithMany()
                     .HasForeignKey(d => d.Performer_ObjectId)
