@@ -34,9 +34,13 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest.Controllers
 
             //TODO: нормально, Nv prop не проставляется!
             //var res6 = dataSet.Expand(f => f.CodeForBudgetNumber).Where(i => i.ObjectId == 308398).ToList(); //TODO: так не работает The expression 'f => f.CodeForBudgetNumber' is not a valid expression for navigation path. The only supported operations inside the lambda expression body are MemberAccess and TypeAs. The expression must contain at least one MemberAccess and it cannot end with TypeAs.
-            var res6 = dataSet.Expand("CodeForBudgetNumber").Where(i => i.ObjectId == 308398).ToList();
-            
-            
+            var res6 = dataSet
+                                .Expand("CodeForArchiveProjectNumber")
+                                .Expand("CodeForBudgetNumber")
+                                .Expand("EPS")
+                                .Where(i => i.ObjectId == 308398)
+                                .ToList();
+
             var res8 = ((DataServiceQuery<Project>)dataSet.Expand(f => f.CodeForBudgetNumber).Where(i => i.ObjectId == 308398)).Execute();
 
             //TODO: working

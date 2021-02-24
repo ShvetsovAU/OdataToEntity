@@ -1199,7 +1199,7 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasConstraintName("FK_dbo.PerformerActivityCodes_dbo.Performers_Performer_ObjectId");
 
                 entity.HasOne(d => d.Project)
-                    .WithMany(p => p.PerformerActivityCodes)
+                    .WithMany(p => p.PerformerCodes)
                     .HasForeignKey(d => d.Project_ObjectId)
                     .HasConstraintName("FK_dbo.PerformerActivityCodes_dbo.Projects_Project_ObjectId");
             });
@@ -1228,7 +1228,6 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .IsUnique();
 
                 entity.Property(e => e.EndDate).HasColumnType("datetime");
-
                 entity.Property(e => e.StartDate).HasColumnType("datetime");
             });
 
@@ -1258,17 +1257,19 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasMaxLength(100);
 
                 entity.HasOne(d => d.CodeForArchiveProjectNumber)
-                    .WithMany(p => p.ProjectCodeForArchiveProjectNumber_Objects)
+                    .WithMany(p => p.ProjectCodeForArchiveProjectNumbers)
                     .HasForeignKey(d => d.CodeForArchiveProjectNumber_ObjectId)
                     .HasConstraintName("FK_dbo.Projects_dbo.UDFType_CodeForArchiveProjectNumber_ObjectId");
 
                 entity.HasOne(d => d.CodeForBudgetNumber)
-                    .WithMany(p => p.ProjectCodeForBudgetNumber_Objects)
+                    .WithMany(p => p.ProjectCodeForBudgetNumbers)
+                    //.WithMany()
                     .HasForeignKey(d => d.CodeForBudgetNumber_ObjectId)
                     .HasConstraintName("FK_dbo.Projects_dbo.UDFType_CodeForBudgetNumber_ObjectId");
 
                 entity.HasOne(d => d.CodeForSystemName)
-                    .WithMany(p => p.ProjectCodeForSystemName_Objects)
+                    .WithMany(p => p.ProjectCodeForSystemNames)
+                    //.WithMany()
                     .HasForeignKey(d => d.CodeForSystemName_ObjectId)
                     .HasConstraintName("FK_dbo.Projects_dbo.UDFType_CodeForSystemName_ObjectId");
 
@@ -1287,19 +1288,20 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasForeignKey(d => d.CodeTypeForProjectPart_ObjectId)
                     .HasConstraintName("FK_dbo.Projects_dbo.ActivityCodeType_CodeTypeForProjectPart_ObjectId");
 
-                entity.HasOne(d => d.EPS_Object)
+                entity.HasOne(d => d.EPS)
                     .WithMany(p => p.Projects)
                     .HasForeignKey(d => d.EPS_ObjectId)
                     .HasConstraintName("FK_dbo.Projects_dbo.EPS_EPS_ObjectId");
 
-                entity.HasOne(d => d.LastUpdateUser_Object)
+                entity.HasOne(d => d.LastUpdateUser)
                     //.WithMany(p => p.Projects)
                     .WithMany()
                     .HasForeignKey(d => d.LastUpdateUser_ObjectId)
                     .HasConstraintName("FK_dbo.Projects_dbo.Users_LastUpdateUser_ObjectId");
 
-                entity.HasOne(d => d.UDFTypeForPlacement_Object)
-                    .WithMany(p => p.ProjectUDFTypeForPlacement_Objects)
+                entity.HasOne(d => d.UDFTypeForPlacement)
+                    .WithMany(p => p.ProjectUDFTypeForPlacements)
+                    //.WithMany()
                     .HasForeignKey(d => d.UDFTypeForPlacement_ObjectId)
                     .HasConstraintName("FK_dbo.Projects_dbo.UDFType_UDFTypeForPlacement_ObjectId");
             });
@@ -1434,19 +1436,13 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                 entity.ToTable("Resource");
 
                 entity.HasIndex(e => e.CalendarObjectId, "IX_CalendarObjectId");
-
                 entity.HasIndex(e => e.CurrencyObjectId, "IX_CurrencyObjectId");
-
                 entity.HasIndex(e => e.Parent_ObjectId, "IX_Parent_ObjectId");
-
                 entity.HasIndex(e => e.UnitOfMeasureObjectId, "IX_UnitOfMeasureObjectId");
 
                 entity.Property(e => e.DefaultUnitsPerTime).HasColumnType("decimal(16, 8)");
-
                 entity.Property(e => e.EmailAddress).HasMaxLength(120);
-
                 entity.Property(e => e.EmployeeId).HasMaxLength(40);
-
                 entity.Property(e => e.Id)
                     .IsRequired()
                     .HasMaxLength(40);
@@ -1456,13 +1452,9 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasMaxLength(100);
 
                 entity.Property(e => e.OfficePhone).HasMaxLength(32);
-
                 entity.Property(e => e.OtherPhone).HasMaxLength(32);
-
                 entity.Property(e => e.OvertimeFactor).HasColumnType("decimal(5, 3)");
-
                 entity.Property(e => e.ResourceNotes).HasMaxLength(4000);
-
                 entity.Property(e => e.Title).HasMaxLength(40);
 
                 entity.HasOne(d => d.Calendar)
@@ -1635,7 +1627,6 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasName("PK_dbo.SupplierMappingRules");
 
                 entity.Property(e => e.Condition).IsRequired();
-
                 entity.Property(e => e.Name).IsRequired();
             });
 
@@ -1831,7 +1822,6 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                 entity.ToTable("UserGroupEPS");
 
                 entity.HasIndex(e => e.EPS_ObjectId, "IX_EPS_ObjectId");
-
                 entity.HasIndex(e => e.UserGroup_ObjectId, "IX_UserGroup_ObjectId");
 
                 entity.HasOne(d => d.EPS)
@@ -1931,7 +1921,7 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasConstraintName("FK_dbo.WBS_dbo.WBS_ParentObjectId");
 
                 entity.HasOne(d => d.Project)
-                    .WithMany(p => p.WBs)
+                    .WithMany(p => p.WBS)
                     .HasForeignKey(d => d.ProjectObjectId)
                     .HasConstraintName("FK_dbo.WBS_dbo.Projects_ProjectObjectId");
             });

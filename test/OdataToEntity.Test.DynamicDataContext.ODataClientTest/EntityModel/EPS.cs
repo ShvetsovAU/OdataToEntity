@@ -56,9 +56,9 @@ namespace dbReverse.EntityModel
         [ForeignKey("P3DBModel_ObjectId")]
         public virtual P3DBModel P3DBModel { get; set; }
 
-        //[InverseProperty("EPS")] //TODO: Поменять при модификации Project
+        [InverseProperty("EPS")] //TODO: Поменять при модификации Project
 #warning Поменять при модификации Project
-        [InverseProperty("EPS_Object")]
+        //[InverseProperty("EPS_Object")]
         public virtual ICollection<Project> Projects
         {
             get { return mProjects ?? (mProjects = new List<Project>()); }
