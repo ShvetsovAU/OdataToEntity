@@ -101,7 +101,7 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
         public virtual DbSet<UserGroupEPS> UserGroupEPs { get; set; }
         public virtual DbSet<UserGroupUser> UserGroupUsers { get; set; }
         public virtual DbSet<UserStateSettings> UserStateSettings { get; set; }
-        public virtual DbSet<View_2> View_2s { get; set; }
+        //public virtual DbSet<View_2> View_2s { get; set; }
         public virtual DbSet<WorkBreakdownStructure> WBs { get; set; }
         public virtual DbSet<WorkTask> WorkTasks { get; set; }
         public virtual DbSet<WorkTaskAttributeValue> WorkTaskAttributeValues { get; set; }
@@ -1925,12 +1925,12 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
 
                 entity.Property(e => e.OriginalBudget).HasColumnType("decimal(23, 6)");
 
-                entity.HasOne(d => d.ParentObject)
-                    .WithMany(p => p.InverseParentObject)
+                entity.HasOne(d => d.Parent)
+                    .WithMany(p => p.Children)
                     .HasForeignKey(d => d.ParentObjectId)
                     .HasConstraintName("FK_dbo.WBS_dbo.WBS_ParentObjectId");
 
-                entity.HasOne(d => d.ProjectObject)
+                entity.HasOne(d => d.Project)
                     .WithMany(p => p.WBs)
                     .HasForeignKey(d => d.ProjectObjectId)
                     .HasConstraintName("FK_dbo.WBS_dbo.Projects_ProjectObjectId");
