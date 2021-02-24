@@ -1874,7 +1874,7 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
 
                 entity.Property(e => e.User_ObjectId).ValueGeneratedNever();
 
-                entity.HasOne(d => d.User_Object)
+                entity.HasOne(d => d.User)
                     .WithOne(p => p.StateSettings)
                     .HasForeignKey<UserStateSettings>(d => d.User_ObjectId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
