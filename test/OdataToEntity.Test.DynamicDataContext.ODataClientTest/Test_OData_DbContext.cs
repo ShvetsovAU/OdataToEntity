@@ -1991,15 +1991,14 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
             modelBuilder.Entity<WorkTaskAttributeValue>(entity =>
             {
                 entity.HasIndex(e => e.AttributeType_ObjectId, "IX_AttributeType_ObjectId");
-
                 entity.HasIndex(e => e.WorkTask_ObjectId, "IX_WorkTask_ObjectId");
 
-                entity.HasOne(d => d.AttributeType_Object)
+                entity.HasOne(d => d.AttributeType)
                     .WithMany(p => p.WorkTaskAttributeValues)
                     .HasForeignKey(d => d.AttributeType_ObjectId)
                     .HasConstraintName("FK_dbo.WorkTaskAttributeValues_dbo.AttributesTypes_AttributeType_ObjectId");
 
-                entity.HasOne(d => d.WorkTask_Object)
+                entity.HasOne(d => d.WorkTask)
                     .WithMany(p => p.WorkTaskAttributeValues)
                     .HasForeignKey(d => d.WorkTask_ObjectId)
                     .HasConstraintName("FK_dbo.WorkTaskAttributeValues_dbo.WorkTasks_WorkTask_ObjectId");
@@ -2049,9 +2048,7 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                 entity.HasIndex(e => e.Performer_ObjectId, "IX_Performer_ObjectId");
 
                 entity.Property(e => e.ObjectId).ValueGeneratedNever();
-
                 entity.Property(e => e.BirthDate).HasColumnType("datetime");
-
                 entity.Property(e => e.FirstName)
                     .IsRequired()
                     .HasMaxLength(80);
@@ -2061,7 +2058,6 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasMaxLength(80);
 
                 entity.Property(e => e.MiddleName).HasMaxLength(80);
-
                 entity.Property(e => e.Picture)
                     .IsRequired()
                     .HasDefaultValueSql("(0x)");
