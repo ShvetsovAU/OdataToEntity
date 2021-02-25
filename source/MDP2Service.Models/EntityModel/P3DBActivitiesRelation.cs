@@ -4,8 +4,21 @@ using System.ComponentModel.DataAnnotations.Schema;
 using ASE.MD.MDP2.Product.MDP2Service.Infrastructure.Abstraction.P3D;
 using ASE.MD.MDP2.Product.MDP2Service.Models.Interfaces;
 
+#nullable disable
+
 namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
 {
+    //public partial class P3DBActivitiesRelation
+    //{
+    //    public int ObjectId { get; set; }
+    //    public string InternalPath { get; set; }
+    //    public int ActivityObjectId { get; set; }
+    //    public Guid P3DBModelId { get; set; }
+
+    //    public virtual Activity ActivityObject { get; set; }
+    //    public virtual P3DBModel P3DBModel { get; set; }
+    //}
+
     [Table("P3DBActivitiesRelations")]
     public partial class P3DBActivitiesRelation : IP3DBActivitiesRelation, IEntity
     {
@@ -38,7 +51,6 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         [Required]
         [ForeignKey("Activity")]
         public int ActivityObjectId { get; set; }
-
         public virtual Activity Activity { get; set; }
 
         [NotMapped]
@@ -71,7 +83,6 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         }
 
         public Guid P3DBModelId { get; set; }
-
         [ForeignKey("P3DBModelId")]
         public P3DBModel Model { get; set; }
     }

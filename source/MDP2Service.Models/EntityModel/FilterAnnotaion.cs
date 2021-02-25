@@ -3,8 +3,28 @@ using System.ComponentModel.DataAnnotations.Schema;
 using ASE.MD.MDP2.Product.MDP2Service.Models.Enums;
 using ASE.MD.MDP2.Product.MDP2Service.Models.Interfaces;
 
+#nullable disable
+
 namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
 {
+    #region scaffold model
+
+    //public partial class FilterAnnotaion
+    //{
+    //    public int ObjectId { get; set; }
+    //    public int? AnnotationObjectId { get; set; }
+    //    public string AttributeDataType { get; set; }
+    //    public byte AttributeType { get; set; }
+    //    public string AttributeName { get; set; }
+    //    public string AttributeValue { get; set; }
+    //    public int? ConditionOperator { get; set; }
+    //    public byte ComparisonAlgorithm { get; set; }
+
+    //    public virtual Annotation AnnotationObject { get; set; }
+    //}
+
+    #endregion scaffold model
+
     public class FilterAnnotaion : IEntity
     {
         /// <summary>
@@ -13,7 +33,7 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         [Key]
         [Required]
         public int ObjectId { get; set; }
-        
+
         /// <summary>
         /// идентификатор шаблона аннотации
         /// </summary>

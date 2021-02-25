@@ -48,8 +48,8 @@ namespace OdataToEntity.AspServer
                 basePath = "/" + basePath;
 
             //var dataAdapter = new OrderDataAdapter(true, true);
-            //var dataAdapter = new NszContextDataAdapter(allowCache, useRelationalNulls, connectionString);
-            var dataAdapter = new Test_Odata_DbContextDataAdapter(allowCache, useRelationalNulls, connectionString);
+            var dataAdapter = new NszContextDataAdapter(allowCache, useRelationalNulls, connectionString);
+            //var dataAdapter = new Test_Odata_DbContextDataAdapter(allowCache, useRelationalNulls, connectionString);
             app.UseOdataToEntityMiddleware<OePageMiddleware>(basePath, dataAdapter.BuildEdmModelFromEfCoreModel());
         }
     }

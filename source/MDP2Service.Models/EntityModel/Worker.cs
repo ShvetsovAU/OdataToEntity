@@ -4,8 +4,29 @@ using System.ComponentModel.DataAnnotations.Schema;
 using ASE.MD.MDP2.Product.MDP2Service.Models.CustomAttributes;
 using ASE.MD.MDP2.Product.MDP2Service.Models.Enums;
 
+#nullable disable
+
 namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
 {
+    #region scaffold model
+
+    //public partial class Worker
+    //{
+    //    public Guid ObjectId { get; set; }
+    //    public string FirstName { get; set; }
+    //    public string MiddleName { get; set; }
+    //    public string LastName { get; set; }
+    //    public string Title { get; set; }
+    //    public int? Status { get; set; }
+    //    public DateTime? BirthDate { get; set; }
+    //    public short Performer_ObjectId { get; set; }
+    //    public byte[] Picture { get; set; }
+
+    //    public virtual Performer Performer_Object { get; set; }
+    //}
+
+    #endregion scaffold model
+
     /// <summary>
     /// Сущность исполнителя для Модуля подрядчика
     /// </summary>
@@ -36,11 +57,11 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         [NotMapped]
         public byte[] Picture { get; set; }
 
-        [Required]
         //должность
+        [Required]
         public string Title { get; set; }
 
-        public Int16 Performer_ObjectId { get; set; }
+        public short Performer_ObjectId { get; set; } //public Int16 Performer_ObjectId { get; set; }
 
         [Required]
         [ForeignKey("Performer_ObjectId")]
@@ -54,6 +75,5 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
 
 
         //ToDO UDF
-
     }
 }

@@ -1,28 +1,85 @@
-using System;
+п»їusing System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using ASE.MD.MDP2.Product.MDP2Service.Models.Classes;
+using ASE.MD.MDP2.Product.MDP2Service.Utils;
 using ASE.MD.MDP2.Product.MDP2Service.Models.Enums;
 using ASE.MD.MDP2.Product.MDP2Service.Models.Interfaces;
-using ASE.MD.MDP2.Product.MDP2Service.Utils;
+
+#nullable disable
 
 namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
 {
+    #region scaffold model
+
+    //public partial class WorkTask
+    //{
+    //    public WorkTask()
+    //    {
+    //        ActivityWorkTaskRefs = new HashSet<ActivityWorkTaskRef>();
+    //        DocumentWorkTasks = new HashSet<DocumentWorkTask>();
+    //        JournalRecords = new HashSet<JournalRecord>();
+    //        Report3DWorkTasks = new HashSet<Report3DWorkTask>();
+    //        WorkTaskAttributeValues = new HashSet<WorkTaskAttributeValue>();
+    //        WorkTaskP3DBModels = new HashSet<WorkTaskP3DBModel>();
+    //    }
+
+    //    public int ObjectId { get; set; }
+    //    public int ProjectId { get; set; }
+    //    public DateTime? DateOfIssue { get; set; }
+    //    public DateTime PlannedDateStart { get; set; }
+    //    public DateTime PlannedDateEnd { get; set; }
+    //    public DateTime? LastStatusChangedTime { get; set; }
+    //    public string Period { get; set; }
+    //    public string Name { get; set; }
+    //    public string Comment { get; set; }
+    //    public string Number { get; set; }
+    //    public int Version { get; set; }
+    //    public byte Status { get; set; }
+    //    public bool IsCustomPeriod { get; set; }
+    //    public int Curator_ObjectId { get; set; }
+    //    public short Performer_ObjectId { get; set; }
+    //    public string ProjectNumber { get; set; }
+    //    public string BudgetNumber { get; set; }
+    //    public int? ConstructionObjectId { get; set; }
+    //    public int? ProjectPartId { get; set; }
+    //    public int? SystemNameId { get; set; }
+    //    public bool IsActualDataChange { get; set; }
+    //    public DateTime? ActualDataToPrimaveraAPIDateTime { get; set; }
+    //    public string NumberParts { get; set; }
+    //    public byte PriorityMode { get; set; }
+
+    //    public virtual ActivityCode ConstructionObject { get; set; }
+    //    public virtual Curator Curator_Object { get; set; }
+    //    public virtual Performer Performer_Object { get; set; }
+    //    public virtual Project Project { get; set; }
+    //    public virtual ActivityCode ProjectPart { get; set; }
+    //    public virtual ActivityCode SystemName { get; set; }
+    //    public virtual ICollection<ActivityWorkTaskRef> ActivityWorkTaskRefs { get; set; }
+    //    public virtual ICollection<DocumentWorkTask> DocumentWorkTasks { get; set; }
+    //    public virtual ICollection<JournalRecord> JournalRecords { get; set; }
+    //    public virtual ICollection<Report3DWorkTask> Report3DWorkTasks { get; set; }
+    //    public virtual ICollection<WorkTaskAttributeValue> WorkTaskAttributeValues { get; set; }
+    //    public virtual ICollection<WorkTaskP3DBModel> WorkTaskP3DBModels { get; set; }
+    //}
+
+    #endregion scaffold model
+
     /// <summary>
-    /// Сущность рабочего задания
+    /// РЎСѓС‰РЅРѕСЃС‚СЊ СЂР°Р±РѕС‡РµРіРѕ Р·Р°РґР°РЅРёСЏ
     /// </summary>
     public partial class WorkTask : IEntity
     {
         public WorkTask()
         {
-            this.LogMessages = new List<JournalRecord>();
-            this.WorkTaskAttributeValues = new List<WorkTaskAttributeValue>();
-            this.P3DBElements = new List<P3DBModel>();
-            this.Activities = new List<ActivityWorkTaskRef>();
-            this.DocFiles = new List<Document>();
-            
+            this.LogMessages = new HashSet<JournalRecord>();
+            this.WorkTaskAttributeValues = new HashSet<WorkTaskAttributeValue>();
+            this.P3DBElements = new HashSet<P3DBModel>();
+            this.Activities = new HashSet<ActivityWorkTaskRef>();
+            this.DocFiles = new HashSet<Document>();
+
             DocumentWorkTasks = new HashSet<DocumentWorkTask>();
             Report3DWorkTasks = new HashSet<Report3DWorkTask>();
             WorkTaskP3DBModels = new HashSet<WorkTaskP3DBModel>();
@@ -32,56 +89,58 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         [Required]
         public int ObjectId { get; set; }
 
-        public DateTime? DateOfIssue { get; set; }
+        /// <summary>
+        /// Р”Р°С‚Р° РїРѕСЃР»РµРґРЅРµР№ РѕС‚РїСЂР°РІРєРё С„Р°РєС‚. РґР°РЅРЅС‹С… РІ РџСЂРёРјР°РІРµСЂСѓ С‡РµСЂРµР· API
+        /// </summary>
+        public DateTime? ActualDataToPrimaveraAPIDateTime { get; set; }
 
-        [Required]
-        public DateTime PlannedDateStart { get; set; }
+        /// <summary>
+        /// РќРѕРјРµСЂ СЃРјРµС‚С‹
+        /// </summary>
+        public string BudgetNumber { get; set; }
 
-        [Required]
-        public DateTime PlannedDateEnd { get; set; }
-
-        public DateTime? LastStatusChangedTime { get; set; }
-
-        public string Period { get; set; }
-
-        [Required]
-        public string Name { get; set; }
+        [ForeignKey("ConstructionObject")]
+        public int? ConstructionObjectId { get; set; }
+        /// <summary>
+        /// РћР±СЉРµРєС‚ СЃС‚СЂРѕРёС‚РµР»СЊСЃС‚РІР°
+        /// </summary>
+        public virtual ActivityCode ConstructionObject { get; set; }
 
         [MaxLength]
         public string Comment { get; set; }
 
-        [Required]
-        public string Number { get; set; }
-
-        public int Version { get; set; }
-
-        public virtual ICollection<JournalRecord> LogMessages { get; set; }
-
-        public Int16 Performer_ObjectId { get; set; }
-
-        /// <summary>
-        /// Исполнитель
-        /// </summary>
-        [Required]
-        [ForeignKey("Performer_ObjectId")]
-        public virtual Performer Performer { get; set; }
-
         public int Curator_ObjectId { get; set; }
-
         /// <summary>
-        /// Куратор
+        /// РљСѓСЂР°С‚РѕСЂ
         /// </summary>
         [Required]
         [ForeignKey("Curator_ObjectId")]
         public virtual Curator Curator { get; set; }
 
-        [Required]
-        public byte Status { get; set; }
-
+        public DateTime? DateOfIssue { get; set; }
+        
         public bool IsCustomPeriod { get; set; }
 
+        [NotMapped]
+        public bool IsChecked { get; set; }
+
         /// <summary>
-        /// Список частей номера РЗ в сериализованном виде (нужно для последующего обновления частей типа Поле в номере РЗ без потери настроенного текста)
+        /// РР·РјРµРЅСЏР»РёСЃСЊ Р»Рё С„Р°РєС‚РёС‡РµСЃРєРёРµ РґР°РЅРЅС‹Рµ СЂР°Р±РѕС‚
+        /// </summary>
+        [DefaultValue(false)]
+        [Required]
+        public bool IsActualDataChange { get; set; }
+
+        public DateTime? LastStatusChangedTime { get; set; }
+
+        [Required]
+        public string Name { get; set; }
+
+        [Required]
+        public string Number { get; set; }
+
+        /// <summary>
+        /// РЎРїРёСЃРѕРє С‡Р°СЃС‚РµР№ РЅРѕРјРµСЂР° Р Р— РІ СЃРµСЂРёР°Р»РёР·РѕРІР°РЅРЅРѕРј РІРёРґРµ (РЅСѓР¶РЅРѕ РґР»СЏ РїРѕСЃР»РµРґСѓСЋС‰РµРіРѕ РѕР±РЅРѕРІР»РµРЅРёСЏ С‡Р°СЃС‚РµР№ С‚РёРїР° РџРѕР»Рµ РІ РЅРѕРјРµСЂРµ Р Р— Р±РµР· РїРѕС‚РµСЂРё РЅР°СЃС‚СЂРѕРµРЅРЅРѕРіРѕ С‚РµРєСЃС‚Р°)
         /// </summary>
         public string NumberParts { get; set; }
 
@@ -91,97 +150,90 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
             get { return string.IsNullOrWhiteSpace(NumberParts) ? null : SerializationManager.JsonDeserialize(NumberParts) as NumberPart[]; }
             set { NumberParts = value == null ? null : SerializationManager.JsonSerialize(value); }
         }
-
-        public virtual ICollection<WorkTaskAttributeValue> WorkTaskAttributeValues { get; set; }
         
-        public virtual ICollection<P3DBModel> P3DBElements { get; set; }
-
-        public virtual ICollection<ActivityWorkTaskRef> Activities { get; set; }
-        
+        public Int16 Performer_ObjectId { get; set; }
         /// <summary>
-        /// Список документов текущего РЗ
+        /// РСЃРїРѕР»РЅРёС‚РµР»СЊ
         /// </summary>
-        public virtual ICollection<Document> DocFiles { get; set; }
+        [Required]
+        [ForeignKey("Performer_ObjectId")]
+        public virtual Performer Performer { get; set; }
 
-        /// <summary>
-        /// Прикрепленные 3д отчеты
-        /// </summary>
-        public virtual ICollection<Report3D> Reports3D { get; set; }
+        [Required]
+        public DateTime PlannedDateStart { get; set; }
+
+        [Required]
+        public DateTime PlannedDateEnd { get; set; }
 
         public int ProjectId { get; set; }
         [ForeignKey("ProjectId")]
         [Required]
         public virtual Project Project { get; set; }
 
-        [NotMapped]
-        public bool IsChecked { get; set; }
-
         /// <summary>
-        /// Номер чертежа
+        /// РќРѕРјРµСЂ С‡РµСЂС‚РµР¶Р°
         /// </summary>
         public string ProjectNumber { get; set; }
-
-        /// <summary>
-        /// Номер сметы
-        /// </summary>
-        public string BudgetNumber { get; set; }
-
-        [ForeignKey("ConstructionObject")]
-        public int? ConstructionObjectId { get; set; }
-        /// <summary>
-        /// Объект строительства
-        /// </summary>
-        public virtual ActivityCode ConstructionObject { get; set; }
-
+        
         [ForeignKey("ProjectPart")]
         public int? ProjectPartId { get; set; }
         /// <summary>
-        /// Часть проекта
+        /// Р§Р°СЃС‚СЊ РїСЂРѕРµРєС‚Р°
         /// </summary>
         public virtual ActivityCode ProjectPart { get; set; }
 
+        [Required]
+        public byte Status { get; set; }
 
         [ForeignKey("SystemName")]
         public int? SystemNameId { get; set; }
-
         /// <summary>
-        /// Изменялись ли фактические данные работ
-        /// </summary>
-        [DefaultValue(false)]
-        [Required]
-        public bool IsActualDataChange { get; set; }
-
-        /// <summary>
-        /// Дата последней отправки факт. данных в Примаверу через API
-        /// </summary>
-        public DateTime? ActualDataToPrimaveraAPIDateTime { get; set; }
-        
-        /// <summary>
-        /// Наименование системы
+        /// РќР°РёРјРµРЅРѕРІР°РЅРёРµ СЃРёСЃС‚РµРјС‹
         /// </summary>
         public virtual ActivityCode SystemName { get; set; }
 
+        public int Version { get; set; }
+
         /// <summary>
-        /// Режим формирования работ
+        /// Р РµР¶РёРј С„РѕСЂРјРёСЂРѕРІР°РЅРёСЏ СЂР°Р±РѕС‚
         /// </summary>
         public WorkTaskPriorityMode PriorityMode { get; set; }
-        
+
+        public virtual ICollection<ActivityWorkTaskRef> Activities { get; set; }
+
+        //TODO: РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ <see cref="DocumentWorkTasks">
         /// <summary>
-        /// Для связи многие ко многим Документов в и РЗ
+        /// РЎРїРёСЃРѕРє РґРѕРєСѓРјРµРЅС‚РѕРІ С‚РµРєСѓС‰РµРіРѕ Р Р—
         /// </summary>
-        [NotMapped]
+        public virtual ICollection<Document> DocFiles { get; set; }
+
+        /// <summary>
+        /// Р”Р»СЏ СЃРІСЏР·Рё РјРЅРѕРіРёРµ РєРѕ РјРЅРѕРіРёРј Р”РѕРєСѓРјРµРЅС‚РѕРІ РІ Рё Р Р—
+        /// </summary>
         public virtual ICollection<DocumentWorkTask> DocumentWorkTasks { get; set; }
 
+        public virtual ICollection<JournalRecord> LogMessages { get; set; }
+
+        //TODO: РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ <see cref="Report3DWorkTasks">
         /// <summary>
-        /// Для связи многие ко многим отчетов и РЗ
+        /// РџСЂРёРєСЂРµРїР»РµРЅРЅС‹Рµ 3Рґ РѕС‚С‡РµС‚С‹
         /// </summary>
-        [NotMapped]
-        public virtual ICollection<Report3DWorkTask> Report3DWorkTasks { get; set; }
+        public virtual ICollection<Report3D> Reports3D { get; set; }
 
         /// <summary>
-        /// Для связи многие ко многим 3D моделей и РЗ
+        /// Р”Р»СЏ СЃРІСЏР·Рё РјРЅРѕРіРёРµ РєРѕ РјРЅРѕРіРёРј РѕС‚С‡РµС‚РѕРІ Рё Р Р—
         /// </summary>
-        [NotMapped]
+        [InverseProperty("WorkTask")]
+        public virtual ICollection<Report3DWorkTask> Report3DWorkTasks { get; set; }
+
+        //TODO: РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ WorkTaskP3DBModels
+        public virtual ICollection<P3DBModel> P3DBElements { get; set; }
+
+        /// <summary>
+        /// Р”Р»СЏ СЃРІСЏР·Рё РјРЅРѕРіРёРµ РєРѕ РјРЅРѕРіРёРј 3D РјРѕРґРµР»РµР№ Рё Р Р—
+        /// </summary>
         public virtual ICollection<WorkTaskP3DBModel> WorkTaskP3DBModels { get; set; }
+
+        public virtual ICollection<WorkTaskAttributeValue> WorkTaskAttributeValues { get; set; }
     }
 }

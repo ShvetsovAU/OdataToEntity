@@ -1,71 +1,69 @@
-﻿using ASE.MD.MDP2.Product.MDP2Service.Localization;
-
-namespace ASE.MD.MDP2.Product.MDP2Service.Models.Enums
+﻿namespace ASE.MD.MDP2.Product.MDP2Service.Models.Enums
 {
     public enum AssemblyUnitsPropertiesEnum : byte
     {
 
-        [LocalizedDescription("Neo_IObjectUID")]
+        //[LocalizedDescription("Neo_IObjectUID")]
         IObjectUID = 1,
 
-        [LocalizedDescription("Neo_OID")]
+        //[LocalizedDescription("Neo_OID")]
         OID = 2,
 
-        [LocalizedDescription("Neo_ElementName")]
+        //[LocalizedDescription("Neo_ElementName")]
         Name = 3,
 
-        [LocalizedDescription("Neo_ElementType")]
+        //[LocalizedDescription("Neo_ElementType")]
         ElementType = 4,
 
-        [LocalizedDescription("Neo_AssemblyUnitType")]
+        //[LocalizedDescription("Neo_AssemblyUnitType")]
         AssemblyUnitType = 5,
 
-        [LocalizedDescription("Neo_FirstMountElementName")]
+        //[LocalizedDescription("Neo_FirstMountElementName")]
         FirstMountElementName = 6,
 
-        [LocalizedDescription("Neo_SecondMountElementName")]
+        //[LocalizedDescription("Neo_SecondMountElementName")]
         SecondMountElementName = 7,
 
-        [LocalizedDescription("Neo_FirstMountElementOID")]
+        //[LocalizedDescription("Neo_FirstMountElementOID")]
         FirstMountElementOID = 8,
 
-        [LocalizedDescription("Neo_SecondtMountElementOID")]
+        //[LocalizedDescription("Neo_SecondtMountElementOID")]
         SecondtMountElementOID = 9,
 
-        [LocalizedDescription("Neo_NominalDiameter")]
+        //[LocalizedDescription("Neo_NominalDiameter")]
         NominalDiameter = 10,
 
-        [LocalizedDescription("Neo_OuterDiameter")]
+        //[LocalizedDescription("Neo_OuterDiameter")]
         OuterDiameter = 11,
 
-        [LocalizedDescription("Neo_PipeWallLength")]
+        //[LocalizedDescription("Neo_PipeWallLength")]
         PipeWallLength = 12,
 
-        [LocalizedDescription("Neo_NNKomplectNumber")]
+        //[LocalizedDescription("Neo_NNKomplectNumber")]
         WorkingDocumentationSetNumber = 13,
 
-        [LocalizedDescription("Neo_System")]
+        //[LocalizedDescription("Neo_System")]
         System = 14,
 
-        [LocalizedDescription("Neo_WorkingDocumentationSetName")]
+        //[LocalizedDescription("Neo_WorkingDocumentationSetName")]
         WorkingDocumentationSetName = 15,
 
-        [LocalizedDescription("Neo_PipeRun")]
+        //[LocalizedDescription("Neo_PipeRun")]
         PipeRun = 16,
 
-        [LocalizedDescription("Neo_PipeLine")]
+        //[LocalizedDescription("Neo_PipeLine")]
         PipeLine = 117,
 
-        [LocalizedDescription("Neo_PipeMaterial")]
+        //[LocalizedDescription("Neo_PipeMaterial")]
         PipeMaterial = 18,
 
-        [LocalizedDescription("Neo_ActivityColumn_Placement")]
+        //[LocalizedDescription("Neo_ActivityColumn_Placement")]
         Room = 19,
 
-        [LocalizedDescription("Neo_SafetyClass")]
+        //[LocalizedDescription("Neo_SafetyClass")]
         SafetyClass = 20,
 
-        [LocalizedDescription("Neo_Pressure")]
+        //[LocalizedDescription("Neo_Pressure")]
         Pressure = 21
     }
 }

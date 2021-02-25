@@ -1,11 +1,41 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using ASE.MD.MDP2.Product.MDP2Service.Models.Enums;
 using ASE.MD.MDP2.Product.MDP2Service.Models.Interfaces;
 
+#nullable disable
+
 namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
 {
+    #region scaffold model
+
+    //public partial class Annotation
+    //{
+    //    public Annotation()
+    //    {
+    //        AnnotationConditions = new HashSet<AnnotationCondition>();
+    //        AnnotationInfos = new HashSet<AnnotationInfo>();
+    //        FilterAnnotaions = new HashSet<FilterAnnotaion>();
+    //    }
+
+    //    public int ObjectId { get; set; }
+    //    public byte CurrentAllocation { get; set; }
+    //    public int Report3dObjectId { get; set; }
+    //    public float WidthFont { get; set; }
+    //    public float HeigthFont { get; set; }
+    //    public float ColorFont { get; set; }
+    //    public bool IsGroupByActivities { get; set; }
+
+    //    public virtual Report3D Report3dObject { get; set; }
+    //    public virtual ICollection<AnnotationCondition> AnnotationConditions { get; set; }
+    //    public virtual ICollection<AnnotationInfo> AnnotationInfos { get; set; }
+    //    public virtual ICollection<FilterAnnotaion> FilterAnnotaions { get; set; }
+    //}
+
+    #endregion scaffold model
+
     /// <summary>
     /// Сущность описывающая аннотации
     /// Можно обойтись только параметрами 3D отчета, но в плане расширяемости будет удобно использование отдельной сущности
@@ -76,5 +106,4 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         /// </summary>
         public bool IsGroupByActivities { get; set; }
     }
-
 }

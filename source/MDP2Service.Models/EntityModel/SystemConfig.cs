@@ -1,8 +1,21 @@
+Ôªøusing ASE.MD.MDP2.Product.MDP2Service.Models.Interfaces;
 using System.ComponentModel.DataAnnotations;
-using ASE.MD.MDP2.Product.MDP2Service.Models.Interfaces;
+
+#nullable disable
 
 namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
 {
+    #region scaffold model
+
+    //public partial class SystemConfig
+    //{
+    //    public int ObjectId { get; set; }
+    //    public string Name { get; set; }
+    //    public string Value { get; set; }
+    //}
+
+    #endregion scaffold model
+
     public partial class SystemConfig : IEntity
     {
         [Key]
@@ -10,7 +23,7 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         public int ObjectId { get; set; }
 
         [MaxLength(50)]
-        //[Index(IsUnique = true)] //œÂÂÌÂÒ ‚ NSZDbContext
+        //[Index(IsUnique = true)] //–ü–µ—Ä–µ–Ω–µ—Å –≤ NSZDbContext
         public string Name { get; set; }
 
         public string Value { get; set; }

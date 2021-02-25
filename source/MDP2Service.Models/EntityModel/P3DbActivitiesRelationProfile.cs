@@ -1,8 +1,25 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using ASE.MD.MDP2.Product.MDP2Service.Models.Interfaces;
 
+#nullable disable
+
 namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
 {
+    #region scaffold model
+
+    //public partial class P3DbActivitiesRelationProfile
+    //{
+    //    public int ObjectId { get; set; }
+    //    public string P3DbProperty { get; set; }
+    //    public string P3DbCsvHeader { get; set; }
+    //    public string ActivityProperty { get; set; }
+    //    public string ActivityCsvHeader { get; set; }
+    //    public string Separator { get; set; }
+    //    public bool IsUdf { get; set; }
+    //}
+
+    #endregion scaffold model
+
     public partial class P3DbActivitiesRelationProfile : IEntity
     {
         [Key]
@@ -40,11 +57,11 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
 
         public override string ToString()
         {
-            return string.Format("{0} - {1} <= {2} => {3} - {4}", P3DbProperty, P3DbCsvHeader, Separator,
-                ActivityProperty, ActivityCsvHeader);
+            return $"{P3DbProperty} - {P3DbCsvHeader} <= {Separator} => {ActivityProperty} - {ActivityCsvHeader}";
         }
     }
 
+    //TODO: в 1 версии тоже не используется
     public enum ActivityProperty
     {
         Id,

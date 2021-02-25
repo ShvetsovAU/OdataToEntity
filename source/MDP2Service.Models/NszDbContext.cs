@@ -17,92 +17,162 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models
         {
         }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("Server=localhost; Database=Test_OData_Db; Trusted_Connection=true; Integrated Security=true;");
+            }
+        }
+
         #region DbSet's
 
         /// <summary>
         /// Работы
         /// </summary>
-        public DbSet<Activity> Activities { get; set; }
-        public DbSet<ActivityCode> ActivityCodes { get; set; }
-        public DbSet<ActivityCodeType> ActivityCodeTypes { get; set; }
-        public DbSet<ActivityExpense> ActivityExpenses { get; set; }
-        public DbSet<ActivityPeriodActual> ActivityPeriodActuals { get; set; }
-        public DbSet<ActivityUDF> ActivityUDFs { get; set; }
+        public virtual DbSet<Activity> Activities { get; set; }
+        public virtual DbSet<ActivityAttributeTemplate> ActivityAttributeTemplates { get; set; }
+        public virtual DbSet<ActivityCode> ActivityCodes { get; set; }
+        public virtual DbSet<ActivityCodeType> ActivityCodeTypes { get; set; }
+        public virtual DbSet<ActivityExpense> ActivityExpenses { get; set; }
 
         //Связь работ с бригадами исполнителей
-        public DbSet<ActivityPerformerTeamRef> ActivityPerformerTeams { get; set; }
+        public virtual DbSet<ActivityPerformerTeamRef> ActivityPerformerTeams { get; set; }
+        public virtual DbSet<ActivityPeriodActual> ActivityPeriodActuals { get; set; }
 
         //Фактические данные по работе за указаннй период времени
-        public DbSet<ActivityPeriodFact> ActivityPeriodFacts { get; set; }
+        public virtual DbSet<ActivityPeriodFact> ActivityPeriodFacts { get; set; }
+        public virtual DbSet<ActivityTemplate> ActivityTemplates { get; set; }
+        public virtual DbSet<ActivityType> ActivityTypes { get; set; }
+        public virtual DbSet<ActivityUDF> ActivityUDFs { get; set; }
+        public virtual DbSet<ActivityWorkTaskRef> ActivityWorkTaskRefs { get; set; }
+        //public virtual DbSet<Annotation> Annotations { get; set; }
+        //public virtual DbSet<AnnotationCondition> AnnotationConditions { get; set; }
+        public virtual DbSet<AnnotationInfo> AnnotationInfoes { get; set; }
 
-        public DbSet<AttributesType> AttributeTypes { get; set; }
+        #region сварные_швы
 
-        public DbSet<ActivityType> ActivityTypes { get; set; }
-        public DbSet<ActivityAttributeTemplate> ActivityAttributeTemplates { get; set; }
-        public DbSet<ActivityTemplate> ActivityTemplates { get; set; }
+        public virtual DbSet<AssemblyUnit> AssemblyUnits { get; set; }
+        public virtual DbSet<AssemblyUnitCondition> AssemblyUnitConditions { get; set; }
+        public virtual DbSet<AssemblyUnitState> AssemblyUnitStates { get; set; }
+        public virtual DbSet<AssemblyUnitsImportRule> AssemblyUnitsImportRules { get; set; }
 
-        public DbSet<ActivityWorkTaskRef> ActivityWorkTaskRefs { get; set; }
+        #endregion сварные_швы
 
-        public DbSet<Calendar> Calendars { get; set; }
-        public DbSet<CodeActivity> CodeActivities { get; set; }
-        public DbSet<CodeResource> CodeResources { get; set; }
-        public DbSet<Currency> Currencies { get; set; }
-        public DbSet<Curator> Curators { get; set; }
-        public DbSet<Document> Documents { get; set; }
-        public DbSet<DocumentNodeRef> DocumentNodeRefs { get; set; }
+        public virtual DbSet<AttributesType> AttributesTypes { get; set; }
+        public virtual DbSet<Calendar> Calendars { get; set; }
+        public virtual DbSet<CodeActivity> CodeActivities { get; set; }
+        public virtual DbSet<CodeResource> CodeResources { get; set; }
+        //public virtual DbSet<CommonCondition> CommonConditions { get; set; }
+        public virtual DbSet<Curator> Curators { get; set; }
+        public virtual DbSet<Currency> Currencies { get; set; }
+        public virtual DbSet<Document> Documents { get; set; }
+        public virtual DbSet<DocumentNodeRef> DocumentNodeRefs { get; set; }
 
         /// <summary>
         /// Для связи многие ко многим Документов в и РЗ
         /// </summary>
         public virtual DbSet<DocumentWorkTask> DocumentWorkTasks { get; set; }
+        public virtual DbSet<EPS> EPs { get; set; }
+        public virtual DbSet<Element3D> Element3Ds { get; set; }
 
-        public DbSet<EPS> EnterpriseProjectStructures { get; set; }
-        public DbSet<JournalRecord> JournalRecords { get; set; }
-        public DbSet<P3DBModel> P3DBModels { get; set; }
-        public DbSet<Project> Projects { get; set; }
-        public DbSet<Relationship> Relationships { get; set; }
-        public DbSet<ResAssignUDF> ResAssignUDFs { get; set; }
-        public DbSet<Resource> Resources { get; set; }
-        public DbSet<ProjectRole> ProjectRoles { get; set; }
-        public DbSet<ResourceAssignment> ResourceAssignments { get; set; }
-        public DbSet<ResourceCode> ResourceCodes { get; set; }
-        public DbSet<ResourceCodeType> ResourceCodeTypes { get; set; }
-        public DbSet<ResourceRate> ResourceRates { get; set; }
-        public DbSet<Role> Roles { get; set; }
-        public DbSet<SystemConfig> SystemConfigurations { get; set; }
+        //public virtual DbSet<FilterAnnotaion> FilterAnnotaions { get; set; }
 
-        public DbSet<UserStateSettings> NewUserStatesSettings { get; set; }
+        #region OG
+
+        /// <summary>
+        /// Индикаторы
+        /// </summary>
+        public DbSet<Indicator> Indicators { get; set; }
+
+        /// <summary>
+        /// Условия индикаторов
+        /// </summary>
+        public DbSet<IndicatorCondition> IndicatorConditions { get; set; }
+
+        /// <summary>
+        /// Записи из ОГ
+        /// </summary>
+        public DbSet<OgRecord> OgRecords { get; set; }
+
+        /// <summary>
+        /// Маппинги в ОГ
+        /// </summary>
+        public DbSet<OgToActivityMapping> OgToActivityMappings { get; set; }
+
+        /// <summary>
+        /// Значения UDF для ОГ
+        /// </summary>
+        public DbSet<OgUDFValue> OgUDFValues { get; set; }
+
+        /// <summary>
+        /// Типы UDF для ОГ
+        /// </summary>
+        public DbSet<OgUdfType> OgUdfTypes { get; set; }
+
+        #endregion
+
+        public virtual DbSet<JournalRecord> JournalRecords { get; set; }
+
+        //public virtual DbSet<OBEY> OBEYs { get; set; }
+        public virtual DbSet<P3DBActivitiesRelation> P3DBActivitiesRelations { get; set; }
+        public virtual DbSet<P3DBAttribute> P3DBAttributes { get; set; }
+        public virtual DbSet<P3DBIsometricDrawingAttributeRelation> P3DBIsometricDrawingAttributeRelations { get; set; }
+        public virtual DbSet<P3DBModel> P3DBModels { get; set; }
+        public virtual DbSet<P3DBModelAttributeRelation> P3DBModelAttributeRelations { get; set; }
+        public virtual DbSet<P3DBModelElement> P3DBModelElements { get; set; }
+        public virtual DbSet<P3DbActivitiesRelationProfile> P3DbActivitiesRelationProfiles { get; set; }
+        //public virtual DbSet<PaintingCondition> PaintingConditions { get; set; }
+        //public virtual DbSet<PaintingQuerry> PaintingQuerries { get; set; }
+        //public virtual DbSet<PartActivityId> PartActivityIds { get; set; }
 
         //Исполнители
-        public DbSet<Performer> Performers { get; set; }
+        public virtual DbSet<Performer> Performers { get; set; }
+        public virtual DbSet<PerformerActivityCode> PerformerActivityCodes { get; set; }
 
         //Бригады исполнителей
-        public DbSet<PerformerTeam> PerformerTeams { get; set; }
+        public virtual DbSet<PerformerTeam> PerformerTeams { get; set; }
 
         //Временные периоды
-        public DbSet<Period> Periods { get; set; }
+        public virtual DbSet<Period> Periods { get; set; }
+        public virtual DbSet<Project> Projects { get; set; }
+        public virtual DbSet<ProjectRole> ProjectRoles { get; set; }
+        public virtual DbSet<Relationship> Relationships { get; set; }
+        //public virtual DbSet<Report3D> Report3D { get; set; }
 
-        public DbSet<P3DBActivitiesRelation> P3DBActivitiesRelation { get; set; }
-        public DbSet<P3DBModelElement> P3DBModelElements { get; set; }
-        
-        public DbSet<ScriptMigrationHistory> ScriptsMigrationHistory { get; set; }
-        public DbSet<ReportTemplate> ReportTemplates { get; set; }
-        public DbSet<Worker> Workers { get; set; }
+        /// <summary>
+        /// Для связи многие ко многим отчетов и РЗ
+        /// </summary>
+        //public virtual DbSet<Report3DWorkTask> Report3DWorkTasks { get; set; }
+        public virtual DbSet<ReportTemplate> ReportTemplates { get; set; }
+        public virtual DbSet<ResAssignUDF> ResAssignUDFs { get; set; }
+        public virtual DbSet<Resource> Resources { get; set; }
+        public virtual DbSet<ResourceAssignment> ResourceAssignments { get; set; }
+        public virtual DbSet<ResourceCode> ResourceCodes { get; set; }
+        public virtual DbSet<ResourceCodeType> ResourceCodeTypes { get; set; }
+        public virtual DbSet<ResourceRate> ResourceRates { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
+        //public virtual DbSet<RuleCreateActivityId> RuleCreateActivityIds { get; set; }
+        public virtual DbSet<Substitution> Substitutions { get; set; }
 
-        public DbSet<P3DbActivitiesRelationProfile> P3DbActivitiesRelationProfiles { get; set; }
-        
-        public DbSet<PerformerActivityCode> PerformerActivityCode { get; set; }
-        public DbSet<Substitution> Substitutions { get; set; }
-        public DbSet<P3DBAttribute> P3DbAttributes { get; set; }
-        
-        public DbSet<P3DBIsometricDrawingAttributeRelation> P3DBIsometricDrawingAttributeRelations { get; set; }
-        public DbSet<P3DBModelAttributeRelation> P3DBModelAttributeRelations { get; set; }
+        #region Портал поставщика
 
-        public DbSet<User> Users { get; set; }
+        public virtual DbSet<SupplierMappingRule> SupplierMappingRules { get; set; }
+        public virtual DbSet<SupplierPortalJournal> SupplierPortalJournals { get; set; }
+        public virtual DbSet<SupplierRecord> SupplierRecords { get; set; }
+        public virtual DbSet<SupplierRecordsToActivity> SupplierRecordsToActivities { get; set; }
+        public virtual DbSet<SupplierUDF> SupplierUDFs { get; set; }
+        public virtual DbSet<SupplierUDFType> SupplierUDFTypes { get; set; }
 
-        public DbSet<UserAudit> UserAudits { get; set; }
+        #endregion Портал поставщика
 
-        public DbSet<UserGroup> UserGroups { get; set; }
+        public virtual DbSet<SystemConfig> SystemConfigs { get; set; }
+        public virtual DbSet<UDFType> UDFTypes { get; set; }
+        public virtual DbSet<UnitOfMeasure> UnitOfMeasures { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<UserAudit> UserAudits { get; set; }
+        public virtual DbSet<UserGroup> UserGroups { get; set; }
 
         /// <summary>
         /// Для связи многие ко многим групп пользователей и EPS
@@ -113,52 +183,62 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models
         /// Для связи многие ко многим пользователей и групп пользователей
         /// </summary>
         public virtual DbSet<UserGroupUser> UserGroupUsers { get; set; }
+        public virtual DbSet<UserStateSettings> UserStateSettings { get; set; }
 
-        public DbSet<UDFType> UDFTypes { get; set; }
-        public DbSet<UnitOfMeasure> UnitOfMeasures { get; set; }
-
-        public DbSet<WorkTaskNumberPart> WorkTaskNumberParts { get; set; }
+        public virtual DbSet<WorkBreakdownStructure> WBs { get; set; }
+        public virtual DbSet<WorkTask> WorkTasks { get; set; }
+        public virtual DbSet<WorkTaskAttributeValue> WorkTaskAttributeValues { get; set; }
+        public virtual DbSet<WorkTaskNumberPart> WorkTaskNumberParts { get; set; }
 
         /// <summary>
         /// Для связи многие ко многим 3D моделей и РЗ
         /// </summary>
         public virtual DbSet<WorkTaskP3DBModel> WorkTaskP3DBModels { get; set; }
-
-        public DbSet<WorkBreakdownStructure> WorkBreakdownStructures { get; set; }
-        public DbSet<WorkTask> WorkTasks { get; set; }
-        public DbSet<WorkType> WorkTypes { get; set; }
-        public DbSet<WorkTaskAttributeValue> WorkTaskAttributeValues { get; set; }
-
-        #region OG
-        /// <summary>
-        /// Значения UDF для ОГ
-        /// </summary>
-        public DbSet<OgUDFValue> OgUdfValues { get; set; }
-        /// <summary>
-        /// Типы UDF для ОГ
-        /// </summary>
-        public DbSet<OgUdfType> OgUdfTypes { get; set; }
-        /// <summary>
-        /// Индикаторы
-        /// </summary>
-        public DbSet<Indicator> Indicators { get; set; }
-        /// <summary>
-        /// Условия индикаторов
-        /// </summary>
-        public DbSet<IndicatorCondition> IndicatorConditions { get; set; }
-        /// <summary>
-        /// Маппинги в ОГ
-        /// </summary>
-        public DbSet<OgToActivityMapping> OgToActivityMappings { get; set; }
-        /// <summary>
-        /// Записи из ОГ
-        /// </summary>
-        public DbSet<OgRecord> OgRecords { get; set; }
-
-        #endregion
+        public virtual DbSet<WorkType> WorkTypes { get; set; }
+        public virtual DbSet<Worker> Workers { get; set; }
 
         #region Reporting3d
-        
+
+        /// <summary>
+        /// Аннтоации
+        /// </summary>
+        public DbSet<Annotation> Annotations { get; set; }
+
+        /// <summary>
+        /// Параметры аннотаций
+        /// </summary>
+        public DbSet<AnnotationCondition> AnnotationConditions { get; set; }
+
+        /// <summary>
+        /// Информация о измененных аннотациях
+        /// </summary>
+        public DbSet<AnnotationInfo> AnnotationsInfo { get; set; }
+
+        /// <summary>
+        /// Общие условия
+        /// </summary>
+        public DbSet<CommonCondition> CommonConditions { get; set; }
+
+        /// <summary>
+        /// Элементы (слои) 3д модели
+        /// </summary>
+        public DbSet<Element3D> Elements3D { get; set; }
+
+        /// <summary>
+        /// Фильтры аннотаций
+        /// </summary>
+        public DbSet<FilterAnnotaion> FilterAnnotations { get; set; }
+
+        /// <summary>
+        /// Условия раскраски
+        /// </summary>
+        public DbSet<PaintingCondition> PaintingConditions { get; set; }
+
+        /// <summary>
+        /// Запросы на раскраску
+        /// </summary>
+        public DbSet<PaintingQuerry> PaintingQuerries { get; set; }
+
         /// <summary>
         /// 3d отчеты
         /// </summary>
@@ -169,64 +249,6 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models
         /// </summary>
         public virtual DbSet<Report3DWorkTask> Report3DWorkTasks { get; set; }
 
-        /// <summary>
-        /// Запросы на раскраску
-        /// </summary>
-        public DbSet<PaintingQuerry> PaintingQuerries { get; set; }
-        /// <summary>
-        /// Аннтоации
-        /// </summary>
-        public DbSet<Annotation> Annotations { get; set; }
-
-        /// <summary>
-        /// Фильтры аннотаций
-        /// </summary>
-        public DbSet<FilterAnnotaion> FilterAnnotations { get; set; }
-
-        /// <summary>
-        /// Общие условия
-        /// </summary>
-        public DbSet<CommonCondition> CommonConditions { get; set; }
-        /// <summary>
-        /// Условия раскраски
-        /// </summary>
-        public DbSet<PaintingCondition> PaintingConditions { get; set; }
-        /// <summary>
-        /// Параметры аннотаций
-        /// </summary>
-        public DbSet<AnnotationCondition> AnnotationConditions { get; set; }
-
-        /// <summary>
-        /// Элементы (слои) 3д модели
-        /// </summary>
-        public DbSet<Element3D> Elements3D { get; set; }
-
-        /// <summary>
-        /// Информация о измененных аннотациях
-        /// </summary>
-        public DbSet<AnnotationInfo> AnnotationsInfo { get; set; }
-
-        #endregion
-
-        #region Портал поставщика
-        
-        public DbSet<SupplierUDF> SupplierUDFs { get; set; }
-        public DbSet<SupplierUDFType> SupplierUdfTypes { get; set; }
-        public DbSet<SupplierPortalJournal> SupplierPortalJournals { get; set; }
-        public DbSet<SupplierRecord> SupplierRecords { get; set; }
-        public DbSet<SupplierMappingRule> SupplierMappingRules { get; set; }
-        public DbSet<SupplierRecordsToActivity> SupplierRecordsToActivities { get; set; }
-        
-        #endregion
-
-        #region сварные_швы
-        
-        public DbSet<AssemblyUnitsImportRule> AssemblyUnitsImportRules { get; set; }
-
-        public DbSet<AssemblyUnitCondition> AssemblyUnitConditions { get; set; }
-        public DbSet<AssemblyUnit> AssemblyUnits { get; set; }
-        public DbSet<AssemblyUnitState> AssemblyUnitStates { get; set; }
-        
         #endregion
 
         #region Правила создания ID работы
@@ -678,12 +700,6 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models
                     .HasName("PK_dbo.AttributesTypes");
 
                 entity.Property(e => e.Name).IsRequired();
-
-                entity
-                    .HasMany(p => p.WorkTaskAttributeValues)
-                    .WithOne(p => p.AttributeType)
-                    .HasForeignKey(d => d.AttributeType_ObjectId)
-                    .HasConstraintName("FK_dbo.WorkTaskAttributeValues_dbo.AttributesTypes_AttributeType_ObjectId");
             });
 
             modelBuilder.Entity<Calendar>(entity =>
@@ -750,17 +766,17 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models
 
                 entity.Property(e => e.ValueName).HasMaxLength(100);
 
-                entity.HasOne(d => d.ResourceCode)
+                entity.HasOne(d => d.Resource)
                     .WithMany(p => p.CodeResources)
                     .HasForeignKey(d => d.ResourceObjectId)
                     .HasConstraintName("FK_dbo.CodeResource_dbo.Resource_ResourceObjectId");
 
-                entity.HasOne(d => d.Resource)
+                entity.HasOne(d => d.ResourceCodeType)
                     .WithMany(p => p.CodeResources)
                     .HasForeignKey(d => d.TypeObjectId)
                     .HasConstraintName("FK_dbo.CodeResource_dbo.ResourceCodeType_TypeObjectId");
 
-                entity.HasOne(d => d.ResourceCodeType)
+                entity.HasOne(d => d.ResourceCode)
                     .WithMany(p => p.CodeResources)
                     .HasForeignKey(d => d.ValueObjectId)
                     .HasConstraintName("FK_dbo.CodeResource_dbo.ResourceCode_ValueObjectId");
@@ -786,11 +802,6 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models
                     .HasName("PK_dbo.Curators");
 
                 entity.Property(e => e.Name).HasMaxLength(100);
-                
-                entity.HasMany(p => p.WorkTasks)
-                    .WithOne(p => p.Curator)
-                    .HasForeignKey(d => d.Curator_ObjectId)
-                    .HasConstraintName("FK_dbo.WorkTasks_dbo.Curators_Curator_ObjectId");
             });
 
             modelBuilder.Entity<Currency>(entity =>
@@ -809,6 +820,7 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models
                     .HasMaxLength(6);
 
                 entity.Property(e => e.ExchangeRate).HasColumnType("decimal(22, 6)");
+
                 entity.Property(e => e.Id)
                     .IsRequired()
                     .HasMaxLength(6);
@@ -834,6 +846,26 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models
 
                 entity.Property(e => e.MD5).HasMaxLength(32);
                 entity.Property(e => e.Name).IsRequired();
+
+                //entity.HasMany(p => p.WorkTasks)
+                //    .WithMany(wt => wt.DocFiles)
+                //    .UsingEntity(j => j.ToTable("DocumentWorkTasks"));
+
+                entity.HasMany(p => p.WorkTasks)
+                    .WithMany(wt => wt.DocFiles)
+                    .UsingEntity<DocumentWorkTask>(
+                        j => j
+                            .HasOne(dw => dw.WorkTask)
+                            .WithMany(wt => wt.DocumentWorkTasks)
+                            .HasForeignKey(dw => dw.WorkTask_ObjectId)
+                            .HasConstraintName("FK_dbo.DocumentWorkTasks_dbo.WorkTasks_WorkTask_ObjectId"),
+
+                        j => j
+                            .HasOne(dw => dw.Document)
+                            .WithMany(doc => doc.DocumentWorkTasks)
+                            .HasForeignKey(dw => dw.Document_ObjectId)
+                            .HasConstraintName("FK_dbo.DocumentWorkTasks_dbo.Documents_Document_ObjectId")
+                    );
             });
 
             modelBuilder.Entity<DocumentNodeRef>(entity =>
@@ -851,7 +883,6 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models
                     .HasConstraintName("FK_dbo.DocumentNodeRefs_dbo.Documents_DocumentId");
             });
 
-            //TODO: JOIN таблица создаваемая EF для отношения "Многие ко многим"
             modelBuilder.Entity<DocumentWorkTask>(entity =>
             {
                 entity.HasKey(e => new { e.Document_ObjectId, e.WorkTask_ObjectId })
@@ -860,12 +891,12 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models
                 entity.HasIndex(e => e.Document_ObjectId, "IX_Document_ObjectId");
                 entity.HasIndex(e => e.WorkTask_ObjectId, "IX_WorkTask_ObjectId");
 
-                entity.HasOne(d => d.Document_Object)
+                entity.HasOne(d => d.Document)
                     .WithMany(p => p.DocumentWorkTasks)
                     .HasForeignKey(d => d.Document_ObjectId)
                     .HasConstraintName("FK_dbo.DocumentWorkTasks_dbo.Documents_Document_ObjectId");
 
-                entity.HasOne(d => d.WorkTask_Object)
+                entity.HasOne(d => d.WorkTask)
                     .WithMany(p => p.DocumentWorkTasks)
                     .HasForeignKey(d => d.WorkTask_ObjectId)
                     .HasConstraintName("FK_dbo.DocumentWorkTasks_dbo.WorkTasks_WorkTask_ObjectId");
@@ -892,6 +923,22 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models
                     .WithMany(p => p.Children)
                     .HasForeignKey(d => d.ParentId)
                     .HasConstraintName("FK_dbo.EPS_dbo.EPS_ParentId");
+
+                entity.HasMany(p => p.UserGroups)
+                    .WithMany(ug => ug.Epss)
+                    .UsingEntity<UserGroupEPS>(
+                        j => j
+                            .HasOne(use => use.UserGroup)
+                            .WithMany(ug => ug.UserGroupEPs)
+                            .HasForeignKey(use => use.UserGroup_ObjectId)
+                            .HasConstraintName("FK_dbo.UserGroupEPS_dbo.UserGroups_UserGroup_ObjectId"),
+
+                        j => j
+                            .HasOne(use => use.EPS)
+                            .WithMany(eps => eps.UserGroupEPs)
+                            .HasForeignKey(use => use.EPS_ObjectId)
+                            .HasConstraintName("FK_dbo.UserGroupEPS_dbo.EPS_EPS_ObjectId")
+                    );
             });
 
             modelBuilder.Entity<Element3D>(entity =>
@@ -942,13 +989,10 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models
                     .HasName("PK_dbo.JournalRecords");
 
                 entity.HasIndex(e => e.User_ObjectId, "IX_User_ObjectId");
-
                 entity.HasIndex(e => e.WorkTask_ObjectId, "IX_WorkTask_ObjectId");
 
                 entity.Property(e => e.ObjectId).ValueGeneratedNever();
-
                 entity.Property(e => e.EventDate).HasColumnType("datetime");
-
                 entity.Property(e => e.EventMessage).IsRequired();
 
                 entity.HasOne(d => d.User)
@@ -1031,7 +1075,8 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models
                 entity.Property(e => e.InternalPath).IsRequired();
 
                 entity.HasOne(d => d.Activity)
-                    .WithMany(p => p.P3DbRelations)
+                    //.WithMany(p => p.P3DBActivitiesRelations)
+                    .WithMany()
                     .HasForeignKey(d => d.ActivityObjectId)
                     .HasConstraintName("FK_dbo.P3DBActivitiesRelations_dbo.Activity_ActivityObjectId");
 
@@ -1082,9 +1127,10 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models
 
                 entity.HasIndex(e => e.RelationsLastUpdateUser_ObjectId, "IX_RelationsLastUpdateUser_ObjectId");
                 entity.HasIndex(e => e.User_ObjectId, "IX_User_ObjectId");
+
                 entity.Property(e => e.ObjectId).ValueGeneratedNever();
 
-                //TODO: это поле содержит описание всей модели и в mdp_1.0 как то создается не из модели...грузится тоже отдельным менеджером
+                //TODO: этого свойства нет в модели MDP1.0, оно грузится специальным менеджером
                 //entity.Property(e => e.Content)
                 //    .IsRequired()
                 //    .HasDefaultValueSql("(0x)");
@@ -1098,7 +1144,6 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models
 
                 entity.HasOne(d => d.RelationsLastUpdateUser)
                     //.WithMany(p => p.P3DBModelRelationsLastUpdateUser_Objects)
-                    //.WithMany(p => p.RelationsLastUpdateUsers)
                     .WithMany()
                     .HasForeignKey(d => d.RelationsLastUpdateUser_ObjectId)
                     .HasConstraintName("FK_dbo.P3DBModel_dbo.Users_RelationsLastUpdateUser_ObjectId");
@@ -1108,8 +1153,24 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models
                     .WithMany()
                     .HasForeignKey(d => d.User_ObjectId)
                     .HasConstraintName("FK_dbo.P3DBModel_dbo.Users_User_ObjectId");
+
+                entity.HasMany(p => p.WorkTasks)
+                    .WithMany(wt => wt.P3DBElements)
+                    .UsingEntity<WorkTaskP3DBModel>(
+
+                        j => j
+                            .HasOne(wtp3 => wtp3.WorkTask)
+                            .WithMany(wt => wt.WorkTaskP3DBModels)
+                            .HasForeignKey(wtp3 => wtp3.WorkTask_ObjectId)
+                            .HasConstraintName("FK_dbo.WorkTaskP3DBModel_dbo.WorkTasks_WorkTask_ObjectId"),
+
+                        j => j
+                            .HasOne(wtp3 => wtp3.P3DBModel)
+                            .WithMany(p3 => p3.WorkTaskP3DBModels)
+                            .HasForeignKey(wtp3 => wtp3.P3DBModel_ObjectId)
+                            .HasConstraintName("FK_dbo.WorkTaskP3DBModel_dbo.P3DBModel_P3DBModel_ObjectId")
+                    );
             });
-            
 
             modelBuilder.Entity<P3DBModelAttributeRelation>(entity =>
             {
@@ -1207,19 +1268,6 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models
                     .HasName("PK_dbo.Performers");
 
                 entity.Property(e => e.Name).IsRequired();
-
-                entity
-                    .HasMany(p => p.PerformerUsers)
-                    .WithOne(p => p.Performer)
-                    //.WithOne()
-                    .HasForeignKey(d => d.Performer_ObjectId)
-                    .HasConstraintName("FK_dbo.Users_dbo.Performers_Performer_ObjectId");
-
-                entity.
-                    HasMany(p => p.PerformerWorkTasks)
-                    .WithOne()
-                    .HasForeignKey(d => d.Performer_ObjectId)
-                    .HasConstraintName("FK_dbo.WorkTasks_dbo.Performers_Performer_ObjectId");
             });
 
             modelBuilder.Entity<PerformerActivityCode>(entity =>
@@ -1315,7 +1363,6 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models
 
                 entity.HasOne(d => d.CodeTypeForConstructionObject)
                     .WithMany(p => p.ProjectsCodeTypeForConstructionObject)
-                    //.WithMany()
                     .HasForeignKey(d => d.CodeTypeForConstructionObject_ObjectId)
                     .HasConstraintName("FK_dbo.Projects_dbo.ActivityCodeType_CodeTypeForConstructionObject_ObjectId");
 
@@ -1326,7 +1373,6 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models
 
                 entity.HasOne(d => d.CodeTypeForProjectPart)
                     .WithMany(p => p.ProjectsCodeTypeForProjectPart)
-                    //.WithMany()
                     .HasForeignKey(d => d.CodeTypeForProjectPart_ObjectId)
                     .HasConstraintName("FK_dbo.Projects_dbo.ActivityCodeType_CodeTypeForProjectPart_ObjectId");
 
@@ -1419,25 +1465,40 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models
                     .WithMany(p => p.Reports3D)
                     .HasForeignKey(d => d.P3DbModelObjectId)
                     .HasConstraintName("FK_dbo.Report3D_dbo.P3DbModel_P3DbModelObjectId");
+
+                entity.HasMany(p => p.WorkTasks)
+                    .WithMany(wt => wt.Reports3D)
+                    .UsingEntity<Report3DWorkTask>(
+                        j => j
+                            .HasOne(rw => rw.WorkTask)
+                            .WithMany(wt => wt.Report3DWorkTasks)
+                            .HasForeignKey(rw => rw.WorkTask_ObjectId)
+                            .HasConstraintName("FK_dbo.Report3DWorkTask_dbo.WorkTasks_WorkTask_ObjectId"),
+
+                        j => j
+                            .HasOne(rw => rw.Report3D)
+                            .WithMany(r => r.Report3DWorkTasks)
+                            .HasForeignKey(rw => rw.Report3D_ObjectId)
+                            .HasConstraintName("FK_dbo.Report3DWorkTask_dbo.Report3D_Report3D_ObjectId")
+                    );
             });
 
-            //TODO: JOIN таблица создаваемая EF для отношения "Многие ко многим"
             modelBuilder.Entity<Report3DWorkTask>(entity =>
             {
                 entity.HasKey(e => new { e.Report3D_ObjectId, e.WorkTask_ObjectId })
                     .HasName("PK_dbo.Report3DWorkTask");
 
-                entity.ToTable("Report3DWorkTask", "dbo");
+                entity.ToTable("Report3DWorkTask");
 
                 entity.HasIndex(e => e.Report3D_ObjectId, "IX_Report3D_ObjectId");
                 entity.HasIndex(e => e.WorkTask_ObjectId, "IX_WorkTask_ObjectId");
 
-                entity.HasOne(d => d.Report3D_Object)
+                entity.HasOne(d => d.Report3D)
                     .WithMany(p => p.Report3DWorkTasks)
                     .HasForeignKey(d => d.Report3D_ObjectId)
                     .HasConstraintName("FK_dbo.Report3DWorkTask_dbo.Report3D_Report3D_ObjectId");
 
-                entity.HasOne(d => d.WorkTask_Object)
+                entity.HasOne(d => d.WorkTask)
                     .WithMany(p => p.Report3DWorkTasks)
                     .HasForeignKey(d => d.WorkTask_ObjectId)
                     .HasConstraintName("FK_dbo.Report3DWorkTask_dbo.WorkTasks_WorkTask_ObjectId");
@@ -1596,8 +1657,8 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models
                     .IsRequired()
                     .HasMaxLength(100);
 
-                entity.HasOne(d => d.ResourceCode2)
-                    .WithMany(p => p.ResourceCode1)
+                entity.HasOne(d => d.Parent)
+                    .WithMany(p => p.Children)
                     .HasForeignKey(d => d.ParentObjectId)
                     .HasConstraintName("FK_dbo.ResourceCode_dbo.ResourceCode_ParentObjectId");
             });
@@ -1646,7 +1707,7 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models
                     .IsRequired()
                     .HasMaxLength(100);
             });
-            
+
             modelBuilder.Entity<RuleCreateActivityId>(entity =>
             {
                 entity.HasKey(e => e.ObjectId)
@@ -1800,7 +1861,7 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models
 
                 entity.HasIndex(e => e.Performer_ObjectId, "IX_Performer_ObjectId");
                 entity.HasIndex(e => e.UserRole_ObjectId, "IX_UserRole_ObjectId");
-                
+
                 entity.Property(e => e.DomainName).HasMaxLength(120);
                 entity.Property(e => e.Email).HasMaxLength(256);
                 entity.Property(e => e.Login)
@@ -1819,15 +1880,32 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models
                     .HasForeignKey(d => d.CuratorObjectId)
                     .HasConstraintName("FK_dbo.Users_dbo.Curators_CuratorObjectId");
 
-                //entity.HasOne(d => d.Performer)
-                //    .WithMany(p => p.PerformerUsers)
-                //    .HasForeignKey(d => d.Performer_ObjectId)
-                //    .HasConstraintName("FK_dbo.Users_dbo.Performers_Performer_ObjectId");
+                entity.HasOne(d => d.Performer)
+                    .WithMany(p => p.PerformerUsers)
+                    .HasForeignKey(d => d.Performer_ObjectId)
+                    .HasConstraintName("FK_dbo.Users_dbo.Performers_Performer_ObjectId");
 
                 entity.HasOne(d => d.UserRole)
                     .WithMany(p => p.Users)
                     .HasForeignKey(d => d.UserRole_ObjectId)
                     .HasConstraintName("FK_dbo.Users_dbo.Roles_UserRole_ObjectId");
+
+                entity.HasMany(p => p.UserGroups)
+                    .WithMany(p => p.Users)
+                    .UsingEntity<UserGroupUser>(
+
+                        j => j
+                            .HasOne(ugu => ugu.UserGroup)
+                            .WithMany(ug => ug.UserGroupUsers)
+                            .HasForeignKey(ugu => ugu.UserGroup_ObjectId)
+                            .HasConstraintName("FK_dbo.UserGroupUsers_dbo.UserGroups_UserGroup_ObjectId"),
+
+                        j => j
+                            .HasOne(ugu => ugu.User)
+                            .WithMany(u => u.UserGroupUsers)
+                            .HasForeignKey(ugu => ugu.User_ObjectId)
+                            .HasConstraintName("FK_dbo.UserGroupUsers_dbo.Users_User_ObjectId")
+                    );
             });
 
             modelBuilder.Entity<UserAudit>(entity =>
@@ -1838,7 +1916,6 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models
                 entity.HasIndex(e => e.UserObjectId, "IX_UserObjectId");
 
                 entity.Property(e => e.DateEvent).HasColumnType("datetime");
-
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(255);
@@ -1856,9 +1933,41 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models
                     .HasName("PK_dbo.UserGroups");
 
                 entity.Property(e => e.Name).IsRequired();
+
+                entity.HasMany(p => p.Epss)
+                    .WithMany(eps => eps.UserGroups)
+                    .UsingEntity<UserGroupEPS>(
+
+                        j => j
+                            .HasOne(use => use.EPS)
+                            .WithMany(eps => eps.UserGroupEPs)
+                            .HasForeignKey(use => use.EPS_ObjectId)
+                            .HasConstraintName("FK_dbo.UserGroupEPS_dbo.EPS_EPS_ObjectId"),
+
+                        j => j
+                            .HasOne(use => use.UserGroup)
+                            .WithMany(ug => ug.UserGroupEPs)
+                            .HasForeignKey(use => use.UserGroup_ObjectId)
+                            .HasConstraintName("FK_dbo.UserGroupEPS_dbo.UserGroups_UserGroup_ObjectId")
+                    );
+
+                entity.HasMany(p => p.Users)
+                    .WithMany(p => p.UserGroups)
+                    .UsingEntity<UserGroupUser>(
+                        j => j
+                            .HasOne(ugu => ugu.User)
+                            .WithMany(u => u.UserGroupUsers)
+                            .HasForeignKey(ugu => ugu.User_ObjectId)
+                            .HasConstraintName("FK_dbo.UserGroupUsers_dbo.Users_User_ObjectId"),
+
+                        j => j
+                            .HasOne(ugu => ugu.UserGroup)
+                            .WithMany(ug => ug.UserGroupUsers)
+                            .HasForeignKey(ugu => ugu.UserGroup_ObjectId)
+                            .HasConstraintName("FK_dbo.UserGroupUsers_dbo.UserGroups_UserGroup_ObjectId")
+                    );
             });
 
-            //TODO: JOIN таблица создаваемая EF для отношения "Многие ко многим"
             modelBuilder.Entity<UserGroupEPS>(entity =>
             {
                 entity.HasKey(e => new { e.UserGroup_ObjectId, e.EPS_ObjectId })
@@ -1869,18 +1978,17 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models
                 entity.HasIndex(e => e.EPS_ObjectId, "IX_EPS_ObjectId");
                 entity.HasIndex(e => e.UserGroup_ObjectId, "IX_UserGroup_ObjectId");
 
-                entity.HasOne(d => d.EPS_Object)
+                entity.HasOne(d => d.EPS)
                     .WithMany(p => p.UserGroupEPs)
                     .HasForeignKey(d => d.EPS_ObjectId)
                     .HasConstraintName("FK_dbo.UserGroupEPS_dbo.EPS_EPS_ObjectId");
 
-                entity.HasOne(d => d.UserGroup_Object)
+                entity.HasOne(d => d.UserGroup)
                     .WithMany(p => p.UserGroupEPs)
                     .HasForeignKey(d => d.UserGroup_ObjectId)
                     .HasConstraintName("FK_dbo.UserGroupEPS_dbo.UserGroups_UserGroup_ObjectId");
             });
 
-            //TODO: JOIN таблица создаваемая EF для отношения "Многие ко многим"
             modelBuilder.Entity<UserGroupUser>(entity =>
             {
                 entity.HasKey(e => new { e.UserGroup_ObjectId, e.User_ObjectId })
@@ -1889,12 +1997,12 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models
                 entity.HasIndex(e => e.UserGroup_ObjectId, "IX_UserGroup_ObjectId");
                 entity.HasIndex(e => e.User_ObjectId, "IX_User_ObjectId");
 
-                entity.HasOne(d => d.UserGroup_Object)
+                entity.HasOne(d => d.UserGroup)
                     .WithMany(p => p.UserGroupUsers)
                     .HasForeignKey(d => d.UserGroup_ObjectId)
                     .HasConstraintName("FK_dbo.UserGroupUsers_dbo.UserGroups_UserGroup_ObjectId");
 
-                entity.HasOne(d => d.User_Object)
+                entity.HasOne(d => d.User)
                     .WithMany(p => p.UserGroupUsers)
                     .HasForeignKey(d => d.User_ObjectId)
                     .HasConstraintName("FK_dbo.UserGroupUsers_dbo.Users_User_ObjectId");
@@ -1928,7 +2036,6 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models
 
                 entity.Property(e => e.AnticipatedFinishDate).HasColumnType("datetime");
                 entity.Property(e => e.AnticipatedStartDate).HasColumnType("datetime");
-
                 entity.Property(e => e.Code)
                     .IsRequired()
                     .HasMaxLength(40);
@@ -1963,7 +2070,7 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models
                 entity.HasIndex(e => e.Curator_ObjectId, "IX_Curator_ObjectId");
                 entity.HasIndex(e => e.Performer_ObjectId, "IX_Performer_ObjectId");
                 entity.HasIndex(e => e.ProjectId, "IX_ProjectId");
-                
+
                 entity.Property(e => e.ActualDataToPrimaveraAPIDateTime).HasColumnType("datetime");
                 entity.Property(e => e.DateOfIssue).HasColumnType("datetime");
                 entity.Property(e => e.LastStatusChangedTime).HasColumnType("datetime");
@@ -2006,11 +2113,57 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models
                     .HasForeignKey(d => d.SystemNameId)
                     .HasConstraintName("FK_dbo.WorkTasks_dbo.ActivityCode_SystemNameId");
 
-                entity
-                    .HasMany(p => p.WorkTaskAttributeValues)
-                    .WithOne()
-                    .HasForeignKey(d => d.WorkTask_ObjectId)
-                    .HasConstraintName("FK_dbo.WorkTaskAttributeValues_dbo.WorkTasks_WorkTask_ObjectId");
+                //entity.HasMany(p => p.DocFiles)
+                //    .WithMany(doc => doc.WorkTasks)
+                //    .UsingEntity(j => j.ToTable("DocumentWorkTasks"));
+
+                entity.HasMany(p => p.DocFiles)
+                    .WithMany(doc => doc.WorkTasks)
+                    .UsingEntity<DocumentWorkTask>(
+                        j => j
+                            .HasOne(dw => dw.Document)
+                            .WithMany(doc => doc.DocumentWorkTasks)
+                            .HasForeignKey(dw => dw.Document_ObjectId)
+                            .HasConstraintName("FK_dbo.DocumentWorkTasks_dbo.Documents_Document_ObjectId"),
+
+                        j => j
+                            .HasOne(dw => dw.WorkTask)
+                            .WithMany(wt => wt.DocumentWorkTasks)
+                            .HasForeignKey(dw => dw.WorkTask_ObjectId)
+                            .HasConstraintName("FK_dbo.DocumentWorkTasks_dbo.WorkTasks_WorkTask_ObjectId")
+                    );
+
+                entity.HasMany(p => p.Reports3D)
+                    .WithMany(r => r.WorkTasks)
+                    .UsingEntity<Report3DWorkTask>(
+                        j => j
+                            .HasOne(rw => rw.Report3D)
+                            .WithMany(r => r.Report3DWorkTasks)
+                            .HasForeignKey(rw => rw.Report3D_ObjectId)
+                            .HasConstraintName("FK_dbo.Report3DWorkTask_dbo.Report3D_Report3D_ObjectId"),
+
+                        j => j
+                            .HasOne(rw => rw.WorkTask)
+                            .WithMany(wt => wt.Report3DWorkTasks)
+                            .HasForeignKey(rw => rw.WorkTask_ObjectId)
+                            .HasConstraintName("FK_dbo.Report3DWorkTask_dbo.WorkTasks_WorkTask_ObjectId")
+                    );
+
+                entity.HasMany(p => p.P3DBElements)
+                    .WithMany(p3 => p3.WorkTasks)
+                    .UsingEntity<WorkTaskP3DBModel>(
+                        j => j
+                            .HasOne(wtp3 => wtp3.P3DBModel)
+                            .WithMany(p3 => p3.WorkTaskP3DBModels)
+                            .HasForeignKey(wtp3 => wtp3.P3DBModel_ObjectId)
+                            .HasConstraintName("FK_dbo.WorkTaskP3DBModel_dbo.P3DBModel_P3DBModel_ObjectId"),
+
+                        j => j
+                            .HasOne(wtp3 => wtp3.WorkTask)
+                            .WithMany(wt => wt.WorkTaskP3DBModels)
+                            .HasForeignKey(wtp3 => wtp3.WorkTask_ObjectId)
+                            .HasConstraintName("FK_dbo.WorkTaskP3DBModel_dbo.WorkTasks_WorkTask_ObjectId")
+                    );
             });
 
             modelBuilder.Entity<WorkTaskAttributeValue>(entity =>
@@ -2035,7 +2188,6 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models
                     .HasName("PK_dbo.WorkTaskNumberParts");
             });
 
-            //TODO: JOIN таблица создаваемая EF для отношения "Многие ко многим"
             modelBuilder.Entity<WorkTaskP3DBModel>(entity =>
             {
                 entity.HasKey(e => new { e.WorkTask_ObjectId, e.P3DBModel_ObjectId })
@@ -2046,12 +2198,12 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models
                 entity.HasIndex(e => e.P3DBModel_ObjectId, "IX_P3DBModel_ObjectId");
                 entity.HasIndex(e => e.WorkTask_ObjectId, "IX_WorkTask_ObjectId");
 
-                entity.HasOne(d => d.P3DBModel_Object)
+                entity.HasOne(d => d.P3DBModel)
                     .WithMany(p => p.WorkTaskP3DBModels)
                     .HasForeignKey(d => d.P3DBModel_ObjectId)
                     .HasConstraintName("FK_dbo.WorkTaskP3DBModel_dbo.P3DBModel_P3DBModel_ObjectId");
 
-                entity.HasOne(d => d.WorkTask_Object)
+                entity.HasOne(d => d.WorkTask)
                     .WithMany(p => p.WorkTaskP3DBModels)
                     .HasForeignKey(d => d.WorkTask_ObjectId)
                     .HasConstraintName("FK_dbo.WorkTaskP3DBModel_dbo.WorkTasks_WorkTask_ObjectId");
@@ -2083,7 +2235,6 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models
                     .HasMaxLength(80);
 
                 entity.Property(e => e.MiddleName).HasMaxLength(80);
-
                 entity.Property(e => e.Picture)
                     .IsRequired()
                     .HasDefaultValueSql("(0x)");
@@ -2097,7 +2248,7 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models
                     .HasConstraintName("FK_dbo.Workers_dbo.Performers_Performer_ObjectId");
             });
 
-            //modelBuilder.Entity<MigrationHistory>(entity =>
+            //modelBuilder.Entity<__MigrationHistory>(entity =>
             //{
             //    entity.HasKey(e => new { e.MigrationId, e.ContextKey })
             //        .HasName("PK_dbo.__MigrationHistory");
@@ -2112,16 +2263,17 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models
             //        .HasMaxLength(32);
             //});
 
-            modelBuilder.Entity<ScriptMigrationHistory>(entity =>
-            {
-                entity.HasKey(e => e.ScriptName)
-                    .HasName("PK_dbo.__ScriptMigrationHistory");
+            //modelBuilder.Entity<__ScriptMigrationHistory>(entity =>
+            //{
+            //    entity.HasKey(e => e.ScriptName)
+            //        .HasName("PK_dbo.__ScriptMigrationHistory");
 
-                entity.ToTable("__ScriptMigrationHistory");
+            //    entity.ToTable("__ScriptMigrationHistory");
 
-                entity.Property(e => e.ScriptName).HasMaxLength(4000);
-                entity.Property(e => e.Hash).HasMaxLength(20);
-            });
+            //    entity.Property(e => e.ScriptName).HasMaxLength(4000);
+
+            //    entity.Property(e => e.Hash).HasMaxLength(20);
+            //});
 
             #region Views
 
@@ -2324,7 +2476,11 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models
 
             #endregion Views
 
+            //OnModelCreatingPartial(modelBuilder);
+
             #endregion scaffold-context
         }
+
+        //partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

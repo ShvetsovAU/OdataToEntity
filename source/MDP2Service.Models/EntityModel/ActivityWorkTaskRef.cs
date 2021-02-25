@@ -1,9 +1,28 @@
-﻿using ASE.MD.MDP2.Product.MDP2Service.Models.CustomAttributes;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using ASE.MD.MDP2.Product.MDP2Service.Models.CustomAttributes;
+
+#nullable disable
 
 namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
 {
+    #region scaffold model
+
+    //public partial class ActivityWorkTaskRef
+    //{
+    //    public int ActivityId { get; set; }
+    //    public int WorkTaskId { get; set; }
+    //    public decimal? DurationPercentComplete { get; set; }
+    //    public decimal? PlannedDurationPercent { get; set; }
+    //    public string Comment { get; set; }
+    //    public bool IsCompensatory { get; set; }
+
+    //    public virtual Activity Activity { get; set; }
+    //    public virtual WorkTask WorkTask { get; set; }
+    //}
+
+    #endregion scaffold model
+
     /// <summary>
     /// Связь работы и рабочего задания
     /// </summary>
@@ -29,7 +48,7 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         public string Comment { get; set; }
 
         public bool IsCompensatory { get; set; }
-        
+
         //[Key, Column(Order = 1)]
         [ForeignKey("WorkTask")]
         [Required]

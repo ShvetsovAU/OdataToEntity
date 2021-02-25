@@ -5,12 +5,44 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using ASE.MD.MDP2.Product.MDP2Service.Models.Classes;
+using ASE.MD.MDP2.Product.MDP2Service.Utils;
 using ASE.MD.MDP2.Product.MDP2Service.Models.Enums;
 using ASE.MD.MDP2.Product.MDP2Service.Models.Interfaces;
-using ASE.MD.MDP2.Product.MDP2Service.Utils;
+
+#nullable disable
 
 namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
 {
+    #region scaffold model
+
+    //public partial class ActivityType
+    //{
+    //    public ActivityType()
+    //    {
+    //        Activities = new HashSet<Activity>();
+    //        ActivityAttributeTemplates = new HashSet<ActivityAttributeTemplate>();
+    //    }
+
+    //    public int ObjectId { get; set; }
+    //    public string Name { get; set; }
+    //    public string NameRule { get; set; }
+    //    public int? ActivityTemplateObjectId { get; set; }
+    //    public string NormTableJson { get; set; }
+    //    public int? CalendarObjectId { get; set; }
+    //    public double DefaultUnitLaborCost { get; set; }
+    //    public byte PercentCompleteType { get; set; }
+    //    public int? RuleId { get; set; }
+    //    public byte DurationType { get; set; }
+
+    //    public virtual ActivityTemplate ActivityTemplateObject { get; set; }
+    //    public virtual Calendar CalendarObject { get; set; }
+    //    public virtual RuleCreateActivityId Rule { get; set; }
+    //    public virtual ICollection<Activity> Activities { get; set; }
+    //    public virtual ICollection<ActivityAttributeTemplate> ActivityAttributeTemplates { get; set; }
+    //}
+
+    #endregion scaffold model
+
     /// <summary>
     /// Тип работы для создания работ из 3д
     /// </summary>
@@ -51,31 +83,32 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         /// </summary>
         [ForeignKey("ActivityTemplate")]
         public int? ActivityTemplateObjectId { get; set; }
+        /// <summary>
+        /// Шаблон декомпозиции
+        /// </summary>
+        public ActivityTemplate ActivityTemplate { get; set; }
 
         /// <summary>
         /// ID календаря работы по умолчанию
         /// </summary>
         [ForeignKey("Calendar")]
         public int? CalendarObjectId { get; set; }
-
+        /// <summary>
+        /// Календарь работы
+        /// </summary>
+        public Calendar Calendar { get; set; }
 
         /// <summary>
         /// Id типа работы
         /// </summary>s
         [ForeignKey("RuleCreateActivityId")]
         public int? RuleId { get; set; }
-
         /// <summary>
         /// Правило создания
         /// ID работы
         /// </summary>
         public RuleCreateActivityId RuleCreateActivityId { get; set; }
-
-        /// <summary>
-        /// Календарь работы
-        /// </summary>
-        public Calendar Calendar { get; set; }
-
+        
         /// <summary>
         /// Таблица норм
         /// </summary>
@@ -127,11 +160,6 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         }
 
         /// <summary>
-        /// Шаблон декомпозиции
-        /// </summary>
-        public ActivityTemplate ActivityTemplate { get; set; }
-
-        /// <summary>
         /// Коллекция шаблонов атрибутов работы
         /// </summary>
         [InverseProperty("ActivityType")]
@@ -141,7 +169,7 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
     /// <summary>
     /// Составная часть названия работы
     /// </summary>
-    public class NameRulePart : INotifyPropertyChanged
+    public class NameRulePart : INotifyPropertyChanged //TODO: INotifyPropertyChanged уже наверно не нужен?
     {
         private NameRuleType mType;
         private string mText;

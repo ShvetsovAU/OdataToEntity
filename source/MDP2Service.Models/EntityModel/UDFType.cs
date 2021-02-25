@@ -1,11 +1,44 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using ASE.MD.MDP2.Product.MDP2Service.Models.Enums;
 using ASE.MD.MDP2.Product.MDP2Service.Models.Interfaces;
 
+#nullable disable
+
 namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
 {
+    #region scaffold model
+
+    //public partial class UDFType
+    //{
+    //    public UDFType()
+    //    {
+    //        ActivityUDFs = new HashSet<ActivityUDF>();
+    //        ProjectCodeForArchiveProjectNumber_Objects = new HashSet<Project>();
+    //        ProjectCodeForBudgetNumber_Objects = new HashSet<Project>();
+    //        ProjectCodeForSystemName_Objects = new HashSet<Project>();
+    //        ProjectUDFTypeForPlacement_Objects = new HashSet<Project>();
+    //        ResAssignUDFs = new HashSet<ResAssignUDF>();
+    //    }
+
+    //    //public int ObjectId { get; set; }
+    //    ////public byte DataType { get; set; }
+    //    //public UDFDataType DataType { get; set; }
+    //    //public bool IsSecureCode { get; set; }
+    //    //public byte SubjectArea { get; set; }
+    //    //public string Title { get; set; }
+
+    //    public virtual ICollection<ActivityUDF> ActivityUDFs { get; set; }
+    //    public virtual ICollection<Project> ProjectCodeForArchiveProjectNumber_Objects { get; set; }
+    //    public virtual ICollection<Project> ProjectCodeForBudgetNumber_Objects { get; set; }
+    //    public virtual ICollection<Project> ProjectCodeForSystemName_Objects { get; set; }
+    //    public virtual ICollection<Project> ProjectUDFTypeForPlacement_Objects { get; set; }
+    //    public virtual ICollection<ResAssignUDF> ResAssignUDFs { get; set; }
+    //}
+
+    #endregion scaffold model
+
     [Table("UDFType")]
     public partial class UDFType : IEntity
     {
@@ -19,12 +52,12 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
             ProjectUDFTypeForPlacements = new HashSet<Project>();
             ProjectCodeForSystemNames = new HashSet<Project>();
         }
-        
+
         [Key]
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ObjectId { get; set; }
-        
+
         /// <summary>
         /// The data type of the user-defined field: "Text", "Start Date", "Finish Date", "Cost", "Double", "Integer", "Indicator", or "Code".
         /// </summary>
@@ -43,8 +76,9 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         /// "Project Risk", "Resource", "Resource Assignment", "WBS", or "Work Products and Documents".
         /// </summary>
         [Required]
-        [Range(0,10)]
+        [Range(0, 10)]
         public byte SubjectArea { get; set; }
+        
         [Required]
         [MaxLength(40)]
         public string Title { get; set; }
@@ -61,7 +95,8 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         [InverseProperty("CodeForBudgetNumber")]
         public virtual ICollection<Project> ProjectCodeForBudgetNumbers { get; set; }
 
-        [InverseProperty("UDFTypeForPlacement")]
+        [InverseProperty("UDFTypeForPlacement")] //TODO: Поменять при модификации Project
+        //[InverseProperty("UDFTypeForPlacement_Object")]
         public virtual ICollection<Project> ProjectUDFTypeForPlacements { get; set; }
 
         [InverseProperty("CodeForSystemName")]

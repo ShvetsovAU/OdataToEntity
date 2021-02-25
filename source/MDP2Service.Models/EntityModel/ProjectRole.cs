@@ -3,8 +3,33 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using ASE.MD.MDP2.Product.MDP2Service.Models.Interfaces;
 
+#nullable disable
+
 namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
 {
+    #region scaffold model
+
+    //public partial class ProjectRole
+    //{
+    //    public ProjectRole()
+    //    {
+    //        InverseParentObject = new HashSet<ProjectRole>();
+    //    }
+
+    //    public int ObjectId { get; set; }
+    //    public string Id { get; set; }
+    //    public string Name { get; set; }
+    //    public int? ParentObjectId { get; set; }
+    //    public bool CalculateCostFromUnits { get; set; }
+    //    public string Responsibilities { get; set; }
+    //    public int SequenceNumber { get; set; }
+
+    //    public virtual ProjectRole ParentObject { get; set; }
+    //    public virtual ICollection<ProjectRole> InverseParentObject { get; set; }
+    //}
+
+    #endregion scaffold model
+
     /// <summary>
     /// Из документации примаверы:
     /// Roles are project personnel job titles or skills, such as mechanical engineer, inspector, or carpenter. 

@@ -1,43 +1,41 @@
-﻿using ASE.MD.MDP2.Product.MDP2Service.Localization;
-
-namespace ASE.MD.MDP2.Product.MDP2Service.Models.Enums
+﻿namespace ASE.MD.MDP2.Product.MDP2Service.Models.Enums
 {
     public enum ConditionOperator : byte
     {
-        [LocalizedDescription("GridViewFilterIsEqualTo")]
+        //[LocalizedDescription("GridViewFilterIsEqualTo")]
         IsEqualTo,
 
-        [LocalizedDescription("GridViewFilterIsNotEqualTo")]
+        //[LocalizedDescription("GridViewFilterIsNotEqualTo")]
         IsNotEqualTo,
 
-        [LocalizedDescription("GridViewFilterIsLessThan")]
+        //[LocalizedDescription("GridViewFilterIsLessThan")]
         IsLessThan,
 
-        [LocalizedDescription("GridViewFilterIsLessThanOrEqualTo")]
+        //[LocalizedDescription("GridViewFilterIsLessThanOrEqualTo")]
         IsLessThanOrEqualTo,
 
-        [LocalizedDescription("GridViewFilterIsGreaterThanOrEqualTo")]
+        //[LocalizedDescription("GridViewFilterIsGreaterThanOrEqualTo")]
         IsGreaterThanOrEqualTo,
 
-        [LocalizedDescription("GridViewFilterIsGreaterThan")]
+        //[LocalizedDescription("GridViewFilterIsGreaterThan")]
         IsGreaterThan,
 
-        [LocalizedDescription("GridViewFilterStartsWith")]
+        //[LocalizedDescription("GridViewFilterStartsWith")]
         StartsWith,
 
-        [LocalizedDescription("GridViewFilterEndsWith")]
+        //[LocalizedDescription("GridViewFilterEndsWith")]
         EndsWith,
 
-        [LocalizedDescription("GridViewFilterContains")]
+        //[LocalizedDescription("GridViewFilterContains")]
         Contains,
 
-        [LocalizedDescription("GridViewFilterDoesNotContain")]
+        //[LocalizedDescription("GridViewFilterDoesNotContain")]
         DoesNotContain,
 
-        [LocalizedDescription("GridViewFilterIsContainedIn")]
+        //[LocalizedDescription("GridViewFilterIsContainedIn")]
         IsContainedIn,
 
-        [LocalizedDescription("GridViewFilterIsNotContainedIn")]
+        //[LocalizedDescription("GridViewFilterIsNotContainedIn")]
         IsNotContainedIn
     }
 }

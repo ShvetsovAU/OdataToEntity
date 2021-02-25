@@ -2,8 +2,29 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using ASE.MD.MDP2.Product.MDP2Service.Models.CustomAttributes;
 
+#nullable disable
+
 namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
 {
+    #region scaffold model
+
+    //public partial class ActivityPeriodFact
+    //{
+    //    public int ActivityId { get; set; }
+    //    public int PeriodId { get; set; }
+    //    public decimal? ActualLaborUnits { get; set; }
+    //    public decimal? ActualUnitsPerTime { get; set; }
+    //    public decimal? ActualPhysicalVolume { get; set; }
+    //    public decimal? PlannedUnitsPerTime { get; set; }
+    //    public decimal? PlannedPhysicalVolume { get; set; }
+    //    public decimal? PlannedLaborUnits { get; set; }
+
+    //    public virtual Activity Activity { get; set; }
+    //    public virtual Period Period { get; set; }
+    //}
+
+    #endregion scaffold model
+
     /// <summary>
     /// Фактические данные по работе за указаннй период времени
     /// </summary>

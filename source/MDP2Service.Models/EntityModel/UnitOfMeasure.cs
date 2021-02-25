@@ -1,10 +1,31 @@
+﻿using ASE.MD.MDP2.Product.MDP2Service.Models.Interfaces;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using ASE.MD.MDP2.Product.MDP2Service.Models.Interfaces;
+
+#nullable disable
 
 namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
 {
+    #region scaffold model
+
+    //public partial class UnitOfMeasure
+    //{
+    //    public UnitOfMeasure()
+    //    {
+    //        Resources = new HashSet<Resource>();
+    //    }
+
+    //    public int ObjectId { get; set; }
+    //    public string Abbreviation { get; set; }
+    //    public string Name { get; set; }
+    //    public int SequenceNumber { get; set; }
+
+    //    public virtual ICollection<Resource> Resources { get; set; }
+    //}
+
+    #endregion scaffold model
+
     //DB Valid
     [Table("UnitOfMeasure")]
     public partial class UnitOfMeasure : IEntity
@@ -13,7 +34,7 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         {
             Resources = new List<Resource>();
         }
-        
+
         [Key]
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]

@@ -1,12 +1,33 @@
-﻿using System;
+﻿using ASE.MD.MDP2.Product.MDP2Service.Infrastructure.Enums;
+using ASE.MD.MDP2.Product.MDP2Service.Utils;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using ASE.MD.MDP2.Product.MDP2Service.Infrastructure.Enums;
-using ASE.MD.MDP2.Product.MDP2Service.Utils;
+
+#nullable disable
 
 namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
 {
+    #region scaffold model
+
+    //public partial class Role
+    //{
+    //    public Role()
+    //    {
+    //        Users = new HashSet<User>();
+    //    }
+
+    //    public short ObjectId { get; set; }
+    //    public string Name { get; set; }
+    //    public string PermissionsJson { get; set; }
+    //    public bool IsEditable { get; set; }
+
+    //    public virtual ICollection<User> Users { get; set; }
+    //}
+
+    #endregion scaffold model
+
     public partial class Role
     {
         private Dictionary<ModuleOperationType, byte> _permissions { get; set; }
@@ -20,7 +41,7 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         [Key]
         [Required]
         public Int16 ObjectId { get; set; }
-        
+
         [Required]
         [MaxLength(100)]
         public string Name { get; set; }
@@ -38,9 +59,9 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         {
             if (_permissions == null)
             {
-                if (string.IsNullOrWhiteSpace(PermissionsJson)) 
+                if (string.IsNullOrWhiteSpace(PermissionsJson))
                     _permissions = new Dictionary<ModuleOperationType, byte>();
-                else 
+                else
                     _permissions = SerializationManager.JsonDeserialize(PermissionsJson) as Dictionary<ModuleOperationType, byte>;
             }
 

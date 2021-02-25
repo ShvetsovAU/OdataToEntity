@@ -7,13 +7,27 @@ using System.Xml.Serialization;
 using ASE.MD.MDP2.Product.MDP2Service.Infrastructure.Helpers.UserState;
 using ASE.MD.MDP2.Product.MDP2Service.Utils;
 
+#nullable disable
+
 namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
 {
+    #region scaffold model
+
+    //public partial class UserStateSettings
+    //{
+    //    public short User_ObjectId { get; set; }
+    //    public string StatesJson { get; set; }
+
+    //    public virtual User User_Object { get; set; }
+    //}
+
+    #endregion scaffold model
+
     public class UserStateSettings
     {
         public UserStateSettings() { }
 
-        public UserStateSettings(UserStateSettings settings) 
+        public UserStateSettings(UserStateSettings settings)
             : this()
         {
             User_ObjectId = settings.User_ObjectId;
@@ -38,6 +52,7 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
                 res = new T();
                 mStates.Add(res);
             }
+            
             return res;
         }
 
@@ -50,6 +65,7 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
                 res = new T();
                 mStates.Add(res);
             }
+            
             return res;
         }
 
@@ -73,8 +89,7 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
 
         public override bool Equals(object obj)
         {
-            var settings = obj as UserStateSettings;
-            if (settings == null) return false;
+            if (!(obj is UserStateSettings settings)) return false;
 
             if (settings.User_ObjectId != User_ObjectId) return false;
 
@@ -82,4 +97,3 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         }
     }
 }
-

@@ -1,11 +1,32 @@
-﻿using System;
+﻿using ASE.MD.MDP2.Product.MDP2Service.Models.Enums;
+using ASE.MD.MDP2.Product.MDP2Service.Models.Interfaces;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using ASE.MD.MDP2.Product.MDP2Service.Models.Enums;
-using ASE.MD.MDP2.Product.MDP2Service.Models.Interfaces;
+
+#nullable disable
 
 namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
 {
+    #region scaffold model
+
+    //public partial class SupplierPortalJournal
+    //{
+    //    public int ObjectId { get; set; }
+    //    public byte EventType { get; set; }
+    //    public DateTime EventDate { get; set; }
+    //    public short UserObjectId { get; set; }
+    //    public bool IsSuccessful { get; set; }
+    //    public int? CompletedRecordsCount { get; set; }
+    //    public int? ActivitiesCount { get; set; }
+    //    public int? MappedActivitiesCount { get; set; }
+    //    public string Description { get; set; }
+
+    //    public virtual User UserObject { get; set; }
+    //}
+
+    #endregion scaffold model
+
     public class SupplierPortalJournal : IEntity
     {
         [Key]

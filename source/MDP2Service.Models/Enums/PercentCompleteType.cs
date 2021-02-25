@@ -1,6 +1,4 @@
-﻿using ASE.MD.MDP2.Product.MDP2Service.Localization;
-
-namespace ASE.MD.MDP2.Product.MDP2Service.Models.Enums
+﻿namespace ASE.MD.MDP2.Product.MDP2Service.Models.Enums
 {
     /// <summary>
     /// Тип процента выполнения
@@ -10,19 +8,19 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.Enums
         /// <summary>
         /// Физический
         /// </summary>
-        [LocalizedDescription("Neo_PercentCompleteType_Physical")]
+        //[LocalizedDescription("Neo_PercentCompleteType_Physical")]
         Physical = 0,
 
         /// <summary>
         /// Длительность
         /// </summary>
-        [LocalizedDescription("Neo_PercentCompleteType_Duration")]
+        //[LocalizedDescription("Neo_PercentCompleteType_Duration")]
         Duration = 1,
 
         /// <summary>
         /// Количество
         /// </summary>
-        [LocalizedDescription("Neo_PercentCompleteType_Units")]
+        //[LocalizedDescription("Neo_PercentCompleteType_Units")]
         Units = 2
     }
 }

@@ -1,7 +1,18 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
+#nullable disable
+
 namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
 {
+    #region scaffold model
+
+    //public partial class WorkType
+    //{
+    //    public short ObjectId { get; set; }
+    //    public string Name { get; set; }
+    //}
+
+    #endregion scaffold model
 
     public partial class WorkType
     {

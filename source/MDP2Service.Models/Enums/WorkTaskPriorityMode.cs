@@ -5,7 +5,7 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.Enums
     /// <summary>
     /// Режим формирования работ Рабочего Задания
     /// </summary>
-    public enum WorkTaskPriorityMode: byte
+    public enum WorkTaskPriorityMode : byte
     {
         [Description("Приоритетный выбор дат")]
         ByDates = 0,

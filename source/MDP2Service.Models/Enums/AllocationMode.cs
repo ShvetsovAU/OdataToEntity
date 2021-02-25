@@ -10,14 +10,14 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.Enums
         /// <summary>
         /// TODO Locolize it [LocalizedDescription()]
         /// </summary>
-        [Description("По кругу")]  
+        [Description("По кругу")]
         Round = 0,
         [Description("В линию слева")]
         LeftLine = 1,
         [Description("В линию справа")]
         RightLine = 2,
         [Description("В линию сверху")]
-        TopLine = 3 ,
+        TopLine = 3,
         [Description("В линию снизу")]
         BottomLine = 4,
         [Description("В несколько колонок")]

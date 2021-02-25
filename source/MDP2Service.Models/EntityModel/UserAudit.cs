@@ -1,11 +1,28 @@
-﻿using System;
+﻿using ASE.MD.MDP2.Product.MDP2Service.Models.Enums;
+using ASE.MD.MDP2.Product.MDP2Service.Models.Interfaces;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using ASE.MD.MDP2.Product.MDP2Service.Models.Enums;
-using ASE.MD.MDP2.Product.MDP2Service.Models.Interfaces;
+
+#nullable disable
 
 namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
 {
+    #region scaffold model
+
+    //public partial class UserAudit
+    //{
+    //    public int ObjectId { get; set; }
+    //    public byte AuditEvent { get; set; }
+    //    public DateTime DateEvent { get; set; }
+    //    public string Name { get; set; }
+    //    public short UserObjectId { get; set; }
+
+    //    public virtual User UserObject { get; set; }
+    //}
+
+    #endregion scaffold model
+
     public class UserAudit : IEntity
     {
         [Key]

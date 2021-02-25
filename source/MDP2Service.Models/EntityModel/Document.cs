@@ -1,11 +1,38 @@
-using ASE.MD.MDP2.Product.MDP2Service.Models.CustomAttributes;
-using System;
+п»їusing System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using ASE.MD.MDP2.Product.MDP2Service.Models.CustomAttributes;
+
+#nullable disable
 
 namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
 {
+    #region scaffold model
+
+    //public partial class Document
+    //{
+    //    public Document()
+    //    {
+    //        DocumentNodeRefs = new HashSet<DocumentNodeRef>();
+    //        DocumentWorkTasks = new HashSet<DocumentWorkTask>();
+    //        P3DBIsometricDrawingAttributeRelations = new HashSet<P3DBIsometricDrawingAttributeRelation>();
+    //    }
+
+    //    public Guid ObjectId { get; set; }
+    //    public string Name { get; set; }
+    //    public bool IsWorkTask { get; set; }
+    //    public bool IsScreenshot3D { get; set; }
+    //    public string MD5 { get; set; }
+    //    public byte[] Content { get; set; }
+
+    //    public virtual ICollection<DocumentNodeRef> DocumentNodeRefs { get; set; }
+    //    public virtual ICollection<DocumentWorkTask> DocumentWorkTasks { get; set; }
+    //    public virtual ICollection<P3DBIsometricDrawingAttributeRelation> P3DBIsometricDrawingAttributeRelations { get; set; }
+    //}
+
+    #endregion scaffold model
+
     public partial class Document
     {
         public Document()
@@ -35,22 +62,21 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         public bool IsScreenshot3D { get; set; }
 
         /// <summary>
-        /// Список рабочих заданий, с которыми связан данный документ
-        /// </summary>
-        public virtual ICollection<WorkTask> WorkTasks { get; set; }
-
-        public virtual ICollection<DocumentNodeRef> DocumentNodeRefs { get; set; }
-
-        /// <summary>
-        ///  хэш в MD5
+        ///  С…СЌС€ РІ MD5
         /// </summary>
         [StringLength(32)]
         public string MD5 { get; set; }
+        
+        public virtual ICollection<DocumentNodeRef> DocumentNodeRefs { get; set; }
 
         /// <summary>
-        /// Для связи многие ко многим Документов в и РЗ
+        /// РЎРїРёСЃРѕРє СЂР°Р±РѕС‡РёС… Р·Р°РґР°РЅРёР№, СЃ РєРѕС‚РѕСЂС‹РјРё СЃРІСЏР·Р°РЅ РґР°РЅРЅС‹Р№ РґРѕРєСѓРјРµРЅС‚
         /// </summary>
-        [NotMapped]
+        public virtual ICollection<WorkTask> WorkTasks { get; set; }
+        
+        /// <summary>
+        /// Р”Р»СЏ СЃРІСЏР·Рё РјРЅРѕРіРёРµ РєРѕ РјРЅРѕРіРёРј Р”РѕРєСѓРјРµРЅС‚РѕРІ РІ Рё Р Р—
+        /// </summary>
         public virtual ICollection<DocumentWorkTask> DocumentWorkTasks { get; set; }
     }
 }

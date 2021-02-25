@@ -1,13 +1,40 @@
-using System.Collections.Generic;
+Ôªøusing System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using ASE.MD.MDP2.Product.MDP2Service.Models.CustomAttributes;
 using ASE.MD.MDP2.Product.MDP2Service.Models.Interfaces;
 
+#nullable disable
+
 namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
 {
+    #region scaffold model
+
+    //public partial class Currency
+    //{
+    //    public Currency()
+    //    {
+    //        Resources = new HashSet<Resource>();
+    //    }
+
+    //    public int ObjectId { get; set; }
+    //    public byte DecimalPlaces { get; set; }
+    //    public string DecimalSymbol { get; set; }
+    //    public string DigitGroupingSymbol { get; set; }
+    //    public string Symbol { get; set; }
+    //    public decimal ExchangeRate { get; set; }
+    //    public byte NegativeSymbol { get; set; }
+    //    public byte PositiveSymbol { get; set; }
+    //    public string Name { get; set; }
+    //    public string Id { get; set; }
+
+    //    public virtual ICollection<Resource> Resources { get; set; }
+    //}
+
+    #endregion scaffold model
+
     /// <summary>
-    /// ƒÂÌ¸„Ë, ‚‡Î˛Ú‡
+    /// –î–µ–Ω—å–≥–∏, –≤–∞–ª—é—Ç–∞
     /// </summary>
     //Fully DB validated
     [Table("Currency")]
@@ -25,7 +52,7 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         /// The number of decimal places displayed.
         /// </summary>
         [Required]
-        [Range(0,2)]
+        [Range(0, 2)]
         public byte DecimalPlaces { get; set; }
         /// <summary>
         /// The decimal symbol displayed.
@@ -52,18 +79,18 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         [DecimalPrecision(22, 6)]
         [Column(TypeName = "decimal(22,6)")]
         public decimal ExchangeRate { get; set; }
-       
+
         /// <summary>
         /// The symbol used to display a negative currency.
         /// </summary>
         [Required]
-        [Range(0,15)]
+        [Range(0, 15)]
         public byte NegativeSymbol { get; set; }
         /// <summary>
         /// The symbol used to display a positive currency.
         /// </summary>
         [Required]
-        [Range(0,3)]
+        [Range(0, 3)]
         public byte PositiveSymbol { get; set; }
         [Required]
         [MaxLength(40)]

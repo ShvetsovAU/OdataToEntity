@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
+namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest.EntityModel
 {
     /// <summary>
     /// Базовый класс для Code вложенного в Activity и Resource

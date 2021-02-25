@@ -3,7 +3,8 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using ASE.MD.MDP2.Product.MDP2Service.Models.Enums;
 
-namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
+
+namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest.EntityModel
 {
     /// <summary>
     /// Базовый класс для UDF внутри Activity и ResourceAssignment
@@ -13,9 +14,9 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         [Key]
         [Required]
         public int Id { get; set; }
-        
+
         public string TextValue { get; set; }
-        
+
         public decimal? DoubleValue { get; set; }
 
         public decimal? CostValue { get; set; }

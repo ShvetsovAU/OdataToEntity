@@ -2,8 +2,26 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using ASE.MD.MDP2.Product.MDP2Service.Models.Interfaces;
 
+#nullable disable
+
 namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
 {
+    #region scaffold model
+
+    //public partial class Element3D
+    //{
+    //    public int ObjectId { get; set; }
+    //    public int? Report3dObjectId { get; set; }
+    //    public string ElementId { get; set; }
+    //    public int Color { get; set; }
+    //    public byte Opacity { get; set; }
+    //    public bool IsVisible { get; set; }
+
+    //    public virtual Report3D Report3dObject { get; set; }
+    //}
+
+    #endregion scaffold model
+
     public class Element3D : IEntity
     {
         /// <summary>
@@ -18,7 +36,7 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         /// </summary>
         [ForeignKey("Report3D")]
         public int? Report3dObjectId { get; set; }
-        
+
         /// <summary>
         /// 3d отчёт
         /// </summary>

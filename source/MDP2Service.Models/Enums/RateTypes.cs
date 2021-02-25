@@ -1,25 +1,23 @@
-﻿using ASE.MD.MDP2.Product.MDP2Service.Localization;
-
-namespace ASE.MD.MDP2.Product.MDP2Service.Models.Enums
+﻿namespace ASE.MD.MDP2.Product.MDP2Service.Models.Enums
 {
     public enum RateTypes
     {
-        [LocalizedDescription("")]
+        ////[LocalizedDescription("")]
         None = 0,
 
-        [LocalizedDescription("")]
+        //[LocalizedDescription("")]
         PriceUnit1 = 1,
 
-        [LocalizedDescription("")]
+        //[LocalizedDescription("")]
         PriceUnit2 = 2,
 
-        [LocalizedDescription("")]
+        //[LocalizedDescription("")]
         PriceUnit3 = 3,
 
-        [LocalizedDescription("")]
+        //[LocalizedDescription("")]
         PriceUnit4 = 4,
 
-        [LocalizedDescription("")]
+        //[LocalizedDescription("")]
         PriceUnit5 = 5
     }
 }

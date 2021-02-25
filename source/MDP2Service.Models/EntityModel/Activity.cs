@@ -6,8 +6,125 @@ using ASE.MD.MDP2.Product.MDP2Service.Models.CustomAttributes;
 using ASE.MD.MDP2.Product.MDP2Service.Models.Enums;
 using ASE.MD.MDP2.Product.MDP2Service.Models.Interfaces;
 
+#nullable disable
+
 namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
 {
+    #region scaffold model
+
+    //public partial class Activity
+    //{
+    //    public Activity()
+    //    {
+    //        ActivityExpenses = new HashSet<ActivityExpense>();
+    //        ActivityPerformerTeamRefs = new HashSet<ActivityPerformerTeamRef>();
+    //        ActivityPeriodActuals = new HashSet<ActivityPeriodActual>();
+    //        ActivityPeriodFacts = new HashSet<ActivityPeriodFact>();
+    //        ActivityUDFs = new HashSet<ActivityUDF>();
+    //        ActivityWorkTaskRefs = new HashSet<ActivityWorkTaskRef>();
+    //        CodeActivities = new HashSet<CodeActivity>();
+    //        OgRecords = new HashSet<OgRecord>();
+    //        P3DBActivitiesRelations = new HashSet<P3DBActivitiesRelation>();
+    //        RelationshipPredecessorActivityObjects = new HashSet<Relationship>();
+    //        RelationshipSuccessorActivityObjects = new HashSet<Relationship>();
+    //        ResourceAssignments = new HashSet<ResourceAssignment>();
+    //        SupplierRecordsToActivities = new HashSet<SupplierRecordsToActivity>();
+    //    }
+
+    //    public int ObjectId { get; set; }
+    //    public int ProjectObjectId { get; set; }
+    //    public decimal? ActualDuration { get; set; }
+    //    public DateTime? ActualFinishDate { get; set; }
+    //    public decimal ActualLaborCost { get; set; }
+    //    public decimal? ActualLaborUnits { get; set; }
+    //    public decimal ActualNonLaborCost { get; set; }
+    //    public decimal? ActualNonLaborUnits { get; set; }
+    //    public DateTime? ActualStartDate { get; set; }
+    //    public decimal ActualThisPeriodLaborCost { get; set; }
+    //    public decimal? ActualThisPeriodLaborUnits { get; set; }
+    //    public decimal? ActualThisPeriodNonLaborCost { get; set; }
+    //    public decimal? ActualThisPeriodNonLaborUnits { get; set; }
+    //    public decimal AtCompletionDuration { get; set; }
+    //    public decimal AtCompletionLaborCost { get; set; }
+    //    public decimal? AtCompletionLaborUnits { get; set; }
+    //    public decimal AtCompletionNonLaborCost { get; set; }
+    //    public decimal? AtCompletionNonLaborUnits { get; set; }
+    //    public bool AutoComputeActuals { get; set; }
+    //    public int CalendarObjectId { get; set; }
+    //    public decimal? DurationPercentComplete { get; set; }
+    //    public byte DurationType { get; set; }
+    //    public decimal EstimatedWeight { get; set; }
+    //    public DateTime? ExpectedFinishDate { get; set; }
+    //    public DateTime? ExternalEarlyStartDate { get; set; }
+    //    public DateTime? ExternalLateFinishDate { get; set; }
+    //    public string Feedback { get; set; }
+    //    public DateTime FinishDate { get; set; }
+    //    public Guid GUID { get; set; }
+    //    public string Id { get; set; }
+    //    public bool IsNewFeedback { get; set; }
+    //    public byte LevelingPriority { get; set; }
+    //    public string Name { get; set; }
+    //    public decimal? NonLaborUnitsPercentComplete { get; set; }
+    //    public string NotesToResources { get; set; }
+    //    public decimal? PercentComplete { get; set; }
+    //    public byte PercentCompleteType { get; set; }
+    //    public decimal PhysicalPercentComplete { get; set; }
+    //    public decimal PlannedDuration { get; set; }
+    //    public DateTime PlannedFinishDate { get; set; }
+    //    public decimal PlannedLaborCost { get; set; }
+    //    public decimal? PlannedLaborUnits { get; set; }
+    //    public decimal PlannedNonLaborCost { get; set; }
+    //    public decimal PlannedNonLaborUnits { get; set; }
+    //    public DateTime PlannedStartDate { get; set; }
+    //    public DateTime? PrimaryConstraintDate { get; set; }
+    //    public byte? PrimaryConstraintType { get; set; }
+    //    public int? PrimaryResourceObjectId { get; set; }
+    //    public decimal? RemainingDuration { get; set; }
+    //    public DateTime? RemainingEarlyFinishDate { get; set; }
+    //    public DateTime? RemainingEarlyStartDate { get; set; }
+    //    public decimal? RemainingLaborCost { get; set; }
+    //    public decimal? RemainingLaborUnits { get; set; }
+    //    public DateTime? RemainingLateFinishDate { get; set; }
+    //    public DateTime? RemainingLateStartDate { get; set; }
+    //    public decimal? RemainingNonLaborCost { get; set; }
+    //    public decimal RemainingNonLaborUnits { get; set; }
+    //    public DateTime? ResumeDate { get; set; }
+    //    public DateTime? SecondaryConstraintDate { get; set; }
+    //    public byte? SecondaryConstraintType { get; set; }
+    //    public DateTime StartDate { get; set; }
+    //    public byte Status { get; set; }
+    //    public DateTime? SuspendDate { get; set; }
+    //    public byte Type { get; set; }
+    //    public decimal? UnitsPercentComplete { get; set; }
+    //    public int? WBSObjectId { get; set; }
+    //    public decimal? ActualUnitsPerTime { get; set; }
+    //    public bool DeletedPv { get; set; }
+    //    public int? ActivityTypeObjectId { get; set; }
+    //    public Guid? P3DBModelObjectId { get; set; }
+    //    public DateTime? PlannedDateOfDelivery { get; set; }
+    //    public decimal? MinimumPercentComplete { get; set; }
+    //    public decimal? ActualLaborUnitsManualValue { get; set; }
+    //    public bool IsCritical { get; set; }
+
+    //    public virtual ActivityType ActivityTypeObject { get; set; }
+    //    public virtual WB WBSObject { get; set; }
+    //    public virtual ICollection<ActivityExpense> ActivityExpenses { get; set; }
+    //    public virtual ICollection<ActivityPerformerTeamRef> ActivityPerformerTeamRefs { get; set; }
+    //    public virtual ICollection<ActivityPeriodActual> ActivityPeriodActuals { get; set; }
+    //    public virtual ICollection<ActivityPeriodFact> ActivityPeriodFacts { get; set; }
+    //    public virtual ICollection<ActivityUDF> ActivityUDFs { get; set; }
+    //    public virtual ICollection<ActivityWorkTaskRef> ActivityWorkTaskRefs { get; set; }
+    //    public virtual ICollection<CodeActivity> CodeActivities { get; set; }
+    //    public virtual ICollection<OgRecord> OgRecords { get; set; }
+    //    public virtual ICollection<P3DBActivitiesRelation> P3DBActivitiesRelations { get; set; }
+    //    public virtual ICollection<Relationship> RelationshipPredecessorActivityObjects { get; set; }
+    //    public virtual ICollection<Relationship> RelationshipSuccessorActivityObjects { get; set; }
+    //    public virtual ICollection<ResourceAssignment> ResourceAssignments { get; set; }
+    //    public virtual ICollection<SupplierRecordsToActivity> SupplierRecordsToActivities { get; set; }
+    //}
+
+    #endregion scaffold model
+
     /// <summary>
     /// Сущность работы
     /// </summary>
@@ -87,9 +204,9 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         /// <summary>
         /// The actual this period labor units (hours) for all labor resources assigned to the activity.
         /// </summary>
-        [DecimalPrecision(17,6)]
+        [DecimalPrecision(17, 6)]
         [Column(TypeName = "decimal(17,6)")]
-        public decimal? ActualThisPeriodLaborUnits { get; set; } 
+        public decimal? ActualThisPeriodLaborUnits { get; set; }
         /// <summary>
         /// The actual this period nonlabor cost for all nonlabor resources assigned to the activity. If no resources are assigned, computed as the activity actual nonlabor units * project default price / time.
         /// </summary>
@@ -97,7 +214,7 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         /// <summary>
         /// The actual this period nonlabor units (hours) for all nonlabor resources assigned to the activity.
         /// </summary>
-        [DecimalPrecision(17,6)]
+        [DecimalPrecision(17, 6)]
         [Column(TypeName = "decimal(17,6)")]
         public decimal? ActualThisPeriodNonLaborUnits { get; set; }
         /// <summary>
@@ -143,9 +260,9 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         /// The percent complete of the activity duration. 
         /// Computed as (planned duration - remaining duration) / planned duration * 100. Always in the range 0 to 100. The planned duration is taken from the current plan, not from the baseline.
         /// </summary>
-        [DecimalPrecision(7,4)]
+        [DecimalPrecision(7, 4)]
         [Column(TypeName = "decimal(7,4)")]
-        [Range(0.0,100.00)]
+        [Range(0.0, 100.00)]
         public decimal? DurationPercentComplete { get; set; }
         /// <summary>
         /// Справочник значения от 0 до 3
@@ -158,7 +275,7 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         /// This type is used when the total amount of work is fixed, and increasing the resources can decrease the activity duration.
         /// </summary>
         [Required]
-        [Range(0,3)]
+        [Range(0, 3)]
         public byte DurationType { get; set; }
         /// <summary>
         /// The estimation weight for the activity, used for top-down estimation. 
@@ -166,7 +283,7 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         /// Top-down estimation distributes estimated units in a top-down manner to activities using the WBS hierarchy.
         /// </summary>
         [Required]
-        [DecimalPrecision(10,2)]
+        [DecimalPrecision(10, 2)]
         [Column(TypeName = "decimal(10,2)")]
         public decimal EstimatedWeight { get; set; }
         /// <summary>
@@ -215,7 +332,7 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         /// The activity priority used to prioritize activities in a project when performing resource leveling. Valid values are 'Top', 'High', 'Normal', 'Low', and 'Lowest'.
         /// </summary>
         [Required]
-        [Range(0,4)]
+        [Range(0, 4)]
         public byte LevelingPriority { get; set; }
 
         /// <summary>
@@ -235,9 +352,9 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         /// <summary>
         /// The percent complete of units for all nonlabor resources for the activity. Computed as actual nonlabor units / at completion nonlabor units * 100. Always in the range 0 to 100.
         /// </summary>
-        [DecimalPrecision(5,2)]
+        [DecimalPrecision(5, 2)]
         [Column(TypeName = "decimal(5,2)")]
-        [Range(0,100)]
+        [Range(0, 100)]
         public decimal? NonLaborUnitsPercentComplete { get; set; }
         /// <summary>
         /// Нет доков
@@ -264,7 +381,7 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         /// The activity percent complete type: 'Physical', 'Duration', or 'Units'.
         /// </summary>
         [Required]
-        [Range(0,2)]
+        [Range(0, 2)]
         public byte PercentCompleteType { get; set; }
         /// <summary>
         /// The physical percent complete, which can either be user entered or calculated from the activity's weighted steps.
@@ -279,7 +396,7 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         /// This field is named OriginalDuration in Primavera's Engineering & Construction and Maintenance & Turnaround solutions.
         /// </summary>
         [Required]
-        [DecimalPrecision(17,6)]
+        [DecimalPrecision(17, 6)]
         [Column(TypeName = "decimal(17,6)")]
         public decimal PlannedDuration { get; set; } //TODO Min value 0.0
         /// <summary>
@@ -298,7 +415,7 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         /// <summary>
         /// The planned units for all labor resources assigned to the activity. This field is named BudgetedLaborUnits in Primavera's Engineering & Construction and Maintenance & Turnaround solutions.
         /// </summary>
-        [DecimalPrecision(17,6)]
+        [DecimalPrecision(17, 6)]
         [Column(TypeName = "decimal(17,6)")]
         public decimal? PlannedLaborUnits { get; set; } //xsd miss NULL
         /// <summary>
@@ -312,7 +429,7 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         /// The planned units for all nonlabor resources assigned to the activity. 
         /// This field is named BudgetedNonLaborUnits in Primavera's Engineering & Construction and Maintenance & Turnaround solutions.
         /// </summary>
-        [DecimalPrecision(17,6)]
+        [DecimalPrecision(17, 6)]
         [Column(TypeName = "decimal(17,6)")]
         public decimal PlannedNonLaborUnits { get; set; }
         /// <summary>
@@ -332,7 +449,7 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         /// Finish date constraints are 'Finish On', 'Finish On or Before', and 'Finish On or After'. 
         /// Another type of constraint, 'As Late As Possible', schedules the activity as late as possible based on the available free float.
         /// </summary>
-        [Range(0,8)]
+        [Range(0, 8)]
         public byte? PrimaryConstraintType { get; set; }
         /// <summary>
         /// The unique ID of the primary resource for the activity. The primary resource is responsible for the overall work on the activity and updates the activity status using Timesheets.
@@ -343,7 +460,7 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         /// The remaining working time is computed using the activity's calendar. 
         /// Before the activity is started, the remaining duration is the same as the planned duration. After the activity is completed the remaining duration is zero.
         /// </summary>
-        [DecimalPrecision(17,6)]
+        [DecimalPrecision(17, 6)]
         [Column(TypeName = "decimal(17,6)")]
         public decimal? RemainingDuration { get; set; } //TODO Min val 0.0
         /// <summary>
@@ -364,7 +481,7 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         /// The remaining units reflects the work remaining to be done for the activity. Before the activity is started, the remaining units are the same as the planned units.
         ///  After the activity is completed, the remaining units are zero.
         /// </summary>
-        [DecimalPrecision(17,6)]
+        [DecimalPrecision(17, 6)]
         [Column(TypeName = "decimal(17,6)")]
         public decimal? RemainingLaborUnits { get; set; }
         /// <summary>
@@ -400,7 +517,7 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         /// The additional constraint to be used by the scheduler. If more than one constraint is assigned, 
         /// this value should be restricted to one of the following: "Start On or Before", "Start On or After", "Finish On or Before", or "Finish On or After".
         /// </summary>
-        [Range(0,5)]
+        [Range(0, 5)]
         public byte? SecondaryConstraintType { get; set; }
         /// <summary>
         /// The start date of the activity. Set to the remaining start date until the activity is started, then set to the actual start date.
@@ -411,7 +528,7 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         /// The current status of the activity, either 'Not Started', 'In Progress', or 'Completed'.
         /// </summary>
         [Required]
-        [Range(0,2)]
+        [Range(0, 2)]
         public ActivityStatus Status { get; set; }
         /// <summary>
         /// The start date when the progress of a task or resource dependent activity is delayed from. The suspend date must be later than the actual start date, which the activity must have. 
@@ -428,19 +545,23 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         /// A 'Level of Effort' activity has a duration that is determined by its dependent activities. Administration-type activities are typically 'Level of Effort'.
         /// </summary>
         [Required]
-        [Range(0,5)]
+        [Range(0, 5)]
         public byte Type { get; set; }
+        
         /// <summary>
         /// The percent complete of units for all labor and nonlabor resources assigned to the activity. Computed as actual units / at completion units * 100. Always in the range 0 to 100.
         /// </summary>
         [DecimalPrecision(7, 4)]
         [Column(TypeName = "decimal(7,4)")]
-        [Range(0.0,100.0)]
+        [Range(0.0, 100.0)]
         public decimal? UnitsPercentComplete { get; set; }
+        
         /// <summary>
         /// The unique ID of the WBS for the activity.
         /// </summary>
         public int? WBSObjectId { get; set; }
+        [ForeignKey("WBSObjectId")]
+        public virtual WorkBreakdownStructure WorkBreakdownStructure { get; set; }
 
         /// <summary>
         ///  The unique ID of the P3DBModel related to the activity.
@@ -454,7 +575,7 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         [DecimalPrecision(16, 8)]
         [Column(TypeName = "decimal(16,8)")]
         public decimal? ActualUnitsPerTime { get; set; }
-        
+
         /// <summary>
         /// Работа удалена в примавере
         /// </summary>
@@ -464,7 +585,7 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         /// Дата планового индикатора поставки ОГ
         /// </summary>
         public DateTime? PlannedDateOfDelivery { get; set; }
-        
+
         [ForeignKey("ActivityType")]
         public int? ActivityTypeObjectId { get; set; }
 
@@ -484,9 +605,6 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         /// </summary>
         [InverseProperty("Activity")]
         public virtual ICollection<ActivityPeriodFact> ActivityPeriodFacts { get; set; }
-
-        [ForeignKey("WBSObjectId")]
-        public virtual WorkBreakdownStructure WorkBreakdownStructure { get; set; }
 
         [InverseProperty("Activity")]
         public virtual ICollection<ActivityUDF> ActivityUDFs { get; set; }
@@ -519,6 +637,6 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         public virtual ICollection<OgRecord> OgRecords { get; set; }
 
         [InverseProperty("Activity")]
-        public virtual ICollection<SupplierRecordsToActivity> SupplierRecordsToActivities { get; set; } 
+        public virtual ICollection<SupplierRecordsToActivity> SupplierRecordsToActivities { get; set; }
     }
 }

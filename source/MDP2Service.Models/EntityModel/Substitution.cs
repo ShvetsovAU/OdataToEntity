@@ -1,9 +1,25 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ASE.MD.MDP2.Product.MDP2Service.Models.Interfaces;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using ASE.MD.MDP2.Product.MDP2Service.Models.Interfaces;
+
+#nullable disable
 
 namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
 {
+    #region scaffold model
+
+    //public partial class Substitution
+    //{
+    //    public int ObjectId { get; set; }
+    //    public int AttributeId { get; set; }
+    //    public string OriginalValue { get; set; }
+    //    public string SubstituteValue { get; set; }
+
+    //    public virtual P3DBAttribute Attribute { get; set; }
+    //}
+
+    #endregion scaffold model
+
     /// <summary>
     /// Таблица подстановок
     /// </summary>
@@ -30,7 +46,5 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         /// Значение подстановки
         /// </summary>
         public string SubstituteValue { get; set; }
-
-        
     }
 }

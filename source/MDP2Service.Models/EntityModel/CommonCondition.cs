@@ -3,8 +3,28 @@ using System.ComponentModel.DataAnnotations.Schema;
 using ASE.MD.MDP2.Product.MDP2Service.Models.Enums;
 using ASE.MD.MDP2.Product.MDP2Service.Models.Interfaces;
 
+#nullable disable
+
 namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
 {
+    #region scaffold model
+
+    //public partial class CommonCondition
+    //{
+    //    public int ObjectId { get; set; }
+    //    public int? PaintingQuerryObjectId { get; set; }
+    //    public string AttributeDataType { get; set; }
+    //    public byte AttributeType { get; set; }
+    //    public string AttributeName { get; set; }
+    //    public string AttributeValue { get; set; }
+    //    public int? ConditionOperator { get; set; }
+    //    public byte ComparisonAlgorithm { get; set; }
+
+    //    public virtual PaintingQuerry PaintingQuerryObject { get; set; }
+    //}
+
+    #endregion scaffold model
+
     /// <summary>
     /// Общие условия
     /// </summary>
@@ -16,11 +36,7 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         [Key]
         [Required]
         public int ObjectId { get; set; }
-        /// <summary>
-        /// идентификатор запроса на раскраску
-        /// </summary>
-        [ForeignKey("PaintingQuerry")]
-        public int? PaintingQuerryObjectId { get; set; }
+        
         /// <summary>
         /// Тип данных аттрибута
         /// </summary>
@@ -53,9 +69,14 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         public byte ComparisonAlgorithm { get; set; }
 
         /// <summary>
+        /// идентификатор запроса на раскраску
+        /// </summary>
+        [ForeignKey("PaintingQuerry")]
+        public int? PaintingQuerryObjectId { get; set; }
+
+        /// <summary>
         /// запрос на раскраску
         /// </summary>
         public virtual PaintingQuerry PaintingQuerry { get; set; }
     }
-
 }

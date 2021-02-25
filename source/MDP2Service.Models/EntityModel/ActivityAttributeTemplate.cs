@@ -4,17 +4,41 @@ using System.ComponentModel.DataAnnotations.Schema;
 using ASE.MD.MDP2.Product.MDP2Service.Models.Classes;
 using ASE.MD.MDP2.Product.MDP2Service.Models.CustomAttributes;
 using ASE.MD.MDP2.Product.MDP2Service.Models.Enums;
-using ASE.MD.MDP2.Product.MDP2Service.Models.Interfaces;
 using ASE.MD.MDP2.Product.MDP2Service.Utils;
+using ASE.MD.MDP2.Product.MDP2Service.Models.Interfaces;
+
+#nullable disable
 
 namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
 {
+    #region scaffold model
+
+    //public partial class ActivityAttributeTemplate
+    //{
+    //    public int ObjectId { get; set; }
+    //    public int ActivityTypeId { get; set; }
+    //    public string ActivityAttribute { get; set; }
+    //    public int? CodeUdfTypeId { get; set; }
+    //    public string ValueFormula { get; set; }
+    //    public int AttributeType { get; set; }
+    //    public int AggregateType { get; set; }
+    //    public string Alias { get; set; }
+    //    public string Function { get; set; }
+    //    public bool IsPrimaryResource { get; set; }
+    //    public int? ResourceId { get; set; }
+    //    public decimal? PlannedUnitsPerTime { get; set; }
+
+    //    public virtual ActivityType ActivityType { get; set; }
+    //}
+
+    #endregion scaffold model
+
     /// <summary>
     /// Шаблон атрибута типа работы
     /// </summary>
     public class ActivityAttributeTemplate : IEntity
     {
-        public ActivityAttributeTemplate() {}
+        public ActivityAttributeTemplate() { }
 
         public ActivityAttributeTemplate(ActivityType type, string attributeName, string alias, ActivityAttributeType attributeType, AggregateType aggregateType,
             int? attributeRsrcId)
@@ -40,6 +64,10 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         [Required]
         [ForeignKey("ActivityType")]
         public int ActivityTypeId { get; set; }
+        /// <summary>
+        /// Тип работы
+        /// </summary>
+        public ActivityType ActivityType { get; set; }
 
         /// <summary>
         /// Название атрибута работы
@@ -89,28 +117,22 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         public AggregateType AggregateType { get; set; }
 
         /// <summary>
-        /// Тип работы
-        /// </summary>
-        public ActivityType ActivityType { get; set; }
-
-        /// <summary>
         /// Функция PipeRun в сериализованном виде
         /// </summary>
         public string Function { get; set; }
-
-        private PipeRunFunction mFunction;
-
+        
         /// <summary>
         /// Возвращает десериализованную функцию PipeRun
         /// </summary>
         public PipeRunFunction GetPipeRunFunction()
         {
-            if (mFunction == null && !string.IsNullOrWhiteSpace(Function))
+            if (_function == null && !string.IsNullOrWhiteSpace(Function))
             {
-                mFunction = SerializationManager.JsonDeserialize(Function) as PipeRunFunction;
+                _function = SerializationManager.JsonDeserialize(Function) as PipeRunFunction;
             }
-            return mFunction;
+            return _function;
         }
+        private PipeRunFunction _function;
 
         /// <summary>
         /// Задает функцию PipeRun шаблону атрибута
@@ -119,7 +141,7 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         public void SetPipeRunFunction(PipeRunFunction function)
         {
             Function = function == null ? null : SerializationManager.JsonSerialize(function);
-            mFunction = function;
+            _function = function;
         }
 
         /// <summary>

@@ -1,13 +1,31 @@
-﻿using System.Collections.Generic;
+﻿using ASE.MD.MDP2.Product.MDP2Service.Utils;
+using ASE.MD.MDP2.Product.MDP2Service.Models.Enums;
+using ASE.MD.MDP2.Product.MDP2Service.Models.Interfaces;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using ASE.MD.MDP2.Product.MDP2Service.Models.Classes;
-using ASE.MD.MDP2.Product.MDP2Service.Models.Enums;
-using ASE.MD.MDP2.Product.MDP2Service.Models.Interfaces;
-using ASE.MD.MDP2.Product.MDP2Service.Utils;
+
+#nullable disable
 
 namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
 {
+    #region scaffold model
+
+    //public partial class SupplierMappingRule
+    //{
+    //    public int ObjectId { get; set; }
+    //    public string Name { get; set; }
+    //    public int Priority { get; set; }
+    //    public string Condition { get; set; }
+    //    public string CalculatedAttributeName { get; set; }
+    //    public string CalculatedAttributeFormula { get; set; }
+    //    public bool IsActive { get; set; }
+    //    public byte? CalculatedAttributeType { get; set; }
+    //}
+
+    #endregion scaffold model
+
     /// <summary>
     /// Правило сопоставления позиций поставки работам
     /// </summary>

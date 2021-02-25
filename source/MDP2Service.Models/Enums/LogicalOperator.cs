@@ -1,12 +1,10 @@
-﻿using ASE.MD.MDP2.Product.MDP2Service.Localization;
-
-namespace ASE.MD.MDP2.Product.MDP2Service.Models.Enums
+﻿namespace ASE.MD.MDP2.Product.MDP2Service.Models.Enums
 {
     public enum LogicalOperator
     {
-        [LocalizedDescription("GridViewFilterAnd")]
+        //[LocalizedDescription("GridViewFilterAnd")]
         And,
-        [LocalizedDescription("GridViewFilterOr")]
+        //[LocalizedDescription("GridViewFilterOr")]
         Or
     }
 }

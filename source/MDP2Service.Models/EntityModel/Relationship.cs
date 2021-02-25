@@ -1,11 +1,31 @@
-using ASE.MD.MDP2.Product.MDP2Service.Models.CustomAttributes;
+﻿using ASE.MD.MDP2.Product.MDP2Service.Models.Enums;
+using ASE.MD.MDP2.Product.MDP2Service.Models.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using ASE.MD.MDP2.Product.MDP2Service.Models.Enums;
-using ASE.MD.MDP2.Product.MDP2Service.Models.Interfaces;
+using ASE.MD.MDP2.Product.MDP2Service.Models.CustomAttributes;
+
+#nullable disable
 
 namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
 {
+    #region scaffold model
+
+    //public partial class Relationship
+    //{
+    //    public int ObjectId { get; set; }
+    //    public decimal? Lag { get; set; }
+    //    public int PredecessorActivityObjectId { get; set; }
+    //    public int SuccessorActivityObjectId { get; set; }
+    //    public byte Type { get; set; }
+    //    public int ProjectObjectId { get; set; }
+
+    //    public virtual Activity PredecessorActivityObject { get; set; }
+    //    public virtual Project ProjectObject { get; set; }
+    //    public virtual Activity SuccessorActivityObject { get; set; }
+    //}
+
+    #endregion scaffold model
+
     [Table("Relationship")]
     public partial class Relationship : IEntity
     {
@@ -22,13 +42,13 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         [DecimalPrecision(17, 6)]
         [Column(TypeName = "decimal(17,6)")]
         public decimal? Lag { get; set; }
-        
+
         /// <summary>
         /// The type of relationship: 'Finish to Start', 'Finish to Finish', 'Start to Start', or 'Start to Finish'.
         /// </summary>
         [Required]
         public RelationshipType Type { get; set; }
-        
+
         public int PredecessorActivityObjectId { get; set; }
         [ForeignKey("PredecessorActivityObjectId")]
         [Required]

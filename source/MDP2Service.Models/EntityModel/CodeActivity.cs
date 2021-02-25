@@ -1,9 +1,30 @@
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using OdataToEntity.Test.DynamicDataContext.ODataClientTest.EntityModel;
+
+#nullable disable
 
 namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
 {
-    //DB Valid
+    #region scaffold model
+
+    //public partial class CodeActivity
+    //{
+    //    public int ActivityObjectId { get; set; }
+    //    public int TypeObjectId { get; set; }
+    //    public int ValueObjectId { get; set; }
+    //    public string ValueName { get; set; }
+
+    //    public virtual Activity ActivityObject { get; set; }
+    //    public virtual ActivityCodeType TypeObject { get; set; }
+    //    public virtual ActivityCode ValueObject { get; set; }
+    //}
+
+    #endregion scaffold model
+    
+    /// <summary>
+    /// Код работы
+    /// </summary>
     [Table("CodeActivity")]
     public partial class CodeActivity : CodeBase
     {
@@ -12,15 +33,17 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models.EntityModel
         public int ActivityObjectId { get; set; }
 
         [ForeignKey("ActivityObjectId")]
-        [Required]    
+        [Required]
         public virtual Activity Activity { get; set; }
 
+        public int ValueObjectId { get; set; }
         [ForeignKey("ValueObjectId")]
-        [Required]    
+        [Required]
         public virtual ActivityCode ActivityCode { get; set; }
 
+        public int TypeObjectId { get; set; }
         [ForeignKey("TypeObjectId")]
-        [Required]    
+        [Required]
         public virtual ActivityCodeType ActivityCodeType { get; set; }
 
         [NotMapped]
