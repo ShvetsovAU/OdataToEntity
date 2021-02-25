@@ -1834,6 +1834,23 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .WithMany(p => p.Users)
                     .HasForeignKey(d => d.UserRole_ObjectId)
                     .HasConstraintName("FK_dbo.Users_dbo.Roles_UserRole_ObjectId");
+
+                entity.HasMany(p => p.UserGroups)
+                    .WithMany(p => p.Users)
+                    .UsingEntity<UserGroupUser>(
+                        
+                        j => j
+                            .HasOne(ugu => ugu.UserGroup)
+                            .WithMany(ug => ug.UserGroupUsers)
+                            .HasForeignKey(ugu => ugu.UserGroup_ObjectId)
+                            .HasConstraintName("FK_dbo.UserGroupUsers_dbo.UserGroups_UserGroup_ObjectId"),
+                        
+                        j => j
+                            .HasOne(ugu => ugu.User)
+                            .WithMany(u => u.UserGroupUsers)
+                            .HasForeignKey(ugu => ugu.User_ObjectId)
+                            .HasConstraintName("FK_dbo.UserGroupUsers_dbo.Users_User_ObjectId")
+                    );
             });
 
             modelBuilder.Entity<UserAudit>(entity =>
@@ -1877,6 +1894,22 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                             .WithMany(ug => ug.UserGroupEPs)
                             .HasForeignKey(use => use.UserGroup_ObjectId)
                             .HasConstraintName("FK_dbo.UserGroupEPS_dbo.UserGroups_UserGroup_ObjectId")
+                    );
+
+                entity.HasMany(p => p.Users)
+                    .WithMany(p => p.UserGroups)
+                    .UsingEntity<UserGroupUser>(
+                        j => j
+                            .HasOne(ugu => ugu.User)
+                            .WithMany(u => u.UserGroupUsers)
+                            .HasForeignKey(ugu => ugu.User_ObjectId)
+                            .HasConstraintName("FK_dbo.UserGroupUsers_dbo.Users_User_ObjectId"),
+                        
+                        j => j
+                            .HasOne(ugu => ugu.UserGroup)
+                            .WithMany(ug => ug.UserGroupUsers)
+                            .HasForeignKey(ugu => ugu.UserGroup_ObjectId)
+                            .HasConstraintName("FK_dbo.UserGroupUsers_dbo.UserGroups_UserGroup_ObjectId")
                     );
             });
 

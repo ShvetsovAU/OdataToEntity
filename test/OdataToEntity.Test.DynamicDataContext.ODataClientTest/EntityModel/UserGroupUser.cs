@@ -5,10 +5,24 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace dbReverse.EntityModel
 {
+    #region scaffold model
+
+    //public partial class UserGroupUser
+    //{
+    //    public int UserGroup_ObjectId { get; set; }
+    //    public short User_ObjectId { get; set; }
+
+    //    public virtual UserGroup UserGroup_Object { get; set; }
+    //    public virtual User User_Object { get; set; }
+    //}
+
+    #endregion scaffold model
+
     public partial class UserGroupUser
     {
         [Key, Column(Order = 0)]
         public int UserGroup_ObjectId { get; set; }
+        
         [Key, Column(Order = 1)]
         public short User_ObjectId { get; set; }
 

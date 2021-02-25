@@ -101,15 +101,14 @@ namespace dbReverse.EntityModel
 
         public virtual UserStateSettings StateSettings { get; set; }
 
-        public virtual ICollection<UserGroup> UserGroups { get; set; }
-
         //[InverseProperty("RelationsLastUpdateUser")]
         //public ICollection<P3DBModel> RelationsLastUpdateUsers { get; set; }
+
+        public virtual ICollection<UserGroup> UserGroups { get; set; }
 
         /// <summary>
         /// Для связи многие ко многим пользователей и групп пользователей
         /// </summary>
-        [NotMapped]
         public virtual ICollection<UserGroupUser> UserGroupUsers { get; set; }
     }
 }

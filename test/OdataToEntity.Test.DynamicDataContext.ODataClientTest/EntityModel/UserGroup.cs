@@ -37,6 +37,7 @@ namespace dbReverse.EntityModel
         {
             UserGroupEPs = new HashSet<UserGroupEPS>();
             UserGroupUsers = new HashSet<UserGroupUser>();
+            Users = new HashSet<User>();
         }
 
         [Key]
@@ -48,10 +49,7 @@ namespace dbReverse.EntityModel
         public string Name { get; set; }
 
         public bool FullAccess { get; set; }
-
-        //TODO: использовать UserGroupUsers
-        //public virtual ICollection<User> Users { get; set; }
-
+        
         //TODO: использовать UserGroupEPs
         public virtual ICollection<EPS> Epss { get; set; }
 
@@ -63,7 +61,9 @@ namespace dbReverse.EntityModel
         /// <summary>
         /// Для связи многие ко многим пользователей и групп пользователей
         /// </summary>
-        //[NotMapped]
         public virtual ICollection<UserGroupUser> UserGroupUsers { get; set; }
+
+        //TODO: использовать UserGroupUsers
+        public virtual ICollection<User> Users { get; set; }
     }
 }
