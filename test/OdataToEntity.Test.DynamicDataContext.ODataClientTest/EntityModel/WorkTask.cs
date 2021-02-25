@@ -202,15 +202,14 @@ namespace dbReverse.EntityModel
         public virtual ICollection<ActivityWorkTaskRef> Activities { get; set; }
 
         //TODO: использовать <see cref="DocumentWorkTasks">
-        ///// <summary>
-        ///// Список документов текущего РЗ
-        ///// </summary>
-        //public virtual ICollection<Document> DocFiles { get; set; }
+        /// <summary>
+        /// Список документов текущего РЗ
+        /// </summary>
+        public virtual ICollection<Document> DocFiles { get; set; }
 
         /// <summary>
         /// Для связи многие ко многим Документов в и РЗ
         /// </summary>
-        [NotMapped]
         public virtual ICollection<DocumentWorkTask> DocumentWorkTasks { get; set; }
 
         public virtual ICollection<JournalRecord> LogMessages { get; set; }

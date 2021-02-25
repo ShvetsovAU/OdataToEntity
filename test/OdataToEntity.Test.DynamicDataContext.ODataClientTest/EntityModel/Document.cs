@@ -66,18 +66,17 @@ namespace dbReverse.EntityModel
         /// </summary>
         [StringLength(32)]
         public string MD5 { get; set; }
+        
+        public virtual ICollection<DocumentNodeRef> DocumentNodeRefs { get; set; }
 
         /// <summary>
         /// Список рабочих заданий, с которыми связан данный документ
         /// </summary>
         public virtual ICollection<WorkTask> WorkTasks { get; set; }
-
-        public virtual ICollection<DocumentNodeRef> DocumentNodeRefs { get; set; }
-
+        
         /// <summary>
         /// Для связи многие ко многим Документов в и РЗ
         /// </summary>
-        [NotMapped]
         public virtual ICollection<DocumentWorkTask> DocumentWorkTasks { get; set; }
     }
 }

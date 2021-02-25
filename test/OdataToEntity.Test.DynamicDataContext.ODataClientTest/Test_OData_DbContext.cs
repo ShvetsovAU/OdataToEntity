@@ -697,14 +697,32 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasName("PK_dbo.Documents");
 
                 entity.Property(e => e.ObjectId).ValueGeneratedNever();
-
                 entity.Property(e => e.Content)
                     .IsRequired()
                     .HasDefaultValueSql("(0x)");
 
                 entity.Property(e => e.MD5).HasMaxLength(32);
-
                 entity.Property(e => e.Name).IsRequired();
+
+                //entity.HasMany(p => p.WorkTasks)
+                //    .WithMany(wt => wt.DocFiles)
+                //    .UsingEntity(j => j.ToTable("DocumentWorkTasks"));
+
+                entity.HasMany(p => p.WorkTasks)
+                    .WithMany(wt => wt.DocFiles)
+                    .UsingEntity<DocumentWorkTask>(
+                        j => j
+                            .HasOne(dw => dw.WorkTask)
+                            .WithMany(wt => wt.DocumentWorkTasks)
+                            .HasForeignKey(dw => dw.WorkTask_ObjectId)
+                            .HasConstraintName("FK_dbo.DocumentWorkTasks_dbo.WorkTasks_WorkTask_ObjectId"),
+                        
+                        j => j
+                            .HasOne(dw => dw.Document)
+                            .WithMany(doc => doc.DocumentWorkTasks)
+                            .HasForeignKey(dw => dw.Document_ObjectId)
+                            .HasConstraintName("FK_dbo.DocumentWorkTasks_dbo.Documents_Document_ObjectId")
+                    );
             });
 
             modelBuilder.Entity<DocumentNodeRef>(entity =>
@@ -837,23 +855,16 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
             //    entity.ToView("OBEY");
 
             //    entity.Property(e => e.A1_Proliv).HasMaxLength(100);
-
             //    entity.Property(e => e.A3_1_GI_CP).HasMaxLength(100);
-
             //    entity.Property(e => e.A3_2_GO).HasMaxLength(100);
-
             //    entity.Property(e => e.ActualFinishDate).HasColumnType("datetime");
-
             //    entity.Property(e => e.ActualStartDate).HasColumnType("datetime");
-
             //    entity.Property(e => e.Budget)
             //        .HasMaxLength(255)
             //        .IsUnicode(false);
 
             //    entity.Property(e => e.Building).HasMaxLength(100);
-
             //    entity.Property(e => e.Contractor).HasMaxLength(120);
-
             //    entity.Property(e => e.Diameter)
             //        .HasMaxLength(255)
             //        .IsUnicode(false);
@@ -868,9 +879,7 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
             //        .HasMaxLength(40);
 
             //    entity.Property(e => e.Labor).HasColumnType("decimal(38, 6)");
-
             //    entity.Property(e => e.MD_Group).HasMaxLength(100);
-
             //    entity.Property(e => e.Material)
             //        .HasMaxLength(255)
             //        .IsUnicode(false);
@@ -884,23 +893,18 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
             //        .IsUnicode(false);
 
             //    entity.Property(e => e.PlannedFinishDate).HasColumnType("datetime");
-
             //    entity.Property(e => e.PlannedStartDate).HasColumnType("datetime");
-
             //    entity.Property(e => e.PointBudget)
             //        .HasMaxLength(255)
             //        .IsUnicode(false);
 
             //    entity.Property(e => e.Project_Part).HasMaxLength(100);
-
             //    entity.Property(e => e.Resource_Name)
             //        .IsRequired()
             //        .HasMaxLength(100);
 
             //    entity.Property(e => e.Resource_Units_Act).HasColumnType("decimal(17, 6)");
-
             //    entity.Property(e => e.Resource_Units_Pl).HasColumnType("decimal(17, 6)");
-
             //    entity.Property(e => e.SMR_Code)
             //        .HasMaxLength(255)
             //        .IsUnicode(false);
@@ -910,7 +914,6 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
             //        .IsUnicode(false);
 
             //    entity.Property(e => e.System_Code).HasMaxLength(100);
-
             //    entity.Property(e => e.UnitMeasure)
             //        .HasMaxLength(255)
             //        .IsUnicode(false);
@@ -924,7 +927,6 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
             //        .HasMaxLength(100);
 
             //    entity.Property(e => e.Used_on_1st_block).HasMaxLength(100);
-
             //    entity.Property(e => e.Vent_System)
             //        .HasMaxLength(255)
             //        .IsUnicode(false);
@@ -956,7 +958,6 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasName("PK_dbo.OgToActivityMappings");
 
                 entity.HasIndex(e => e.OgAttributeId, "IX_OgAttributeId");
-
                 entity.HasIndex(e => e.ProjectObjectId, "IX_ProjectObjectId");
 
                 entity.HasOne(d => d.OgAttribute)
@@ -998,7 +999,6 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasName("PK_dbo.P3DBActivitiesRelations");
 
                 entity.HasIndex(e => e.ActivityObjectId, "IX_ActivityObjectId");
-
                 entity.HasIndex(e => e.P3DBModelId, "IX_P3DBModelId");
 
                 entity.Property(e => e.InternalPath).IsRequired();
@@ -1976,6 +1976,26 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .WithMany()
                     .HasForeignKey(d => d.SystemNameId)
                     .HasConstraintName("FK_dbo.WorkTasks_dbo.ActivityCode_SystemNameId");
+
+                //entity.HasMany(p => p.DocFiles)
+                //    .WithMany(doc => doc.WorkTasks)
+                //    .UsingEntity(j => j.ToTable("DocumentWorkTasks"));
+
+                entity.HasMany(p => p.DocFiles)
+                    .WithMany(doc => doc.WorkTasks)
+                    .UsingEntity<DocumentWorkTask>(
+                        j => j
+                            .HasOne(dw => dw.Document)
+                            .WithMany(doc => doc.DocumentWorkTasks)
+                            .HasForeignKey(dw => dw.Document_ObjectId)
+                            .HasConstraintName("FK_dbo.DocumentWorkTasks_dbo.Documents_Document_ObjectId"),
+                        
+                        j => j
+                            .HasOne(dw => dw.WorkTask)
+                            .WithMany(wt => wt.DocumentWorkTasks)
+                            .HasForeignKey(dw => dw.WorkTask_ObjectId)
+                            .HasConstraintName("FK_dbo.DocumentWorkTasks_dbo.WorkTasks_WorkTask_ObjectId")
+                    );
             });
 
             modelBuilder.Entity<WorkTaskAttributeValue>(entity =>
