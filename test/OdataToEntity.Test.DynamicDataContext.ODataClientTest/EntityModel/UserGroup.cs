@@ -53,12 +53,11 @@ namespace dbReverse.EntityModel
         //public virtual ICollection<User> Users { get; set; }
 
         //TODO: использовать UserGroupEPs
-        //public virtual ICollection<EPS> Epss { get; set; }
+        public virtual ICollection<EPS> Epss { get; set; }
 
         /// <summary>
         /// Для связи многие ко многим групп пользователей и EPS
         /// </summary>
-        //[NotMapped]
         public virtual ICollection<UserGroupEPS> UserGroupEPs { get; set; }
 
         /// <summary>

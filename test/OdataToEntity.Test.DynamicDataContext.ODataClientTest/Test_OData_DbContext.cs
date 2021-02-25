@@ -780,6 +780,22 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .WithMany(p => p.Children)
                     .HasForeignKey(d => d.ParentId)
                     .HasConstraintName("FK_dbo.EPS_dbo.EPS_ParentId");
+
+                entity.HasMany(p => p.UserGroups)
+                    .WithMany(ug => ug.Epss)
+                    .UsingEntity<UserGroupEPS>(
+                        j => j
+                            .HasOne(use => use.UserGroup)
+                            .WithMany(ug => ug.UserGroupEPs)
+                            .HasForeignKey(use => use.UserGroup_ObjectId)
+                            .HasConstraintName("FK_dbo.UserGroupEPS_dbo.UserGroups_UserGroup_ObjectId"),
+                        
+                        j => j
+                            .HasOne(use => use.EPS)
+                            .WithMany(eps => eps.UserGroupEPs)
+                            .HasForeignKey(use => use.EPS_ObjectId)
+                            .HasConstraintName("FK_dbo.UserGroupEPS_dbo.EPS_EPS_ObjectId")
+                    );
             });
 
             modelBuilder.Entity<Element3D>(entity =>
@@ -1845,6 +1861,23 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasName("PK_dbo.UserGroups");
 
                 entity.Property(e => e.Name).IsRequired();
+
+                entity.HasMany(p => p.Epss)
+                    .WithMany(eps => eps.UserGroups)
+                    .UsingEntity<UserGroupEPS>(
+                        
+                        j => j
+                            .HasOne(use => use.EPS)
+                            .WithMany(eps => eps.UserGroupEPs)
+                            .HasForeignKey(use => use.EPS_ObjectId)
+                            .HasConstraintName("FK_dbo.UserGroupEPS_dbo.EPS_EPS_ObjectId"),
+
+                        j => j
+                            .HasOne(use => use.UserGroup)
+                            .WithMany(ug => ug.UserGroupEPs)
+                            .HasForeignKey(use => use.UserGroup_ObjectId)
+                            .HasConstraintName("FK_dbo.UserGroupEPS_dbo.UserGroups_UserGroup_ObjectId")
+                    );
             });
 
             modelBuilder.Entity<UserGroupEPS>(entity =>

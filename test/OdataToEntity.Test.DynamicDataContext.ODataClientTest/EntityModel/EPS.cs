@@ -76,6 +76,16 @@ namespace dbReverse.EntityModel
         private ICollection<EPS> mChildren;
 
         /// <summary>
+        /// Для связи многие ко многим групп пользователей и EPS
+        /// </summary>
+        public virtual ICollection<UserGroupEPS> UserGroupEPs
+        {
+            get { return _userGroupEPs ?? (_userGroupEPs = new HashSet<UserGroupEPS>()); }
+            set { _userGroupEPs = value; }
+        }
+        private ICollection<UserGroupEPS> _userGroupEPs;
+
+        /// <summary>
         /// Список групп пользователей
         /// </summary>
         public virtual ICollection<UserGroup> UserGroups { get; set; }
@@ -86,16 +96,5 @@ namespace dbReverse.EntityModel
 
             return eps.ObjectId == ObjectId;
         }
-
-        /// <summary>
-        /// Для связи многие ко многим групп пользователей и EPS
-        /// </summary>
-        [NotMapped]
-        public virtual ICollection<UserGroupEPS> UserGroupEPs
-        {
-            get { return _userGroupEPs ?? (_userGroupEPs = new HashSet<UserGroupEPS>()); }
-            set { _userGroupEPs = value; }
-        }
-        private ICollection<UserGroupEPS> _userGroupEPs;
     }
 }

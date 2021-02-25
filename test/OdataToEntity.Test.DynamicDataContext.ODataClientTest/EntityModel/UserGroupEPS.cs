@@ -5,6 +5,19 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace dbReverse.EntityModel
 {
+    #region scaffold model
+
+    //public partial class UserGroupEP
+    //{
+    //    public int UserGroup_ObjectId { get; set; }
+    //    public int EPS_ObjectId { get; set; }
+
+    //    public virtual EP EPS_Object { get; set; }
+    //    public virtual UserGroup UserGroup_Object { get; set; }
+    //}
+
+    #endregion scaffold model
+
     /// <summary>
     /// Для связи многие ко многим групп пользователей и EPS
     /// </summary>
@@ -12,6 +25,7 @@ namespace dbReverse.EntityModel
     {
         [Key, Column(Order = 0)]
         public int UserGroup_ObjectId { get; set; }
+        
         [Key, Column(Order = 1)]
         public int EPS_ObjectId { get; set; }
 
