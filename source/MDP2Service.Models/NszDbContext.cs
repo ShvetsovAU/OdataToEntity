@@ -36,12 +36,27 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models
         public DbSet<ActivityPeriodFact> ActivityPeriodFacts { get; set; }
 
         public DbSet<AttributesType> AttributeTypes { get; set; }
+
+        public DbSet<ActivityType> ActivityTypes { get; set; }
+        public DbSet<ActivityAttributeTemplate> ActivityAttributeTemplates { get; set; }
+        public DbSet<ActivityTemplate> ActivityTemplates { get; set; }
+
+        public DbSet<ActivityWorkTaskRef> ActivityWorkTaskRefs { get; set; }
+
         public DbSet<Calendar> Calendars { get; set; }
         public DbSet<CodeActivity> CodeActivities { get; set; }
         public DbSet<CodeResource> CodeResources { get; set; }
         public DbSet<Currency> Currencies { get; set; }
         public DbSet<Curator> Curators { get; set; }
         public DbSet<Document> Documents { get; set; }
+        public DbSet<DocumentNodeRef> DocumentNodeRefs { get; set; }
+
+        /// <summary>
+        /// Для связи многие ко многим Документов в и РЗ
+        /// </summary>
+        public virtual DbSet<DocumentWorkTask> DocumentWorkTasks { get; set; }
+
+        public DbSet<EPS> EnterpriseProjectStructures { get; set; }
         public DbSet<JournalRecord> JournalRecords { get; set; }
         public DbSet<P3DBModel> P3DBModels { get; set; }
         public DbSet<Project> Projects { get; set; }
@@ -55,21 +70,8 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models
         public DbSet<ResourceRate> ResourceRates { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<SystemConfig> SystemConfigurations { get; set; }
-        public DbSet<UDFType> UDFTypes { get; set; }
-        public DbSet<UnitOfMeasure> UnitOfMeasures { get; set; }
-        public DbSet<User> Users { get; set; }
-
-        /// <summary>
-        /// Для связи многие ко многим пользователей и групп пользователей
-        /// </summary>
-        public virtual DbSet<UserGroupUser> UserGroupUsers { get; set; }
 
         public DbSet<UserStateSettings> NewUserStatesSettings { get; set; }
-        public DbSet<WorkBreakdownStructure> WorkBreakdownStructures { get; set; }
-        public DbSet<WorkTask> WorkTasks { get; set; }
-        public DbSet<WorkType> WorkTypes { get; set; }
-        public DbSet<WorkTaskAttributeValue> WorkTaskAttributeValues { get; set; }
-        public DbSet<EPS> EnterpriseProjectStructures { get; set; }
 
         //Исполнители
         public DbSet<Performer> Performers { get; set; }
@@ -82,6 +84,39 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models
 
         public DbSet<P3DBActivitiesRelation> P3DBActivitiesRelation { get; set; }
         public DbSet<P3DBModelElement> P3DBModelElements { get; set; }
+        
+        public DbSet<ScriptMigrationHistory> ScriptsMigrationHistory { get; set; }
+        public DbSet<ReportTemplate> ReportTemplates { get; set; }
+        public DbSet<Worker> Workers { get; set; }
+
+        public DbSet<P3DbActivitiesRelationProfile> P3DbActivitiesRelationProfiles { get; set; }
+        
+        public DbSet<PerformerActivityCode> PerformerActivityCode { get; set; }
+        public DbSet<Substitution> Substitutions { get; set; }
+        public DbSet<P3DBAttribute> P3DbAttributes { get; set; }
+        
+        public DbSet<P3DBIsometricDrawingAttributeRelation> P3DBIsometricDrawingAttributeRelations { get; set; }
+        public DbSet<P3DBModelAttributeRelation> P3DBModelAttributeRelations { get; set; }
+
+        public DbSet<User> Users { get; set; }
+
+        public DbSet<UserAudit> UserAudits { get; set; }
+
+        public DbSet<UserGroup> UserGroups { get; set; }
+
+        /// <summary>
+        /// Для связи многие ко многим групп пользователей и EPS
+        /// </summary>
+        public virtual DbSet<UserGroupEPS> UserGroupEPs { get; set; }
+
+        /// <summary>
+        /// Для связи многие ко многим пользователей и групп пользователей
+        /// </summary>
+        public virtual DbSet<UserGroupUser> UserGroupUsers { get; set; }
+
+        public DbSet<UDFType> UDFTypes { get; set; }
+        public DbSet<UnitOfMeasure> UnitOfMeasures { get; set; }
+
         public DbSet<WorkTaskNumberPart> WorkTaskNumberParts { get; set; }
 
         /// <summary>
@@ -89,34 +124,10 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models
         /// </summary>
         public virtual DbSet<WorkTaskP3DBModel> WorkTaskP3DBModels { get; set; }
 
-        public DbSet<ActivityWorkTaskRef> ActivityWorkTaskRefs { get; set; }
-        public DbSet<ScriptMigrationHistory> ScriptsMigrationHistory { get; set; }
-        public DbSet<ReportTemplate> ReportTemplates { get; set; }
-        public DbSet<Worker> Workers { get; set; }
-        public DbSet<DocumentNodeRef> DocumentNodeRefs { get; set; }
-
-        /// <summary>
-        /// Для связи многие ко многим Документов в и РЗ
-        /// </summary>
-        public virtual DbSet<DocumentWorkTask> DocumentWorkTasks { get; set; }
-
-        public DbSet<P3DbActivitiesRelationProfile> P3DbActivitiesRelationProfiles { get; set; }
-        public DbSet<UserGroup> UserGroups { get; set; }
-
-        /// <summary>
-        /// Для связи многие ко многим групп пользователей и EPS
-        /// </summary>
-        public virtual DbSet<UserGroupEPS> UserGroupEPs { get; set; }
-        
-        public DbSet<UserAudit> UserAudits { get; set; }
-        public DbSet<PerformerActivityCode> PerformerActivityCode { get; set; }
-        public DbSet<Substitution> Substitutions { get; set; }
-        public DbSet<P3DBAttribute> P3DbAttributes { get; set; }
-        public DbSet<ActivityType> ActivityTypes { get; set; }
-        public DbSet<ActivityAttributeTemplate> ActivityAttributeTemplates { get; set; }
-        public DbSet<ActivityTemplate> ActivityTemplates { get; set; }
-        public DbSet<P3DBIsometricDrawingAttributeRelation> P3DBIsometricDrawingAttributeRelations { get; set; }
-        public DbSet<P3DBModelAttributeRelation> P3DBModelAttributeRelations { get; set; }
+        public DbSet<WorkBreakdownStructure> WorkBreakdownStructures { get; set; }
+        public DbSet<WorkTask> WorkTasks { get; set; }
+        public DbSet<WorkType> WorkTypes { get; set; }
+        public DbSet<WorkTaskAttributeValue> WorkTaskAttributeValues { get; set; }
 
         #region OG
         /// <summary>
@@ -225,6 +236,16 @@ namespace ASE.MD.MDP2.Product.MDP2Service.Models
         public DbSet<PartActivityId> PartRuleCreateActivityId { get; set; }
 
         #endregion
+
+        #region scaffold model
+
+        //public virtual DbSet<View_2> View_2s { get; set; }
+        //public virtual DbSet<__MigrationHistory> __MigrationHistories { get; set; }
+        //public virtual DbSet<__ScriptMigrationHistory> __ScriptMigrationHistories { get; set; }
+        //public virtual DbSet<tmp_nsz> tmp_nszs { get; set; }
+        //public virtual DbSet<Дубликаты_кодов_работ> Дубликаты_кодов_работs { get; set; }
+
+        #endregion scaffold model
 
         #endregion DbSet's
 

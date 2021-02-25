@@ -16,47 +16,95 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
         { }
 
         #region DbSet's
-        
+
+        /// <summary>
+        /// Работы
+        /// </summary>
         public virtual DbSet<Activity> Activities { get; set; }
         public virtual DbSet<ActivityAttributeTemplate> ActivityAttributeTemplates { get; set; }
         public virtual DbSet<ActivityCode> ActivityCodes { get; set; }
         public virtual DbSet<ActivityCodeType> ActivityCodeTypes { get; set; }
         public virtual DbSet<ActivityExpense> ActivityExpenses { get; set; }
-        public virtual DbSet<ActivityPerformerTeamRef> ActivityPerformerTeamRefs { get; set; }
+
+        //Связь работ с бригадами исполнителей
+        public virtual DbSet<ActivityPerformerTeamRef> ActivityPerformerTeams { get; set; }
         public virtual DbSet<ActivityPeriodActual> ActivityPeriodActuals { get; set; }
+
+        //Фактические данные по работе за указаннй период времени
         public virtual DbSet<ActivityPeriodFact> ActivityPeriodFacts { get; set; }
         public virtual DbSet<ActivityTemplate> ActivityTemplates { get; set; }
         public virtual DbSet<ActivityType> ActivityTypes { get; set; }
         public virtual DbSet<ActivityUDF> ActivityUDFs { get; set; }
         public virtual DbSet<ActivityWorkTaskRef> ActivityWorkTaskRefs { get; set; }
-        public virtual DbSet<Annotation> Annotations { get; set; }
-        public virtual DbSet<AnnotationCondition> AnnotationConditions { get; set; }
+        //public virtual DbSet<Annotation> Annotations { get; set; }
+        //public virtual DbSet<AnnotationCondition> AnnotationConditions { get; set; }
         public virtual DbSet<AnnotationInfo> AnnotationInfoes { get; set; }
+        
+        #region сварные_швы
+
         public virtual DbSet<AssemblyUnit> AssemblyUnits { get; set; }
         public virtual DbSet<AssemblyUnitCondition> AssemblyUnitConditions { get; set; }
         public virtual DbSet<AssemblyUnitState> AssemblyUnitStates { get; set; }
         public virtual DbSet<AssemblyUnitsImportRule> AssemblyUnitsImportRules { get; set; }
+
+        #endregion сварные_швы
+
         public virtual DbSet<AttributesType> AttributesTypes { get; set; }
         public virtual DbSet<Calendar> Calendars { get; set; }
         public virtual DbSet<CodeActivity> CodeActivities { get; set; }
         public virtual DbSet<CodeResource> CodeResources { get; set; }
-        public virtual DbSet<CommonCondition> CommonConditions { get; set; }
+        //public virtual DbSet<CommonCondition> CommonConditions { get; set; }
         public virtual DbSet<Curator> Curators { get; set; }
         public virtual DbSet<Currency> Currencies { get; set; }
         public virtual DbSet<Document> Documents { get; set; }
         public virtual DbSet<DocumentNodeRef> DocumentNodeRefs { get; set; }
+
+        /// <summary>
+        /// Для связи многие ко многим Документов в и РЗ
+        /// </summary>
         public virtual DbSet<DocumentWorkTask> DocumentWorkTasks { get; set; }
         public virtual DbSet<EPS> EPs { get; set; }
         public virtual DbSet<Element3D> Element3Ds { get; set; }
-        public virtual DbSet<FilterAnnotaion> FilterAnnotaions { get; set; }
-        public virtual DbSet<Indicator> Indicators { get; set; }
-        public virtual DbSet<IndicatorCondition> IndicatorConditions { get; set; }
+
+        //public virtual DbSet<FilterAnnotaion> FilterAnnotaions { get; set; }
+
+        #region OG
+
+        /// <summary>
+        /// Индикаторы
+        /// </summary>
+        public DbSet<Indicator> Indicators { get; set; }
+
+        /// <summary>
+        /// Условия индикаторов
+        /// </summary>
+        public DbSet<IndicatorCondition> IndicatorConditions { get; set; }
+
+        /// <summary>
+        /// Записи из ОГ
+        /// </summary>
+        public DbSet<OgRecord> OgRecords { get; set; }
+
+        /// <summary>
+        /// Маппинги в ОГ
+        /// </summary>
+        public DbSet<OgToActivityMapping> OgToActivityMappings { get; set; }
+
+        /// <summary>
+        /// Значения UDF для ОГ
+        /// </summary>
+        public DbSet<OgUDFValue> OgUDFValues { get; set; }
+
+        /// <summary>
+        /// Типы UDF для ОГ
+        /// </summary>
+        public DbSet<OgUdfType> OgUdfTypes { get; set; }
+        
+        #endregion
+        
         public virtual DbSet<JournalRecord> JournalRecords { get; set; }
+
         //public virtual DbSet<OBEY> OBEYs { get; set; }
-        public virtual DbSet<OgRecord> OgRecords { get; set; }
-        public virtual DbSet<OgToActivityMapping> OgToActivityMappings { get; set; }
-        public virtual DbSet<OgUDFValue> OgUDFValues { get; set; }
-        public virtual DbSet<OgUdfType> OgUdfTypes { get; set; }
         public virtual DbSet<P3DBActivitiesRelation> P3DBActivitiesRelations { get; set; }
         public virtual DbSet<P3DBAttribute> P3DBAttributes { get; set; }
         public virtual DbSet<P3DBIsometricDrawingAttributeRelation> P3DBIsometricDrawingAttributeRelations { get; set; }
@@ -64,18 +112,28 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
         public virtual DbSet<P3DBModelAttributeRelation> P3DBModelAttributeRelations { get; set; }
         public virtual DbSet<P3DBModelElement> P3DBModelElements { get; set; }
         public virtual DbSet<P3DbActivitiesRelationProfile> P3DbActivitiesRelationProfiles { get; set; }
-        public virtual DbSet<PaintingCondition> PaintingConditions { get; set; }
-        public virtual DbSet<PaintingQuerry> PaintingQuerries { get; set; }
-        public virtual DbSet<PartActivityId> PartActivityIds { get; set; }
+        //public virtual DbSet<PaintingCondition> PaintingConditions { get; set; }
+        //public virtual DbSet<PaintingQuerry> PaintingQuerries { get; set; }
+        //public virtual DbSet<PartActivityId> PartActivityIds { get; set; }
+
+        //Исполнители
         public virtual DbSet<Performer> Performers { get; set; }
         public virtual DbSet<PerformerActivityCode> PerformerActivityCodes { get; set; }
+
+        //Бригады исполнителей
         public virtual DbSet<PerformerTeam> PerformerTeams { get; set; }
+
+        //Временные периоды
         public virtual DbSet<Period> Periods { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<ProjectRole> ProjectRoles { get; set; }
         public virtual DbSet<Relationship> Relationships { get; set; }
-        public virtual DbSet<Report3D> Report3Ds { get; set; }
-        public virtual DbSet<Report3DWorkTask> Report3DWorkTasks { get; set; }
+        //public virtual DbSet<Report3D> Report3D { get; set; }
+
+        /// <summary>
+        /// Для связи многие ко многим отчетов и РЗ
+        /// </summary>
+        //public virtual DbSet<Report3DWorkTask> Report3DWorkTasks { get; set; }
         public virtual DbSet<ReportTemplate> ReportTemplates { get; set; }
         public virtual DbSet<ResAssignUDF> ResAssignUDFs { get; set; }
         public virtual DbSet<Resource> Resources { get; set; }
@@ -84,35 +142,121 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
         public virtual DbSet<ResourceCodeType> ResourceCodeTypes { get; set; }
         public virtual DbSet<ResourceRate> ResourceRates { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
-        public virtual DbSet<RuleCreateActivityId> RuleCreateActivityIds { get; set; }
+        //public virtual DbSet<RuleCreateActivityId> RuleCreateActivityIds { get; set; }
         public virtual DbSet<Substitution> Substitutions { get; set; }
+
+        #region Портал поставщика
+
         public virtual DbSet<SupplierMappingRule> SupplierMappingRules { get; set; }
         public virtual DbSet<SupplierPortalJournal> SupplierPortalJournals { get; set; }
         public virtual DbSet<SupplierRecord> SupplierRecords { get; set; }
         public virtual DbSet<SupplierRecordsToActivity> SupplierRecordsToActivities { get; set; }
         public virtual DbSet<SupplierUDF> SupplierUDFs { get; set; }
         public virtual DbSet<SupplierUDFType> SupplierUDFTypes { get; set; }
+
+        #endregion Портал поставщика
+
         public virtual DbSet<SystemConfig> SystemConfigs { get; set; }
         public virtual DbSet<UDFType> UDFTypes { get; set; }
         public virtual DbSet<UnitOfMeasure> UnitOfMeasures { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserAudit> UserAudits { get; set; }
         public virtual DbSet<UserGroup> UserGroups { get; set; }
+
+        /// <summary>
+        /// Для связи многие ко многим групп пользователей и EPS
+        /// </summary>
         public virtual DbSet<UserGroupEPS> UserGroupEPs { get; set; }
+
+        /// <summary>
+        /// Для связи многие ко многим пользователей и групп пользователей
+        /// </summary>
         public virtual DbSet<UserGroupUser> UserGroupUsers { get; set; }
         public virtual DbSet<UserStateSettings> UserStateSettings { get; set; }
-        //public virtual DbSet<View_2> View_2s { get; set; }
+        
         public virtual DbSet<WorkBreakdownStructure> WBs { get; set; }
         public virtual DbSet<WorkTask> WorkTasks { get; set; }
         public virtual DbSet<WorkTaskAttributeValue> WorkTaskAttributeValues { get; set; }
         public virtual DbSet<WorkTaskNumberPart> WorkTaskNumberParts { get; set; }
+
+        /// <summary>
+        /// Для связи многие ко многим 3D моделей и РЗ
+        /// </summary>
         public virtual DbSet<WorkTaskP3DBModel> WorkTaskP3DBModels { get; set; }
         public virtual DbSet<WorkType> WorkTypes { get; set; }
         public virtual DbSet<Worker> Workers { get; set; }
+        
+        #region Reporting3d
+
+        /// <summary>
+        /// Аннтоации
+        /// </summary>
+        public DbSet<Annotation> Annotations { get; set; }
+
+        /// <summary>
+        /// Параметры аннотаций
+        /// </summary>
+        public DbSet<AnnotationCondition> AnnotationConditions { get; set; }
+
+        /// <summary>
+        /// Информация о измененных аннотациях
+        /// </summary>
+        public DbSet<AnnotationInfo> AnnotationsInfo { get; set; }
+
+        /// <summary>
+        /// Общие условия
+        /// </summary>
+        public DbSet<CommonCondition> CommonConditions { get; set; }
+
+        /// <summary>
+        /// Элементы (слои) 3д модели
+        /// </summary>
+        public DbSet<Element3D> Elements3D { get; set; }
+
+        /// <summary>
+        /// Фильтры аннотаций
+        /// </summary>
+        public DbSet<FilterAnnotaion> FilterAnnotations { get; set; }
+
+        /// <summary>
+        /// Условия раскраски
+        /// </summary>
+        public DbSet<PaintingCondition> PaintingConditions { get; set; }
+
+        /// <summary>
+        /// Запросы на раскраску
+        /// </summary>
+        public DbSet<PaintingQuerry> PaintingQuerries { get; set; }
+
+        /// <summary>
+        /// 3d отчеты
+        /// </summary>
+        public DbSet<Report3D> Reports3D { get; set; }
+
+        /// <summary>
+        /// Для связи многие ко многим отчетов и РЗ
+        /// </summary>
+        public virtual DbSet<Report3DWorkTask> Report3DWorkTasks { get; set; }
+        
+        #endregion
+        
+        #region Правила создания ID работы
+
+        public DbSet<RuleCreateActivityId> RulesCreateActivityId { get; set; }
+
+        public DbSet<PartActivityId> PartRuleCreateActivityId { get; set; }
+
+        #endregion
+
+        #region scaffold model
+
+        //public virtual DbSet<View_2> View_2s { get; set; }
         //public virtual DbSet<__MigrationHistory> __MigrationHistories { get; set; }
         //public virtual DbSet<__ScriptMigrationHistory> __ScriptMigrationHistories { get; set; }
         //public virtual DbSet<tmp_nsz> tmp_nszs { get; set; }
         //public virtual DbSet<Дубликаты_кодов_работ> Дубликаты_кодов_работs { get; set; }
+
+        #endregion scaffold model
 
         #endregion DbSet's
 
@@ -127,6 +271,8 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            #region scaffold-context
+
             modelBuilder.HasAnnotation("Relational:Collation", "Cyrillic_General_CI_AS");
 
             modelBuilder.Entity<Activity>(entity =>
@@ -339,19 +485,13 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasName("PK_dbo.ActivityPeriodFacts");
 
                 entity.HasIndex(e => e.ActivityId, "IX_ActivityId");
-
                 entity.HasIndex(e => e.PeriodId, "IX_PeriodId");
 
                 entity.Property(e => e.ActualLaborUnits).HasColumnType("decimal(18, 2)");
-
                 entity.Property(e => e.ActualPhysicalVolume).HasColumnType("decimal(17, 6)");
-
                 entity.Property(e => e.ActualUnitsPerTime).HasColumnType("decimal(16, 8)");
-
                 entity.Property(e => e.PlannedLaborUnits).HasColumnType("decimal(18, 2)");
-
                 entity.Property(e => e.PlannedPhysicalVolume).HasColumnType("decimal(17, 6)");
-
                 entity.Property(e => e.PlannedUnitsPerTime).HasColumnType("decimal(16, 8)");
 
                 entity.HasOne(d => d.Activity)
@@ -863,95 +1003,7 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasForeignKey(d => d.WorkTask_ObjectId)
                     .HasConstraintName("FK_dbo.JournalRecords_dbo.WorkTasks_WorkTask_ObjectId");
             });
-
-            //modelBuilder.Entity<OBEY>(entity =>
-            //{
-            //    entity.HasNoKey();
-
-            //    entity.ToView("OBEY");
-
-            //    entity.Property(e => e.A1_Proliv).HasMaxLength(100);
-            //    entity.Property(e => e.A3_1_GI_CP).HasMaxLength(100);
-            //    entity.Property(e => e.A3_2_GO).HasMaxLength(100);
-            //    entity.Property(e => e.ActualFinishDate).HasColumnType("datetime");
-            //    entity.Property(e => e.ActualStartDate).HasColumnType("datetime");
-            //    entity.Property(e => e.Budget)
-            //        .HasMaxLength(255)
-            //        .IsUnicode(false);
-
-            //    entity.Property(e => e.Building).HasMaxLength(100);
-            //    entity.Property(e => e.Contractor).HasMaxLength(120);
-            //    entity.Property(e => e.Diameter)
-            //        .HasMaxLength(255)
-            //        .IsUnicode(false);
-
-            //    entity.Property(e => e.ID_ресурса)
-            //        .IsRequired()
-            //        .HasMaxLength(40)
-            //        .HasColumnName("ID ресурса");
-
-            //    entity.Property(e => e.Id)
-            //        .IsRequired()
-            //        .HasMaxLength(40);
-
-            //    entity.Property(e => e.Labor).HasColumnType("decimal(38, 6)");
-            //    entity.Property(e => e.MD_Group).HasMaxLength(100);
-            //    entity.Property(e => e.Material)
-            //        .HasMaxLength(255)
-            //        .IsUnicode(false);
-
-            //    entity.Property(e => e.Name)
-            //        .IsRequired()
-            //        .HasMaxLength(120);
-
-            //    entity.Property(e => e.NumberDrawing)
-            //        .HasMaxLength(255)
-            //        .IsUnicode(false);
-
-            //    entity.Property(e => e.PlannedFinishDate).HasColumnType("datetime");
-            //    entity.Property(e => e.PlannedStartDate).HasColumnType("datetime");
-            //    entity.Property(e => e.PointBudget)
-            //        .HasMaxLength(255)
-            //        .IsUnicode(false);
-
-            //    entity.Property(e => e.Project_Part).HasMaxLength(100);
-            //    entity.Property(e => e.Resource_Name)
-            //        .IsRequired()
-            //        .HasMaxLength(100);
-
-            //    entity.Property(e => e.Resource_Units_Act).HasColumnType("decimal(17, 6)");
-            //    entity.Property(e => e.Resource_Units_Pl).HasColumnType("decimal(17, 6)");
-            //    entity.Property(e => e.SMR_Code)
-            //        .HasMaxLength(255)
-            //        .IsUnicode(false);
-
-            //    entity.Property(e => e.Schedule_Point)
-            //        .HasMaxLength(255)
-            //        .IsUnicode(false);
-
-            //    entity.Property(e => e.System_Code).HasMaxLength(100);
-            //    entity.Property(e => e.UnitMeasure)
-            //        .HasMaxLength(255)
-            //        .IsUnicode(false);
-
-            //    entity.Property(e => e.Unit_Weight)
-            //        .HasMaxLength(255)
-            //        .IsUnicode(false);
-
-            //    entity.Property(e => e.UoM)
-            //        .IsRequired()
-            //        .HasMaxLength(100);
-
-            //    entity.Property(e => e.Used_on_1st_block).HasMaxLength(100);
-            //    entity.Property(e => e.Vent_System)
-            //        .HasMaxLength(255)
-            //        .IsUnicode(false);
-
-            //    entity.Property(e => e.Volume)
-            //        .HasMaxLength(255)
-            //        .IsUnicode(false);
-            //});
-
+            
             modelBuilder.Entity<OgRecord>(entity =>
             {
                 entity.HasKey(e => e.RecordGuid)
@@ -1940,7 +1992,6 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .HasName("PK_dbo.UserGroupUsers");
 
                 entity.HasIndex(e => e.UserGroup_ObjectId, "IX_UserGroup_ObjectId");
-
                 entity.HasIndex(e => e.User_ObjectId, "IX_User_ObjectId");
 
                 entity.HasOne(d => d.UserGroup)
@@ -1969,24 +2020,7 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_dbo.UserStateSettings_dbo.Users_User_ObjectId");
             });
-
-            //modelBuilder.Entity<View_2>(entity =>
-            //{
-            //    entity.HasNoKey();
-
-            //    entity.ToView("View_2");
-
-            //    entity.Property(e => e.Id)
-            //        .IsRequired()
-            //        .HasMaxLength(40);
-
-            //    entity.Property(e => e.Name)
-            //        .IsRequired()
-            //        .HasMaxLength(120);
-
-            //    entity.Property(e => e.ValueName).HasMaxLength(100);
-            //});
-
+            
             modelBuilder.Entity<WorkBreakdownStructure>(entity =>
             {
                 entity.HasKey(e => e.ObjectId)
@@ -2238,6 +2272,9 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
             //    entity.Property(e => e.Hash).HasMaxLength(20);
             //});
 
+            #region Views
+
+            //TODO: похоже для View "OBEY"
             //modelBuilder.Entity<tmp_nsz>(entity =>
             //{
             //    entity.HasNoKey();
@@ -2269,7 +2306,6 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
 
             //    entity.Property(e => e.Labor).HasColumnType("decimal(38, 6)");
             //    entity.Property(e => e.MD_Group).HasMaxLength(100);
-
             //    entity.Property(e => e.Material)
             //        .HasMaxLength(255)
             //        .IsUnicode(false);
@@ -2321,6 +2357,111 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
             //        .IsUnicode(false);
             //});
 
+            //modelBuilder.Entity<OBEY>(entity =>
+            //{
+            //    entity.HasNoKey();
+
+            //    entity.ToView("OBEY");
+
+            //    entity.Property(e => e.A1_Proliv).HasMaxLength(100);
+            //    entity.Property(e => e.A3_1_GI_CP).HasMaxLength(100);
+            //    entity.Property(e => e.A3_2_GO).HasMaxLength(100);
+            //    entity.Property(e => e.ActualFinishDate).HasColumnType("datetime");
+            //    entity.Property(e => e.ActualStartDate).HasColumnType("datetime");
+            //    entity.Property(e => e.Budget)
+            //        .HasMaxLength(255)
+            //        .IsUnicode(false);
+
+            //    entity.Property(e => e.Building).HasMaxLength(100);
+            //    entity.Property(e => e.Contractor).HasMaxLength(120);
+            //    entity.Property(e => e.Diameter)
+            //        .HasMaxLength(255)
+            //        .IsUnicode(false);
+
+            //    entity.Property(e => e.ID_ресурса)
+            //        .IsRequired()
+            //        .HasMaxLength(40)
+            //        .HasColumnName("ID ресурса");
+
+            //    entity.Property(e => e.Id)
+            //        .IsRequired()
+            //        .HasMaxLength(40);
+
+            //    entity.Property(e => e.Labor).HasColumnType("decimal(38, 6)");
+            //    entity.Property(e => e.MD_Group).HasMaxLength(100);
+            //    entity.Property(e => e.Material)
+            //        .HasMaxLength(255)
+            //        .IsUnicode(false);
+
+            //    entity.Property(e => e.Name)
+            //        .IsRequired()
+            //        .HasMaxLength(120);
+
+            //    entity.Property(e => e.NumberDrawing)
+            //        .HasMaxLength(255)
+            //        .IsUnicode(false);
+
+            //    entity.Property(e => e.PlannedFinishDate).HasColumnType("datetime");
+            //    entity.Property(e => e.PlannedStartDate).HasColumnType("datetime");
+            //    entity.Property(e => e.PointBudget)
+            //        .HasMaxLength(255)
+            //        .IsUnicode(false);
+
+            //    entity.Property(e => e.Project_Part).HasMaxLength(100);
+            //    entity.Property(e => e.Resource_Name)
+            //        .IsRequired()
+            //        .HasMaxLength(100);
+
+            //    entity.Property(e => e.Resource_Units_Act).HasColumnType("decimal(17, 6)");
+            //    entity.Property(e => e.Resource_Units_Pl).HasColumnType("decimal(17, 6)");
+            //    entity.Property(e => e.SMR_Code)
+            //        .HasMaxLength(255)
+            //        .IsUnicode(false);
+
+            //    entity.Property(e => e.Schedule_Point)
+            //        .HasMaxLength(255)
+            //        .IsUnicode(false);
+
+            //    entity.Property(e => e.System_Code).HasMaxLength(100);
+            //    entity.Property(e => e.UnitMeasure)
+            //        .HasMaxLength(255)
+            //        .IsUnicode(false);
+
+            //    entity.Property(e => e.Unit_Weight)
+            //        .HasMaxLength(255)
+            //        .IsUnicode(false);
+
+            //    entity.Property(e => e.UoM)
+            //        .IsRequired()
+            //        .HasMaxLength(100);
+
+            //    entity.Property(e => e.Used_on_1st_block).HasMaxLength(100);
+            //    entity.Property(e => e.Vent_System)
+            //        .HasMaxLength(255)
+            //        .IsUnicode(false);
+
+            //    entity.Property(e => e.Volume)
+            //        .HasMaxLength(255)
+            //        .IsUnicode(false);
+            //});
+
+            //modelBuilder.Entity<View_2>(entity =>
+            //{
+            //    entity.HasNoKey();
+
+            //    entity.ToView("View_2");
+
+            //    entity.Property(e => e.Id)
+            //        .IsRequired()
+            //        .HasMaxLength(40);
+
+            //    entity.Property(e => e.Name)
+            //        .IsRequired()
+            //        .HasMaxLength(120);
+
+            //    entity.Property(e => e.ValueName).HasMaxLength(100);
+            //});
+
             //modelBuilder.Entity<Дубликаты_кодов_работ>(entity =>
             //{
             //    entity.HasNoKey();
@@ -2330,7 +2471,11 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
             //    entity.Property(e => e.Title).IsRequired();
             //});
 
+            #endregion Views
+
             //OnModelCreatingPartial(modelBuilder);
+
+            #endregion scaffold-context
         }
 
         //partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
