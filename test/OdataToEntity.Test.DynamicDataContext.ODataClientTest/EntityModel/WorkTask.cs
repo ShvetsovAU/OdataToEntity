@@ -76,7 +76,7 @@ namespace dbReverse.EntityModel
         {
             this.LogMessages = new HashSet<JournalRecord>();
             this.WorkTaskAttributeValues = new HashSet<WorkTaskAttributeValue>();
-            //this.P3DBElements = new HashSet<P3DBModel>();
+            this.P3DBElements = new HashSet<P3DBModel>();
             this.Activities = new HashSet<ActivityWorkTaskRef>();
             this.DocFiles = new HashSet<Document>();
 
@@ -235,7 +235,5 @@ namespace dbReverse.EntityModel
         public virtual ICollection<WorkTaskP3DBModel> WorkTaskP3DBModels { get; set; }
 
         public virtual ICollection<WorkTaskAttributeValue> WorkTaskAttributeValues { get; set; }
-
-        
     }
 }
