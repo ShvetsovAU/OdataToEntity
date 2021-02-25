@@ -1377,6 +1377,22 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .WithMany(p => p.Reports3D)
                     .HasForeignKey(d => d.P3DbModelObjectId)
                     .HasConstraintName("FK_dbo.Report3D_dbo.P3DbModel_P3DbModelObjectId");
+
+                entity.HasMany(p => p.WorkTasks)
+                    .WithMany(wt => wt.Reports3D)
+                    .UsingEntity<Report3DWorkTask>(
+                        j => j
+                            .HasOne(rw => rw.WorkTask)
+                            .WithMany(wt => wt.Report3DWorkTasks)
+                            .HasForeignKey(rw => rw.WorkTask_ObjectId)
+                            .HasConstraintName("FK_dbo.Report3DWorkTask_dbo.WorkTasks_WorkTask_ObjectId"),
+
+                        j => j
+                            .HasOne(rw => rw.Report3D)
+                            .WithMany(r => r.Report3DWorkTasks)
+                            .HasForeignKey(rw => rw.Report3D_ObjectId)
+                            .HasConstraintName("FK_dbo.Report3DWorkTask_dbo.Report3D_Report3D_ObjectId")
+                    );
             });
 
             modelBuilder.Entity<Report3DWorkTask>(entity =>
@@ -1995,6 +2011,22 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                             .WithMany(wt => wt.DocumentWorkTasks)
                             .HasForeignKey(dw => dw.WorkTask_ObjectId)
                             .HasConstraintName("FK_dbo.DocumentWorkTasks_dbo.WorkTasks_WorkTask_ObjectId")
+                    );
+
+                entity.HasMany(p => p.Reports3D)
+                    .WithMany(r => r.WorkTasks)
+                    .UsingEntity<Report3DWorkTask>(
+                        j => j
+                            .HasOne(rw => rw.Report3D)
+                            .WithMany(r => r.Report3DWorkTasks)
+                            .HasForeignKey(rw => rw.Report3D_ObjectId)
+                            .HasConstraintName("FK_dbo.Report3DWorkTask_dbo.Report3D_Report3D_ObjectId"),
+                        
+                        j => j
+                            .HasOne(rw => rw.WorkTask)
+                            .WithMany(wt => wt.Report3DWorkTasks)
+                            .HasForeignKey(rw => rw.WorkTask_ObjectId)
+                            .HasConstraintName("FK_dbo.Report3DWorkTask_dbo.WorkTasks_WorkTask_ObjectId")
                     );
             });
 

@@ -78,7 +78,7 @@ namespace dbReverse.EntityModel
             this.WorkTaskAttributeValues = new HashSet<WorkTaskAttributeValue>();
             //this.P3DBElements = new HashSet<P3DBModel>();
             this.Activities = new HashSet<ActivityWorkTaskRef>();
-            //this.DocFiles = new HashSet<Document>();
+            this.DocFiles = new HashSet<Document>();
 
             DocumentWorkTasks = new HashSet<DocumentWorkTask>();
             Report3DWorkTasks = new HashSet<Report3DWorkTask>();
@@ -215,15 +215,14 @@ namespace dbReverse.EntityModel
         public virtual ICollection<JournalRecord> LogMessages { get; set; }
 
         //TODO: использовать <see cref="Report3DWorkTasks">
-        ///// <summary>
-        ///// Прикрепленные 3д отчеты
-        ///// </summary>
-        //public virtual ICollection<Report3D> Reports3D { get; set; }
+        /// <summary>
+        /// Прикрепленные 3д отчеты
+        /// </summary>
+        public virtual ICollection<Report3D> Reports3D { get; set; }
 
         /// <summary>
         /// Для связи многие ко многим отчетов и РЗ
         /// </summary>
-        //[NotMapped]
         [InverseProperty("WorkTask")]
         public virtual ICollection<Report3DWorkTask> Report3DWorkTasks { get; set; }
 

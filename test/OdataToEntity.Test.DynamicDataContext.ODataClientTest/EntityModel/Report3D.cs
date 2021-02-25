@@ -149,7 +149,6 @@ namespace dbReverse.EntityModel
         /// <summary>
         /// Для связи многие ко многим отчетов и РЗ
         /// </summary>
-        //[NotMapped]
         [InverseProperty("Report3D")]
         public virtual ICollection<Report3DWorkTask> Report3DWorkTasks { get; set; }
 
@@ -160,9 +159,9 @@ namespace dbReverse.EntityModel
         public virtual ICollection<PaintingQuerry> PaintingQuerries { get; set; }
 
         //TODO: использовать <see cref="Report3DWorkTasks">
-        ///// <summary>
-        ///// РЗ
-        ///// </summary>
-        //public virtual ICollection<WorkTask> WorkTasks { get; set; }
+        /// <summary>
+        /// РЗ
+        /// </summary>
+        public virtual ICollection<WorkTask> WorkTasks { get; set; }
     }
 }
