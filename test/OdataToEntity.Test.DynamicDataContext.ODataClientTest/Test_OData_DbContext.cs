@@ -1082,6 +1082,23 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                     .WithMany()
                     .HasForeignKey(d => d.User_ObjectId)
                     .HasConstraintName("FK_dbo.P3DBModel_dbo.Users_User_ObjectId");
+
+                entity.HasMany(p => p.WorkTasks)
+                    .WithMany(wt => wt.P3DBElements)
+                    .UsingEntity<WorkTaskP3DBModel>(
+                        
+                        j => j
+                            .HasOne(wtp3 => wtp3.WorkTask)
+                            .WithMany(wt => wt.WorkTaskP3DBModels)
+                            .HasForeignKey(wtp3 => wtp3.WorkTask_ObjectId)
+                            .HasConstraintName("FK_dbo.WorkTaskP3DBModel_dbo.WorkTasks_WorkTask_ObjectId"),
+
+                        j => j
+                            .HasOne(wtp3 => wtp3.P3DBModel)
+                            .WithMany(p3 => p3.WorkTaskP3DBModels)
+                            .HasForeignKey(wtp3 => wtp3.P3DBModel_ObjectId)
+                            .HasConstraintName("FK_dbo.WorkTaskP3DBModel_dbo.P3DBModel_P3DBModel_ObjectId")
+                    );
             });
 
             modelBuilder.Entity<P3DBModelAttributeRelation>(entity =>
@@ -2028,6 +2045,22 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                             .HasForeignKey(rw => rw.WorkTask_ObjectId)
                             .HasConstraintName("FK_dbo.Report3DWorkTask_dbo.WorkTasks_WorkTask_ObjectId")
                     );
+
+                entity.HasMany(p => p.P3DBElements)
+                    .WithMany(p3 => p3.WorkTasks)
+                    .UsingEntity<WorkTaskP3DBModel>(
+                        j => j
+                            .HasOne(wtp3 => wtp3.P3DBModel)
+                            .WithMany(p3 => p3.WorkTaskP3DBModels)
+                            .HasForeignKey(wtp3 => wtp3.P3DBModel_ObjectId)
+                            .HasConstraintName("FK_dbo.WorkTaskP3DBModel_dbo.P3DBModel_P3DBModel_ObjectId"),
+                        
+                        j => j
+                            .HasOne(wtp3 => wtp3.WorkTask)
+                            .WithMany(wt => wt.WorkTaskP3DBModels)
+                            .HasForeignKey(wtp3 => wtp3.WorkTask_ObjectId)
+                            .HasConstraintName("FK_dbo.WorkTaskP3DBModel_dbo.WorkTasks_WorkTask_ObjectId")
+                    );
             });
 
             modelBuilder.Entity<WorkTaskAttributeValue>(entity =>
@@ -2060,7 +2093,6 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest
                 entity.ToTable("WorkTaskP3DBModel");
 
                 entity.HasIndex(e => e.P3DBModel_ObjectId, "IX_P3DBModel_ObjectId");
-
                 entity.HasIndex(e => e.WorkTask_ObjectId, "IX_WorkTask_ObjectId");
 
                 entity.HasOne(d => d.P3DBModel)

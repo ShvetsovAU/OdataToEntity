@@ -62,7 +62,7 @@ namespace dbReverse.EntityModel
     {
         public P3DBModel()
         {
-            //this.WorkTasks = new HashSet<WorkTask>();
+            this.WorkTasks = new HashSet<WorkTask>();
             ObjectId = Guid.NewGuid();
             EPS = new HashSet<EPS>();
 
@@ -131,10 +131,9 @@ namespace dbReverse.EntityModel
         /// <summary>
         /// Для связи многие ко многим 3D моделей и РЗ
         /// </summary>
-        //[NotMapped]
         public virtual ICollection<WorkTaskP3DBModel> WorkTaskP3DBModels { get; set; }
 
         //TODO: использовать WorkTaskP3DBModels
-        //public virtual ICollection<WorkTask> WorkTasks { get; set; }
+        public virtual ICollection<WorkTask> WorkTasks { get; set; }
     }
 }

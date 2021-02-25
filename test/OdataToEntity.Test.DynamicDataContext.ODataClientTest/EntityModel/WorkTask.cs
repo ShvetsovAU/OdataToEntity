@@ -226,15 +226,16 @@ namespace dbReverse.EntityModel
         [InverseProperty("WorkTask")]
         public virtual ICollection<Report3DWorkTask> Report3DWorkTasks { get; set; }
 
+        //TODO: использовать WorkTaskP3DBModels
+        public virtual ICollection<P3DBModel> P3DBElements { get; set; }
+
         /// <summary>
         /// Для связи многие ко многим 3D моделей и РЗ
         /// </summary>
-        [NotMapped]
         public virtual ICollection<WorkTaskP3DBModel> WorkTaskP3DBModels { get; set; }
 
         public virtual ICollection<WorkTaskAttributeValue> WorkTaskAttributeValues { get; set; }
 
-        //TODO: использовать WorkTaskP3DBModels
-        //public virtual ICollection<P3DBModel> P3DBElements { get; set; }
+        
     }
 }
