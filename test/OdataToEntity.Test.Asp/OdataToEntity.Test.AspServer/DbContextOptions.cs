@@ -23,7 +23,7 @@ namespace OdataToEntity.Test.AspServer
             if (dataAdapter.CreateDataContext() is DbContext dbContext)
                 try
                 {
-                    efCoreContextDataAdapter = new OeEfCoreDataAdapter<TContext>(CreateOptions<TContext>(dbContext))
+                    efCoreContextDataAdapter = new OeEfCoreDataAdapter<TContext>(CreateOptions(dbContext))
                     {
                         IsDatabaseNullHighestValue = dataAdapter.IsDatabaseNullHighestValue
                     };
@@ -72,8 +72,8 @@ namespace OdataToEntity.Test.AspServer
             return optionsBuilder.Options;
         }
 
-        public static DbContextOptions<TContext> CreateOptions<TContext>(DbContext dbContext) 
-            where TContext : DbContext
+        public static DbContextOptions<TContext> CreateOptions(DbContext dbContext) 
+            //where TContext : DbContext
         {
             var serviceProvider = (IInfrastructure<IServiceProvider>)dbContext;
 #pragma warning disable EF1001

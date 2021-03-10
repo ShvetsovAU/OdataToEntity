@@ -10,6 +10,9 @@ using System.Reflection;
 
 namespace OdataToEntity.GraphQL
 {
+    /// <summary>
+    /// Построение типов моделей для схемы GraphQL
+    /// </summary>
     public readonly struct OeGraphTypeBuilder
     {
         private sealed class FieldResolver : IFieldResolver
@@ -39,9 +42,16 @@ namespace OdataToEntity.GraphQL
             _clrTypeToObjectGraphType = new Dictionary<Type, IGraphType>();
         }
 
+        /// <summary>
+        /// Добавление свойств навигации сущности
+        /// </summary>
+        /// <param name="fieldType">тип GraphQL</param>
         public void AddNavigationProperties(FieldType fieldType)
         {
+            //тип исходной сущности (БД, модели и т.д.) на основании которой создан тип GraphQL
             Type entityType = GetEntityTypeFromResolvedType(((ListGraphType)fieldType.ResolvedType).ResolvedType);
+
+            //тип GraphQL
             var entityGraphType = (IObjectGraphType)_clrTypeToObjectGraphType[entityType];
 
             foreach (PropertyInfo propertyInfo in entityType.GetProperties())
@@ -49,6 +59,8 @@ namespace OdataToEntity.GraphQL
                 {
                     IGraphType? resolvedType;
                     QueryArgument[] queryArguments;
+                    
+                    //Определяем тип поля навигации
                     Type? itemType = Parsers.OeExpressionHelper.GetCollectionItemTypeOrNull(propertyInfo.PropertyType);
                     if (itemType == null)
                     {
@@ -69,7 +81,7 @@ namespace OdataToEntity.GraphQL
                     if (IsRequired(propertyInfo))
                         resolvedType = new NonNullGraphType(resolvedType);
 
-                    var entityFieldType = new FieldType()
+                    var entityFieldType = new FieldType
                     {
                         Arguments = new QueryArguments(queryArguments),
                         Name = propertyInfo.Name,
@@ -81,6 +93,13 @@ namespace OdataToEntity.GraphQL
 
             fieldType.Arguments = new QueryArguments(CreateQueryArguments(entityType, false));
         }
+
+        /// <summary>
+        /// Создание списка аттрибутов запроса GraphQL для типа сущности entityType
+        /// </summary>
+        /// <param name="entityType">типа сущности</param>
+        /// <param name="onlyStructural">обрабатывать только структурные (примитивные) типы полей</param>
+        /// <returns></returns>
         private QueryArgument[] CreateQueryArguments(Type entityType, bool onlyStructural)
         {
             PropertyInfo[] properties = entityType.GetProperties();
@@ -124,8 +143,15 @@ namespace OdataToEntity.GraphQL
                     queryArguments.Add(queryArgument);
                 }
             }
+            
             return queryArguments.ToArray();
         }
+
+        /// <summary>
+        /// Создание типа GraphQL единичной сущности (без свойств навигации)
+        /// </summary>
+        /// <param name="entityType"></param>
+        /// <returns></returns>
         private IObjectGraphType CreateGraphType(Type entityType)
         {
             if (_clrTypeToObjectGraphType.TryGetValue(entityType, out IGraphType? graphType))
@@ -137,6 +163,7 @@ namespace OdataToEntity.GraphQL
             objectGraphType.IsTypeOf = t => t is IDictionary<String, Object>;
             _clrTypeToObjectGraphType.Add(entityType, objectGraphType);
 
+            //TODO: обработка [NotMapped] атрибута ? //Свойсто может быть помечено [NotMapped] атрибутом и тогда оно не найдется в emd модели
             foreach (PropertyInfo propertyInfo in entityType.GetProperties())
                 if (propertyInfo.PropertyType.IsValueType || propertyInfo.PropertyType == typeof(String))
                     objectGraphType.AddField(CreateStructuralFieldType(propertyInfo));
@@ -152,10 +179,17 @@ namespace OdataToEntity.GraphQL
 
             return objectGraphType;
         }
+
+        /// <summary>
+        /// Создание типа GraphQL типа коллекции сущностей
+        /// </summary>
+        /// <param name="entityType"></param>
+        /// <returns></returns>
         public ListGraphType CreateListGraphType(Type entityType)
         {
             return new ListGraphType(CreateGraphType(entityType));
         }
+        
         private FieldType CreateStructuralFieldType(PropertyInfo propertyInfo)
         {
             Type graphType;
@@ -180,7 +214,7 @@ namespace OdataToEntity.GraphQL
                 }
             }
 
-            var fieldType = new FieldType()
+            var fieldType = new FieldType
             {
                 Name = propertyInfo.Name,
                 Type = graphType,
@@ -189,6 +223,7 @@ namespace OdataToEntity.GraphQL
 
             return fieldType;
         }
+        
         private IEdmEntityType? GetEntityTypeByName(String fullName, bool throwException = true)
         {
             var entityType = (IEdmEntityType)_edmModel.FindDeclaredType(fullName);
@@ -208,18 +243,32 @@ namespace OdataToEntity.GraphQL
 
             return null;
         }
+        
         private static Type GetEntityTypeFromResolvedType(IGraphType resolvedType)
         {
             return resolvedType.GetType().GetGenericArguments()[0];
         }
+        
+        /// <summary>
+        /// Свойство является ключом
+        /// </summary>
+        /// <param name="propertyInfo"></param>
+        /// <returns></returns>
         private bool IsKey(PropertyInfo propertyInfo)
         {
             var entityType = GetEntityTypeByName(propertyInfo.DeclaringType!.FullName!);
             foreach (IEdmStructuralProperty key in entityType.Key())
                 if (String.Compare(key.Name, propertyInfo.Name, StringComparison.OrdinalIgnoreCase) == 0)
                     return true;
+            
             return false;
         }
+        
+        /// <summary>
+        /// Свойство является обязательным для заполнения
+        /// </summary>
+        /// <param name="propertyInfo"></param>
+        /// <returns></returns>
         private bool IsRequired(PropertyInfo propertyInfo)
         {
             IEdmEntityType? entityType = GetEntityTypeByName(propertyInfo.DeclaringType!.FullName!);
@@ -227,12 +276,19 @@ namespace OdataToEntity.GraphQL
                 throw new InvalidOperationException("IEdmEntityType not found for clr type " + propertyInfo.DeclaringType.FullName);
 
             IEdmProperty edmProperty = entityType.FindProperty(propertyInfo.Name);
-            return !edmProperty.Type.IsNullable;
+            return !edmProperty?.Type.IsNullable ?? false; //Свойсто может быть помечено [NotMapped] атрибутом и тогда оно не найдется в emd модели
         }
+        
+        /// <summary>
+        /// Преобразует первую букву свойства к нижнему регистру
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         private static String NameFirstCharLower(String name)
         {
             if (Char.IsUpper(name, 0))
                 return Char.ToLowerInvariant(name[0]).ToString(CultureInfo.InvariantCulture) + name.Substring(1);
+            
             return name;
         }
     }

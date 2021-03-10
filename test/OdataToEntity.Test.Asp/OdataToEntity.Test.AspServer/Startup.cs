@@ -7,7 +7,6 @@ using Microsoft.Extensions.Logging;
 using OdataToEntity.AspNetCore;
 using OdataToEntity.EfCore;
 using OdataToEntity.Test.AspServer;
-using OdataToEntity.Test.Model;
 
 namespace OdataToEntity.AspServer
 {
@@ -50,7 +49,7 @@ namespace OdataToEntity.AspServer
             //var dataAdapter = new OrderDataAdapter(true, true);
             var dataAdapter = new NszContextDataAdapter(allowCache, useRelationalNulls, connectionString);
             //var dataAdapter = new Test_Odata_DbContextDataAdapter(allowCache, useRelationalNulls, connectionString);
-            app.UseOdataToEntityMiddleware<OePageMiddleware>(basePath, dataAdapter.BuildEdmModelFromEfCoreModel());
+            app.UseOdataToEntityMiddleware<OePageMiddleware>(basePath, dataAdapter.BuildEdmModelFromEfCoreModel());//app.UseOdataToEntityMiddleware<OePageMiddleware>(string.Empty, dataAdapter.BuildEdmModelFromEfCoreModel());
         }
     }
 }

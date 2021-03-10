@@ -24,11 +24,27 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest.Controllers
             //oDataContext.Format.LoadServiceModel = () => GetServiceModel(oDataContext.GetMetadataUri());
             
             var dataSet = oDataContext.CreateQuery<Project>("Projects");
+            //var dataSet2 = oDataContext.CreateQuery<Project>("ProjectList");
+            var dataSet3 = oDataContext.CreateQuery<P3DBModel>("P3DbModels");
+            var dataSet4 = oDataContext.CreateQuery<JournalRecord>("JournalRecords");
+            var dataSet5 = oDataContext.CreateQuery<EPS>("EPS");
             //var exists = dataSet.Any();
             //var res = dataSet.Where(i => i.ObjectId == 1).ToList();
             //var res2 = ((DataServiceQuery<Project>)dataSet.Include(f => f.CodeForBudgetNumber).Where(i => i.ObjectId == 308398)).ToList();
             //var res3 = dataSet.Where(i => i.ObjectId == 308398).Include(f => f.CodeForBudgetNumber).ToList();
+
+            var res53 = dataSet5.ToList();
+            var res33 = dataSet3.ToList();
+            var res43 = dataSet4.ToList();
+
+            // Then generate an array of ObjectId
+            //var res441 = dataSet4.Where(i => res43.Any(db => db.ObjectId == i.ObjectId)).ToList(); //TODO: not work
+            //var res44 = dataSet4.Where(i => res43.Contains(i)).ToList();
+            var res43IdList = res43.Select(db => db.ObjectId).ToArray();//.ToList();//.Take(100).ToList(); //TODO: IList/List & ICollection/Collection are not currently supported
+            var res442 = dataSet4.Where(i => res43IdList.Contains(i.ObjectId)).ToList();
             
+            //var res23 = dataSet2.Where(i => i.ObjectId == 308398).ToList();
+
             //TODO: нормально, без Nv prop
             var res3 = dataSet.Where(i => i.ObjectId == 308398).ToList();
 

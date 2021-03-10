@@ -2,15 +2,11 @@
 using Microsoft.Extensions.Primitives;
 using Microsoft.OData;
 using Microsoft.OData.Edm;
-using Microsoft.OData.Edm.Csdl;
-using Microsoft.OData.Edm.Validation;
 using Microsoft.OData.UriParser;
 using OdataToEntity.Parsers;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using System.Xml;
 
 namespace OdataToEntity.AspNetCore
 {
@@ -35,19 +31,19 @@ namespace OdataToEntity.AspNetCore
         /// <param name="edmModel"></param>
         /// <param name="stream"></param>
         /// <returns></returns>
-        private static bool GetCsdlSchema(IEdmModel edmModel, Stream stream)
+        private static void WriteMetadata(IEdmModel edmModel, Stream stream)
         {
             using (var memoryStream = new MemoryStream()) //kestrel allow only async operation
             {
-                using (XmlWriter xmlWriter = XmlWriter.Create(memoryStream))
-                    if (!CsdlWriter.TryWriteCsdl(edmModel, xmlWriter, CsdlTarget.OData, out IEnumerable<EdmError> errors))
-                        return false;
+                var writerSettings = new ODataMessageWriterSettings();
+                writerSettings.EnableMessageStreamDisposal = false;
+                IODataResponseMessage message = new Infrastructure.OeInMemoryMessage(memoryStream, null);
+                using (var writer = new ODataMessageWriter((IODataResponseMessageAsync)message, writerSettings, edmModel))
+                    writer.WriteMetadataDocument();
 
                 memoryStream.Position = 0;
                 memoryStream.CopyToAsync(stream);
             }
-
-            return false;
         }
         
         private static void GetJsonSchema(IEdmModel edmModel, Stream stream)
@@ -97,7 +93,7 @@ namespace OdataToEntity.AspNetCore
                     await InvokeApi(httpContext).ConfigureAwait(false);
             }
             else
-                await _next(httpContext).ConfigureAwait(false);
+                await _next(httpContext).ConfigureAwait(false); //TODO: ни разу сюда не попадал
         }
         
         private async Task InvokeApi(HttpContext httpContext)
@@ -152,7 +148,7 @@ namespace OdataToEntity.AspNetCore
         private void InvokeMetadata(HttpContext httpContext)
         {
             httpContext.Response.ContentType = "application/xml";
-            GetCsdlSchema(EdmModel, httpContext.Response.Body);
+            WriteMetadata(EdmModel, httpContext.Response.Body);
         }
         
         private Task InvokeServiceDocument(HttpContext httpContext)

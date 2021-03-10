@@ -7,6 +7,12 @@ namespace OdataToEntity
 {
     public static class OeAnnotationExtensions
     {
+        /// <summary>
+        /// Определить Clr тип сущности по edm модели и типу сущности edm модели
+        /// </summary>
+        /// <param name="edmModel">edm модель</param>
+        /// <param name="edmType">тип сущности edm модели</param>
+        /// <returns></returns>
         public static Type GetClrType(this IEdmModel edmModel, IEdmType edmType)
         {
             Type? clrType = GetClrTypeImpl(edmModel, edmType);
@@ -15,6 +21,13 @@ namespace OdataToEntity
 
             return clrType;
         }
+
+        /// <summary>
+        /// Определить Clr тип сущности по edm модели и типу сущности edm модели
+        /// </summary>
+        /// <param name="edmModel">edm модель</param>
+        /// <param name="edmType">тип сущности edm модели</param>
+        /// <returns></returns>
         private static Type? GetClrTypeImpl(IEdmModel edmModel, IEdmType edmType)
         {
             if (edmType is IEdmPrimitiveType edmPrimitiveType)
@@ -37,6 +50,13 @@ namespace OdataToEntity
 
             return null;
         }
+
+        /// <summary>
+        /// Определить Clr тип сущности по edm модели и dataset edm модели
+        /// </summary>
+        /// <param name="edmModel">edm модель</param>
+        /// <param name="entitySet">dataset edm моделии</param>
+        /// <returns></returns>
         public static Type GetClrType(this IEdmModel edmModel, IEdmEntitySetBase entitySet)
         {
             IEdmEntityType entityType = entitySet.EntityType();
@@ -45,6 +65,7 @@ namespace OdataToEntity
                 throw new InvalidOperationException("Add type annotation for " + entityType.FullTypeName());
             return model.GetAnnotationValue<Type>(entityType);
         }
+        
         public static Db.OeDataAdapter GetDataAdapter(this IEdmModel edmModel, Type dataContextType)
         {
             Db.OeDataAdapter dataAdapter = edmModel.GetAnnotationValue<Db.OeDataAdapter>(edmModel.EntityContainer);
@@ -57,6 +78,13 @@ namespace OdataToEntity
 
             throw new InvalidOperationException("OeDataAdapter not found for data context type " + dataContextType.FullName);
         }
+
+        /// <summary>
+        /// Получить адаптер доступа к данным по edm модели
+        /// </summary>
+        /// <param name="edmModel">edm модель</param>
+        /// <param name="entityContainer"></param>
+        /// <returns></returns>
         public static Db.OeDataAdapter GetDataAdapter(this IEdmModel edmModel, IEdmEntityContainer entityContainer)
         {
             Db.OeDataAdapter dataAdapter = edmModel.GetAnnotationValue<Db.OeDataAdapter>(entityContainer);
@@ -68,6 +96,13 @@ namespace OdataToEntity
 
             return dataAdapter;
         }
+
+        /// <summary>
+        /// олучить адаптер доступа к данным по edm модели и dataset edm модели
+        /// </summary>
+        /// <param name="edmModel">edm модель</param>
+        /// <param name="entitySet">dataset edm модели</param>
+        /// <returns></returns>
         public static Db.OeEntitySetAdapter GetEntitySetAdapter(this IEdmModel edmModel, IEdmEntitySet entitySet)
         {
             Db.OeEntitySetAdapter entitySetAdapter = edmModel.GetAnnotationValue<Db.OeEntitySetAdapter>(entitySet);
@@ -76,6 +111,7 @@ namespace OdataToEntity
 
             return entitySetAdapter;
         }
+        
         public static ManyToManyJoinDescription GetManyToManyJoinDescription(this IEdmModel edmModel, IEdmNavigationProperty navigationProperty)
         {
             ManyToManyJoinDescription joinDescription = edmModel.GetAnnotationValue<ManyToManyJoinDescription>(navigationProperty);
@@ -84,6 +120,7 @@ namespace OdataToEntity
 
             throw new InvalidOperationException("Add many-to-many annotation for navigation property " + navigationProperty.Name);
         }
+        
         internal static MethodInfo GetMethodInfo(this IEdmModel edmModel, IEdmFunction edmFunction)
         {
             return edmModel.GetAnnotationValue<MethodInfo>(edmFunction);

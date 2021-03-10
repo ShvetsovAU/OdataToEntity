@@ -29,14 +29,17 @@ namespace OdataToEntity.Test.GraphQL
         {
             Schema.Dispose();
         }
+        
         public Task<String> Execute(String query)
         {
             return Execute(query, null);
         }
+        
         public async Task<String> Execute(String query, Inputs inputs)
         {
             return await (await _graphqlParser.Execute(query, inputs)).ToStringAsync();
         }
+        
         public static String GetCsdlSchema(IEdmModel edmModel)
         {
             using (var stream = new MemoryStream())

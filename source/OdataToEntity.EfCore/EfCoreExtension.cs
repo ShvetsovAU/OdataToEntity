@@ -22,12 +22,14 @@ namespace OdataToEntity.EfCore
 
             return queryCompilationContextFactory.Create(true).CreateQueryExecutor<IAsyncEnumerable<T>>(expression);
         }
+        
         public static DbContextOptions CreateOptions(this DbContextOptions options, Type dbContextType)
         {
             Type optionsBuilderType = typeof(DbContextOptionsBuilder<>).MakeGenericType(dbContextType);
             var optionsBuilder = (DbContextOptionsBuilder)Activator.CreateInstance(optionsBuilderType)!;
             return optionsBuilder.CreateOptions(options);
         }
+        
         public static DbContextOptions CreateOptions(this DbContextOptionsBuilder optionsBuilder, DbContextOptions options)
         {
             DbContextOptions contextOptions = optionsBuilder.Options;
@@ -53,6 +55,7 @@ namespace OdataToEntity.EfCore
                     var withExtension = withExtensionFunc.Method.GetGenericMethodDefinition().MakeGenericMethod(new[] { extension.GetType() });
                     contextOptions = (DbContextOptions)withExtension.Invoke(contextOptions, new[] { extension })!;
                 }
+            
             return contextOptions;
         }
     }

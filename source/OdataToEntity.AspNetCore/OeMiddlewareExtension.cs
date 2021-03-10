@@ -53,7 +53,7 @@ namespace OdataToEntity.AspNetCore
             if (apiPath.Value != null && apiPath.Value.EndsWith("/", StringComparison.Ordinal))
                 throw new ArgumentException("The path must not end with a '/'", nameof(apiPath));
 
-            IApplicationBuilder applicationBuilder = app.New();
+            IApplicationBuilder applicationBuilder = app.New(); //TODO: зачем новый билдер, чем не подходит тот, который инжектится? => чтобы базовый путь apiPath переопределить
             applicationBuilder.UseMiddleware<TMiddleware>(apiPath, edmModel);
             RequestDelegate branch = applicationBuilder.Build();
             MapOptions options = new MapOptions

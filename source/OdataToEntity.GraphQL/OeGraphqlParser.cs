@@ -2,13 +2,16 @@
 using GraphQL.Types;
 using Microsoft.OData;
 using Microsoft.OData.Edm;
-using OdataToEntity.Db;
 using System;
 using System.Threading.Tasks;
+using OdataToEntity.GraphQL.Interfaces;
 
 namespace OdataToEntity.GraphQL
 {
-    public readonly struct OeGraphqlParser
+    /// <summary>
+    /// Парсер запроса GraphQL
+    /// </summary>
+    public readonly struct OeGraphqlParser : IOeGraphqlParser
     {
         public OeGraphqlParser(IEdmModel edmModel)
         {
@@ -16,10 +19,21 @@ namespace OdataToEntity.GraphQL
             Schema = new OeSchemaBuilder(edmModel).Build();
         }
 
+        /// <summary>
+        /// Edm модель данных
+        /// </summary>
+        public IEdmModel EdmModel { get; }
+        
+        /// <summary>
+        /// Схема данных GraphQL
+        /// </summary>
+        public Schema Schema { get; }
+
         public Task<ExecutionResult> Execute(String query)
         {
             return Execute(query, null);
         }
+        
         public async Task<ExecutionResult> Execute(String query, Inputs? inputs)
         {
             Schema schema = Schema;
@@ -30,10 +44,12 @@ namespace OdataToEntity.GraphQL
                 options.Schema = schema;
             }).ConfigureAwait(false);
         }
+        
         public Uri GetOdataUri(String query)
         {
             return GetOdataUri(query, null);
         }
+        
         public Uri GetOdataUri(String query, Inputs? inputs)
         {
             var context = new ResolveFieldContext()
@@ -45,8 +61,5 @@ namespace OdataToEntity.GraphQL
             ODataUri odataUri = translator.Translate(query);
             return odataUri.BuildUri(ODataUrlKeyDelimiter.Parentheses);
         }
-
-        public IEdmModel EdmModel { get; }
-        public Schema Schema { get; }
     }
 }

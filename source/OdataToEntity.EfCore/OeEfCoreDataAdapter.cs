@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Query;
-using Microsoft.OData;
 using Microsoft.OData.Edm;
 using OdataToEntity.Parsers;
 using System;
@@ -25,24 +24,34 @@ namespace OdataToEntity.EfCore
     /// Для изоляции библиотеки от различных ORM API 
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class OeEfCoreDataAdapter<T> : Db.OeDataAdapter, IDisposable where T : notnull, DbContext
+    public class OeEfCoreDataAdapter<T> : Db.OeDataAdapter, IDisposable 
+        where T : notnull, DbContext
     {
+        #region private fields
+        
         private readonly DbContextPool<T>? _dbContextPool;
         private static Db.OeEntitySetAdapterCollection? _entitySetAdapters;
 
-        public OeEfCoreDataAdapter() : this(null, null)
-        {
-        }
-        public OeEfCoreDataAdapter(DbContextOptions<T> options) : this(options, null)
-        {
-        }
-        public OeEfCoreDataAdapter(Cache.OeQueryCache queryCache) : this(null, queryCache)
-        {
-        }
+        #endregion private fields
+
+        #region ctor's
+        
+        public OeEfCoreDataAdapter() 
+            : this(null, null)
+        { }
+        
+        public OeEfCoreDataAdapter(DbContextOptions<T> options)
+            : this(options, null)
+        { }
+        
+        public OeEfCoreDataAdapter(Cache.OeQueryCache queryCache) 
+            : this(null, queryCache)
+        { }
+        
         public OeEfCoreDataAdapter(DbContextOptions<T>? options, Cache.OeQueryCache? queryCache)
             : this(options, queryCache, new OeEfCoreOperationAdapter(typeof(T)))
-        {
-        }
+        { }
+        
         public OeEfCoreDataAdapter(DbContextOptions<T>? options, Cache.OeQueryCache? queryCache, OeEfCoreOperationAdapter operationAdapter)
             : base(queryCache, operationAdapter)
         {
@@ -50,11 +59,22 @@ namespace OdataToEntity.EfCore
                 _dbContextPool = new DbContextPool<T>(options);
         }
 
+        #endregion ctor's
+
+        #region public fields
+
+        public override Type DataContextType => typeof(T);
+
+        public override Db.OeEntitySetAdapterCollection EntitySetAdapters => GetEntitySetAdapters(this);
+
+        #endregion public fields
+
         public override void CloseDataContext(Object dataContext)
         {
             var dbContext = (DbContext)dataContext;
             dbContext.Dispose();
         }
+        
         public override Object CreateDataContext()
         {
             DbContext dbContext;
@@ -67,6 +87,7 @@ namespace OdataToEntity.EfCore
             dbContext.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
             return dbContext;
         }
+        
         private static Db.OeEntitySetAdapterCollection CreateEntitySetAdapters(IModel efModel)
         {
             var entitySetAdapters = new List<Db.OeEntitySetAdapter>();
@@ -81,10 +102,12 @@ namespace OdataToEntity.EfCore
 
             return new Db.OeEntitySetAdapterCollection(entitySetAdapters.ToArray());
         }
+        
         protected static Db.OeEntitySetAdapter CreateEntitySetAdapter(Type entityType, String entitySetName, bool isDbQuery)
         {
             return isDbQuery ? (Db.OeEntitySetAdapter)new OeDbQueryAdapter(entityType, entitySetName) : new OeDbSetAdapter(entityType, entitySetName);
         }
+        
         public void Dispose()
         {
             if (_dbContextPool != null)
@@ -201,17 +224,16 @@ namespace OdataToEntity.EfCore
 
             return queryExecutor(efQueryContext);
         }
+        
         public override Task<int> SaveChangesAsync(Object dataContext, CancellationToken cancellationToken)
         {
             var dbContext = (T)dataContext;
             return dbContext.SaveChangesAsync(cancellationToken);
         }
+        
         protected virtual Expression TranslateExpression(IEdmModel edmModel, Expression expression)
         {
             return expression;
         }
-
-        public override Type DataContextType => typeof(T);
-        public override Db.OeEntitySetAdapterCollection EntitySetAdapters => GetEntitySetAdapters(this);
     }
 }
