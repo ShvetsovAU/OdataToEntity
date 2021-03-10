@@ -40,7 +40,7 @@ namespace OdataToEntity.Test.DynamicDataContext.ODataClientTest.Controllers
             // Then generate an array of ObjectId
             //var res441 = dataSet4.Where(i => res43.Any(db => db.ObjectId == i.ObjectId)).ToList(); //TODO: not work
             //var res44 = dataSet4.Where(i => res43.Contains(i)).ToList();
-            var res43IdList = res43.Select(db => db.ObjectId).ToArray();//.ToList();//.Take(100).ToList(); //TODO: IList/List & ICollection/Collection are not currently supported
+            var res43IdList = res43.Select(db => db.ObjectId).Take(1000).ToArray();//.ToList();//.Take(100).ToList(); //TODO: IList/List & ICollection/Collection are not currently supported
             var res442 = dataSet4.Where(i => res43IdList.Contains(i.ObjectId)).ToList();
             
             //var res23 = dataSet2.Where(i => i.ObjectId == 308398).ToList();
